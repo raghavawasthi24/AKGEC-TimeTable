@@ -1,0 +1,16 @@
+.periods{
+    padding:0px 5px;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width:10rem;
+    margin:1rem */
+}
+.periods p{
+    margin: 5px;
+    text-align: center;
+}
