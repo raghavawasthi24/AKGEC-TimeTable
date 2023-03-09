@@ -1,10 +1,24 @@
 .grid-container{
     background-color: white;
     padding: 5px;
-    display: grid;
+    /* display: grid;
     justify-content: center;
     grid-template-columns:12% 12% 12% 12% 12% 12% 12%;
-    /* grid-column-gap: 5px; */
+    grid-column-gap: 5px;
     grid-template-rows: auto auto auto auto auto;
-    /* grid-row-gap: 5px; */
+    grid-row-gap: 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 5rem; */
+}
+.period_days{
+    display: flex;
+    flex-direction: row;
+}
+.period_time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
