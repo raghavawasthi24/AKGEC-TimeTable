@@ -81,7 +81,7 @@ const Section = () => {
         }
 
 
-        // console.log(classData_mon);
+        console.log(classData_mon,period_time_obj,classData_tue);
         setClasswise_Data_Mon(classData_mon);
         setClasswise_Data_Tue(classData_tue);
         setClasswise_Data_Wed(classData_wed);
