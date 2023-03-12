@@ -22,7 +22,7 @@ const Section = () => {
   
   
     useEffect(()=>{
-      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/3")
+      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/11")
       .then((res)=>{
         console.log(res.data)
         period_time_obj=[

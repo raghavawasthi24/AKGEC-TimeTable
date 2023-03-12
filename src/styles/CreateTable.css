@@ -1,0 +1,21 @@
+.maintable{
+    margin: 5rem 40rem;
+}
+.SelectTeacher{
+    padding: 0.5rem 1rem;
+    width: 10rem;
+    font-size: 1rem;
+
+}
+.teacher{
+    padding: 1rem;
+    width: 4rem;
+}
+.inputfield{
+    padding: 0.5rem 1rem;
+    width: 7.8rem;
+    font-size: 1rem;
+}
+.field{
+    padding: 0.5rem;
+}

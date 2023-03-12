@@ -4,11 +4,13 @@ import "../styles/Teacher.css";
 
 function Teacher() {
   const [data, setData] = useState({});
-
+  localStorage.setItem("tid","7")
+  const id = localStorage.getItem("tid")
+  console.log(id)
   const fetchInfo = () => {
     return axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/view_teacher/10"
+        `https://time-table-production.up.railway.app/departmentss/view_teacher/${id}`
       )
       .then((response) => setData(response.data));
   };
