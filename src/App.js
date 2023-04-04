@@ -12,10 +12,7 @@ const App = () => {
   return(
     <>
     <Header/>
-    <Section/>
-  
-  
-    <BrowserRouter>
+  <BrowserRouter>
       <Routes>
       <Route path="/" element={<Section/>} />
       <Route path="/Teacher" element={<Teacher/>} />
