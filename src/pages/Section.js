@@ -22,7 +22,7 @@ const Section = () => {
   
   
     useEffect(()=>{
-      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/3")
+      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/11")
       .then((res)=>{
         console.log(res.data)
 
@@ -84,7 +84,7 @@ const Section = () => {
         }
 
 
-        // console.log(classData_mon);
+        console.log(classData_mon,period_time_obj,classData_tue);
         setClasswise_Data_Mon(classData_mon);
         setClasswise_Data_Tue(classData_tue);
         setClasswise_Data_Wed(classData_wed);
