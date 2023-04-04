@@ -1,0 +1,13 @@
+.header{
+    width: 100%;
+    background-color: #252525;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header p{
+    color: white;
+    padding: 0.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+}

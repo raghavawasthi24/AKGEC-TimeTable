@@ -2,8 +2,8 @@
     width: 8.7rem;
     height: auto;
     padding:2px 1px;
-    background-color: white;
-    border: 1px solid black;
+    /* background-color: white; */
+    border: 1px solid #828282;
     font-size: 0.89rem;
     display: flex;
     flex-direction: column;
@@ -15,4 +15,8 @@
 .periods p{
     margin: 2px;
     text-align: center;
+    font-weight: 400;
+}
+.timetable_type{
+    color:#ff6600
 }

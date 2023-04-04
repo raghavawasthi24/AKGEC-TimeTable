@@ -25,9 +25,11 @@ const Section = () => {
       axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/3")
       .then((res)=>{
         console.log(res.data)
+
         period_time_obj=[
           {period:"."},
         ]
+
         classData_mon=[
           {
             days:"Monday"
@@ -53,6 +55,7 @@ const Section = () => {
             days:"Friday"
           }
         ];
+        
         for(let j=0;j<res.data.Monday.length;j++)
         {
             classData_mon.push(res.data.Monday[j]);
@@ -91,9 +94,23 @@ const Section = () => {
       }).catch((err)=>{
         console.log(err)
       })
+
+      axios.post("https://time-table-production.up.railway.app/departmentss/create_table/",{
+        teacher_id: "20",
+        subject_id: "7",
+        class_id: [
+          "8","9"
+          ],
+       no_of_lectures: 1,
+       type:"LAB"
+      }).then((res)=>{
+        console.log(res.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
     },[])
     return (
-      <div className="App">
+      <div className="section">
         <div className='grid-container'>
         <div className='period_days'>
          {
@@ -119,9 +136,7 @@ const Section = () => {
           {
             classwise_Data_Tue.map((val)=>{
                 return(
-                 
-                      <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
-                  
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>         
                 )
             })
          }  
@@ -130,9 +145,7 @@ const Section = () => {
           {
             classwise_Data_Wed.map((val)=>{
                 return(
-                 
-                      <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
-                  
+                   <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>                  
                 )
             })
          }  
@@ -141,9 +154,7 @@ const Section = () => {
           {
             classwise_Data_Thurs.map((val)=>{
                 return(
-                 
-                      <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
-                  
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>                 
                 )
             })
          }  
@@ -152,9 +163,7 @@ const Section = () => {
           {
             classwise_Data_Fri.map((val)=>{
                 return(
-                 
-                      <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
-                  
+                 <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>                 
                 )
             })
          }  
