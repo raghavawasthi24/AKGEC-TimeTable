@@ -13,8 +13,8 @@ const App = () => {
     <>
     <Header/>
     <Section/>
-    </>
-    <>
+  
+  
     <BrowserRouter>
       <Routes>
       <Route path="/" element={<Section/>} />
