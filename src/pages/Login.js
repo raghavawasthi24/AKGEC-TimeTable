@@ -1,75 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "../styles/Login.css";
 import TextField from '@mui/material/TextField';
-// import { Grid } from '@mui/material';
-import Box from '@mui/material/Box';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import IconButton from '@mui/material/IconButton';
-// import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-// import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-// import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Label } from '@mui/icons-material';
+import Header from '../components/Header';
+
 
 const Login = () => {
 
-        const [showPassword, setShowPassword] = React.useState(false);
-      
-        const handleClickShowPassword = () => setShowPassword((show) => !show);
-      
-        const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-          event.preventDefault();
-        };
+  const initialvalues={
+    email:"",
+    password:""
+  }
+  const [formvalues,setFormvalues]=useState(initialvalues);
+  const [error,setError]=useState(true);
+  const [errors,setErrors]=useState("");
+  const [verified,setVerified]=useState(false)
+  const [turn,setTurn]=useState(false);
+
+  const userHandler = (e) => {
+    const { name, value } = e.target;
+    setFormvalues({ ...formvalues, [name]: value });   
+  }
+
+  const validateForm=(e)=>{
+   e.preventDefault();
+   formerror();
+   if(turn==false)
+   setTurn(true)
+   else
+   setTurn(false)
+   }
+
+
+  const formerror=()=>{
+   setError(true);
+    
+   if(formvalues.email=="")
+   {
+    setError(false);
+    setErrors("Invalid Email or Password")
+   }
+   else
+   setErrors("")
+
+   if(formvalues.password=="")
+   {
+    setError(false);
+    setErrors("Invalid Email or Password")
+   }
+   else
+   setErrors("")
+
+   setVerified(true)
+  }
+
+  useEffect(()=>{
+    if(verified==true)
+    {
+    if(error==true)
+    {
+      console.log(formvalues)
+    }
+    else
+    console.log("sry");
+  }
+
+  },[turn])
+
   return (
-    <div>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-        <TextField error
-          id="filled-error-helper-text"
-          label="Email Address"
-          helperText="Please enter valid Email Address"
-          variant="filled"
-        />
-      </Box>
-
-
-     <div>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />      
-       <FormControl error sx={{ width: '25ch' }} variant="filled" >     
-          <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-          <FilledInput
-            id="filled-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-         
-        </FormControl>      
-        </Box>
-        
+    <div className='login'>
+      <Header/>
+      <div className='login-form'>
+      <p style={{color:'red'}}>{errors}</p>
+        <div className='login-text'>
+          <h3>Login as Faculty</h3>
+          <h3>Login as Admin</h3>
         </div>
+        
+        <hr className='line'/>
+        <form className='form' onSubmit={validateForm}>
+           <TextField id="filled-basic" label="Email Address" variant="filled" value={formvalues.email} sx={{width:'80%',margin:'1.2rem 0'}} name="email" size='small' onChange={userHandler}/>
+           <TextField id="filled-basic" label="Password" type="password" variant="filled" value={formvalues.password} sx={{width:'80%',marginBottom:'1.2rem 0'}} name="password" size='small' onChange={userHandler}/>
 
+           <div className='remember'>
+              <div className='checkbox'>
+                <input type='checkbox'/>
+                <label>Remember Me</label>
+              </div>
+              <p>Forgot Password?</p>
+           </div>
 
-      
+           <input type='submit' className='submit'/>
+           </form>
+
+      </div>
     </div>
   )
 }
 
-export default Login;
+export default Login
