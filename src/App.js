@@ -5,6 +5,7 @@ import CreateTable from './pages/CreateTable';
 import Section from './pages/Section';
 import Header from './components/Header';
 import Teacher from './pages/Teacher';
+import Login from './pages/Login';
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
       <Route path="/" element={<Section/>} />
       <Route path="/Teacher" element={<Teacher/>} />
       <Route path="/table" element={<CreateTable/>} />
+      <Route path="/login" element={<Login/>} />
       </Routes>
     </BrowserRouter>
     </>
