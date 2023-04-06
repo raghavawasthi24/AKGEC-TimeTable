@@ -14,6 +14,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .login-text{
     width:100%;
@@ -21,11 +22,26 @@
     justify-content: space-around;
     align-items: center;
 }
-.form{
+.login-text button{
+    border: none;
+    background-color: transparent;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+.faculty-form{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.admin-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* display: none; */
 }
 .remember{
     width: 80%;
@@ -46,7 +62,22 @@
     margin-top: 3rem;
 }
 .line{
-    width:90%;
+    width:100%;
     height: 2px;
     background-color: #D9D9D9;
+    position: absolute;
+    top:5rem;
+}
+.boldline{
+    width:50%;
+    height: 2px;
+    background-color: black;
+    z-index: 1;
+    position: absolute;
+    top:5rem;
+    display: flex;
+    align-self: start;
+}
+#hide{
+    display: none;
 }

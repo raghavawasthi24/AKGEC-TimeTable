@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "../styles/Login.css";
 import TextField from '@mui/material/TextField';
 import Header from '../components/Header';
@@ -6,95 +6,192 @@ import Header from '../components/Header';
 
 const Login = () => {
 
-  const initialvalues={
-    email:"",
-    password:""
+  const initialvalues = {
+    email: "",
+    password: ""
   }
-  const [formvalues,setFormvalues]=useState(initialvalues);
-  const [error,setError]=useState(true);
-  const [errors,setErrors]=useState("");
-  const [verified,setVerified]=useState(false)
-  const [turn,setTurn]=useState(false);
 
-  const userHandler = (e) => {
+  const [formvalues, setFormvalues] = useState(initialvalues);
+  const [error, setError] = useState(true);
+  const [errors, setErrors] = useState("");
+  const [verified, setVerified] = useState(false)
+  const [facultyturn, setFacultyturn] = useState(false);
+  const [adminturn, setAdminturn] = useState(false);
+  const [pos, setPos] = useState(false)
+
+  const boldline = useRef();
+
+  const facultyHandler = (e) => {
     const { name, value } = e.target;
-    setFormvalues({ ...formvalues, [name]: value });   
+    setFormvalues({ ...formvalues, [name]: value });
   }
 
-  const validateForm=(e)=>{
-   e.preventDefault();
-   formerror();
-   if(turn==false)
-   setTurn(true)
-   else
-   setTurn(false)
-   }
-
-
-  const formerror=()=>{
-   setError(true);
-    
-   if(formvalues.email=="")
-   {
-    setError(false);
-    setErrors("Invalid Email or Password")
-   }
-   else
-   setErrors("")
-
-   if(formvalues.password=="")
-   {
-    setError(false);
-    setErrors("Invalid Email or Password")
-   }
-   else
-   setErrors("")
-
-   setVerified(true)
+  // FUNCTION ON SUBMITTING
+  const facultyvalidateForm = (e) => {
+    e.preventDefault();
+    formerror();
+    if (facultyturn === false)
+      setFacultyturn(true)
+    else
+      setFacultyturn(false)
   }
 
-  useEffect(()=>{
-    if(verified==true)
-    {
-    if(error==true)
-    {
-      console.log(formvalues)
+  useEffect(() => {
+    if (verified === true) {
+      if (error === true) {
+        console.log(formvalues)
+        console.log("faculty")
+      }
+      else
+        console.log("sry");
+    }
+
+  }, [facultyturn])
+
+  const adminHandler = (e) => {
+    const { name, value } = e.target;
+    setFormvalues({ ...formvalues, [name]: value });
+  }
+
+  // FUNCTION ON SUBMITTING
+  const adminvalidateForm = (e) => {
+    e.preventDefault();
+    formerror();
+    if (adminturn === false)
+      setAdminturn(true)
+    else
+      setAdminturn(false)
+  }
+
+  useEffect(() => {
+    if (verified === true) {
+      if (error === true) {
+        console.log(formvalues)
+        console.log("admin")
+      }
+      else
+        console.log("sry");
+    }
+
+  }, [adminturn])
+
+  //  VALIDATION STARTED
+  const formerror = () => {
+    setError(true);
+
+    if (formvalues.email === "") {
+      setError(false);
+      setErrors("Invalid Email or Password")
     }
     else
-    console.log("sry");
+      setErrors("")
+
+    if (formvalues.password === "") {
+      setError(false);
+      setErrors("Invalid Email or Password")
+    }
+    else
+      setErrors("")
+
+    setVerified(true)
+  }
+  // VALIDATION END
+
+  const switchFaculty = () => {
+    setPos(false)
+    setFormvalues(initialvalues)
+    boldline.current.style.alignSelf = "start";
+  }
+  const switchAdmin = () => {
+    setPos(true)
+    setFormvalues(initialvalues)
+    boldline.current.style.alignSelf = "end";
   }
 
-  },[turn])
 
   return (
     <div className='login'>
-      <Header/>
+      <Header />
       <div className='login-form'>
-      <p style={{color:'red'}}>{errors}</p>
+        <p style={{ color: 'red' }}>{errors}</p>
         <div className='login-text'>
-          <h3>Login as Faculty</h3>
-          <h3>Login as Admin</h3>
+          <button onClick={switchFaculty}>Login as Faculty</button>
+          <button onClick={switchAdmin}>Login as Admin</button>
         </div>
-        
-        <hr className='line'/>
-        <form className='form' onSubmit={validateForm}>
-           <TextField id="filled-basic" label="Email Address" variant="filled" value={formvalues.email} sx={{width:'80%',margin:'1.2rem 0'}} name="email" size='small' onChange={userHandler}/>
-           <TextField id="filled-basic" label="Password" type="password" variant="filled" value={formvalues.password} sx={{width:'80%',marginBottom:'1.2rem 0'}} name="password" size='small' onChange={userHandler}/>
 
-           <div className='remember'>
-              <div className='checkbox'>
-                <input type='checkbox'/>
-                <label>Remember Me</label>
-              </div>
-              <p>Forgot Password?</p>
-           </div>
+        <hr className='line' />
+        <hr ref={boldline} className='boldline'></hr>
 
-           <input type='submit' className='submit'/>
-           </form>
+        {/* FACULTY LOGIN FORM START */}
+
+        <form className='faculty-form' id={pos == false ? "" : "hide"} onSubmit={facultyvalidateForm}>
+          <TextField
+            label="Email Address"
+            variant="filled"
+            value={formvalues.email}
+            sx={{ width: '80%', margin: '1.2rem 0' }}
+            name="email"
+            size='small'
+            onChange={facultyHandler} />
+
+          <TextField
+            label="Password"
+            type="password"
+            variant="filled"
+            value={formvalues.password}
+            sx={{ width: '80%', marginBottom: '1.2rem 0' }}
+            name="password"
+            size='small'
+            onChange={facultyHandler} />
+
+          <div className='remember'>
+            <div className='checkbox'>
+              <input type='checkbox' />
+              <label>Remember Me</label>
+            </div>
+            <p>Forgot Password?</p>
+          </div>
+
+          <input type='submit' className='submit' />
+        </form>
+
+        {/* FACULTY LOGIN FORM END */}
+        {/* ADMIN LOGIN FORM START */}
+
+        <form className='admin-form' id={pos == true ? "" : "hide"} onSubmit={adminvalidateForm}>
+          <TextField
+            label="Email Address"
+            variant="filled"
+            value={formvalues.email}
+            sx={{ width: '80%', margin: '1.2rem 0' }}
+            name="email"
+            size='small'
+            onChange={adminHandler} />
+
+          <TextField
+            label="Password"
+            type="password"
+            variant="filled"
+            value={formvalues.password}
+            sx={{ width: '80%', marginBottom: '1.2rem 0' }}
+            name="password"
+            size='small'
+            onChange={adminHandler} />
+
+          <div className='remember'>
+            <div className='checkbox'>
+              <input type='checkbox' />
+              <label>Remember Me</label>
+            </div>
+            <p>Forgot Password?</p>
+          </div>
+
+          <input type='submit' className='submit' />
+        </form>
 
       </div>
     </div>
   )
 }
 
-export default Login
+export default Login;
