@@ -14,6 +14,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+}
+.form-header{
+    width: 100%;
     position: relative;
 }
 .login-text{
@@ -29,6 +33,23 @@
     font-weight: bold;
     margin-bottom: 2rem;
     padding: 1rem;
+}
+.line{
+    width:100%;
+    height: 2px;
+    background-color: #D9D9D9;
+    position: absolute;
+    top:3rem;
+}
+.boldline{
+    width:50%;
+    height: 2px;
+    background-color: black;
+    z-index: 1;
+    position: absolute;
+    top:3rem;
+    /* display: flex; 
+    align-self: start; */
 }
 .faculty-form{
     width: 100%;
@@ -60,23 +81,6 @@
     border: none;
     background-color: #FBC705;
     margin-top: 3rem;
-}
-.line{
-    width:100%;
-    height: 2px;
-    background-color: #D9D9D9;
-    position: absolute;
-    top:5rem;
-}
-.boldline{
-    width:50%;
-    height: 2px;
-    background-color: black;
-    z-index: 1;
-    position: absolute;
-    top:5rem;
-    display: flex;
-    align-self: start;
 }
 #hide{
     display: none;

@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "../styles/Login.css";
+import Cookies from "universal-cookie";
+import jwt from "jwt-decode";
 import TextField from '@mui/material/TextField';
 import Header from '../components/Header';
+import axios from 'axios';
 
 
 const Login = () => {
@@ -11,13 +14,16 @@ const Login = () => {
     password: ""
   }
 
+  const cookies = new Cookies();
+
   const [formvalues, setFormvalues] = useState(initialvalues);
   const [error, setError] = useState(true);
   const [errors, setErrors] = useState("");
   const [verified, setVerified] = useState(false)
   const [facultyturn, setFacultyturn] = useState(false);
   const [adminturn, setAdminturn] = useState(false);
-  const [pos, setPos] = useState(false)
+  const [pos, setPos] = useState(false);
+  const [user, setUser] = useState(null);
 
   const boldline = useRef();
 
@@ -40,6 +46,14 @@ const Login = () => {
     if (verified === true) {
       if (error === true) {
         console.log(formvalues)
+        axios.post("https://time-table-production.up.railway.app/accounts/login/", {
+          email: formvalues.email,
+          password: formvalues.password
+        }).then((resp) => {
+          console.log(resp.data)
+        }).catch((err) => {
+          console.log(err)
+        })
         console.log("faculty")
       }
       else
@@ -68,6 +82,14 @@ const Login = () => {
       if (error === true) {
         console.log(formvalues)
         console.log("admin")
+        axios.post("https://time-table-production.up.railway.app/accounts/login/", {
+          email: formvalues.email,
+          password: formvalues.password
+        }).then((resp) => {
+          console.log(resp.data)
+        }).catch((err) => {
+          console.log(err)
+        })
       }
       else
         console.log("sry");
@@ -100,12 +122,14 @@ const Login = () => {
   const switchFaculty = () => {
     setPos(false)
     setFormvalues(initialvalues)
-    boldline.current.style.alignSelf = "start";
+    boldline.current.style.left = "0";
+    boldline.current.style.removeProperty("right");
   }
   const switchAdmin = () => {
     setPos(true)
     setFormvalues(initialvalues)
-    boldline.current.style.alignSelf = "end";
+    boldline.current.style.removeProperty("left");
+    boldline.current.style.right = "0";
   }
 
 
@@ -114,13 +138,14 @@ const Login = () => {
       <Header />
       <div className='login-form'>
         <p style={{ color: 'red' }}>{errors}</p>
-        <div className='login-text'>
-          <button onClick={switchFaculty}>Login as Faculty</button>
-          <button onClick={switchAdmin}>Login as Admin</button>
+        <div className='form-header'>
+          <div className='login-text'>
+            <button onClick={switchFaculty}>Login as Faculty</button>
+            <button onClick={switchAdmin}>Login as Admin</button>
+          </div>
+          <hr className='line' />
+          <hr ref={boldline} className='boldline'></hr>
         </div>
-
-        <hr className='line' />
-        <hr ref={boldline} className='boldline'></hr>
 
         {/* FACULTY LOGIN FORM START */}
 
