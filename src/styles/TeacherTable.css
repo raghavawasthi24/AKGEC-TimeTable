@@ -1,0 +1,71 @@
+
+.popup{
+    position:absolute;
+    top:12rem;
+    right: -14rem;
+    width: 40%;
+    height: 40%;
+    display: grid;
+    background-color: #fffffffe;
+    border:2px solid black;
+    border-radius: 20px;
+    margin: 0rem 40rem;
+    padding:2rem 0rem;
+    opacity: 99%;
+    z-index:999999;
+}
+#mask
+{ position: absolute;
+    background: #000;
+    position: fixed;
+    opacity: .7;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.closeButton{
+    margin-left: 32rem;
+    rotate:135deg;
+ width: 2rem;
+    font-size:2rem;
+    padding: 1rem 1rem 0rem 1rem;
+}
+.popmain{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin:0rem 10.9rem
+}
+
+.popHead{
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem;
+}
+.popInput{
+    margin: 0rem 3rem 0rem 2rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+.popbuttonflex{
+   margin: 1rem 0rem 0rem 4rem;
+}
+.updatepop{
+    border: none;
+    background-color: white;
+    box-shadow: 1rem;
+  }
+#arrangement{
+   margin-left: 36rem;
+    width: 10rem;
+
+}
+#delete{
+    margin-left: 10rem;
+    background-color: red;
+}
+#time{
+    background-color: #E5E5E5;
+}
