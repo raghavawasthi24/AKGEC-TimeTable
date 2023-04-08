@@ -23,7 +23,8 @@ const Login = () => {
   const [facultyturn, setFacultyturn] = useState(false);
   const [adminturn, setAdminturn] = useState(false);
   const [pos, setPos] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
+
 
   const boldline = useRef();
 
@@ -50,10 +51,16 @@ const Login = () => {
           email: formvalues.email,
           password: formvalues.password
         }).then((resp) => {
-          console.log(resp.data)
+          // userToken.accessToken=resp.data.access,
+          // setUser(resp.data.access);
+         
+          console.log(resp.data.access);
+          localStorage.setItem("accessToken",resp.data.access);
         }).catch((err) => {
           console.log(err)
         })
+        // const AuthStr = 'Bearer '.concat(user);
+        
         console.log("faculty")
       }
       else
@@ -82,10 +89,19 @@ const Login = () => {
       if (error === true) {
         console.log(formvalues)
         console.log("admin")
-        axios.post("https://time-table-production.up.railway.app/accounts/login/", {
-          email: formvalues.email,
-          password: formvalues.password
-        }).then((resp) => {
+        const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
+        axios.post("https://time-table-production.up.railway.app/accounts/register/",{
+          mobile_number:"9151240246",
+          email: "raghavawathi240@gmail.com",
+          full_name:"Raghav Awasthi",
+          gender:"Male",
+          age:60,
+          password:"string"
+        }, {
+          headers: {
+            Authorization: AuthStr,
+          },
+        } ).then((resp) => {
           console.log(resp.data)
         }).catch((err) => {
           console.log(err)
