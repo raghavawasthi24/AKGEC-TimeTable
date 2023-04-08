@@ -6,6 +6,7 @@ import Section from './pages/Section';
 import Header from './components/Header';
 import Teacher from './pages/Teacher';
 import Login from './pages/Login';
+import AdminFacultyVIew from './pages/AdminFacultyVIew';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/Teacher" element={<Teacher/>} />
       <Route path="/table" element={<CreateTable/>} />
       <Route path="/login" element={<Login/>} />
+      <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
       </Routes>
     </BrowserRouter>
     </>
