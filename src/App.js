@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import CreateTable from './pages/CreateTable';
+import CreateTimeTable from './pages/CreateTimeTable';
 import Section from './pages/Section';
 import Header from './components/Header';
 import Teacher from './pages/Teacher';
@@ -18,7 +18,7 @@ const App = () => {
       <Routes>
       <Route path="/" element={<Section/>} />
       <Route path="/Teacher" element={<Teacher/>} />
-      <Route path="/table" element={<CreateTable/>} />
+      <Route path="/create-time-table" element={<CreateTimeTable/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
       </Routes>
