@@ -13,7 +13,7 @@ const App = () => {
 
   return(
     <>
-    {/* <Header/> */}
+    <Header/>
   <BrowserRouter>
       <Routes>
       <Route path="/" element={<Section/>} />

@@ -1,36 +1,40 @@
-import React,{useState}from 'react';
+import React, { useState } from 'react';
+import "../styles/CreateTimeTable.css";
 import SelectSection from '../components/SelectSection';
+import AdminNavbar from '../components/AdminNavbar';
+import Header from "../components/Header";
 
 const CreateTimeTable = () => {
 
-  let sectionObj = [
-    {},{}
-  ]
 
-  const [sectionNo,setsectionNo]=useState(sectionObj);
 
-  const addSec=()=>{
-    sectionObj.push({})
-    console.log(sectionObj)
-    setsectionNo(sectionObj)
+  const [sectionNo, setsectionNo] = useState([{}]);
+
+  const addSec = () => {
+    setsectionNo((prev) => {
+      return [...prev, {}]
+    })
     console.log(sectionNo)
   }
 
 
 
   return (
+    <>
+    <AdminNavbar/>
     <div className='createTable'>
-      <div className='selectSection'>
-
-        {
-          sectionNo.map(() => {
-            return(<SelectSection />)
-            
-          })
-        }
+      <div className="selectSection">
+        <div className='section-box'>
+          {
+            sectionNo.map(() => {
+              return (<SelectSection />)
+            })
+          }
+        </div>
+        <button onClick={addSec}>add</button>
       </div>
-      <button onClick={addSec}>add</button>
     </div>
+    </>
   )
 }
 

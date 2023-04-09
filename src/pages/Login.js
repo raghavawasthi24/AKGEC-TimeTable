@@ -151,7 +151,6 @@ const Login = () => {
 
   return (
     <div className='login'>
-      <Header />
       <div className='login-form'>
         <p style={{ color: 'red' }}>{errors}</p>
         <div className='form-header'>

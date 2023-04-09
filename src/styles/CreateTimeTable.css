@@ -1,4 +1,15 @@
 .createTable{
     width:100vw;
-
+}
+.selectSection{
+    /* width:70%; */
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+}
+.section-box{
+    /* width: 100%; */
+    display: flex;
+    /* justify-content: space-between; */
 }

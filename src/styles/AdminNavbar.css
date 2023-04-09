@@ -1,0 +1,15 @@
+.AdminNavbar{
+    width:100vw;
+    display: flex;
+    justify-content: flex-end;
+}
+.AdminNavbar button{
+    width:10rem;
+    margin:1rem;
+    padding: 0.2rem 1rem;
+    font-weight:700;
+    background-color: #FBBB00;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
