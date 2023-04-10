@@ -4,7 +4,7 @@ import "../styles/SelectSection.css";
 const SelectSection = () => {
   return (
     <div className='selectSection'>
-        <select>
+        <select className='select-opt'>
             <option>CSE1</option>
             <option>CSE1</option>
             <option>CSE1</option>

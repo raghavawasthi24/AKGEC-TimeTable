@@ -1,9 +1,16 @@
 .createTable{
     width:100vw;
 }
+.dept-select{
+    display: flex;
+    justify-content: center;
+}
+.select-opt{
+    width: 11rem;
+    margin: 0 1rem;
+    padding:0.5rem 1rem;
+}
 .selectSection{
-    /* width:70%; */
-    /* margin: auto; */
     display: flex;
     justify-content: center;
     /* flex-wrap: wrap; */
@@ -12,4 +19,8 @@
     /* width: 100%; */
     display: flex;
     
+}
+.select-lec{
+    display: flex;
+    justify-content: center;
 }
