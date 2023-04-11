@@ -14,8 +14,8 @@ const TeacherTable = (props) => {
     axios.delete(`https://time-table-production.up.railway.app/departmentss/delete_lecture/${id}`).then((response) => alert(response.data.msg,)).catch((error)=>alert('Already Deleted !!'));
     setopen(false)
   }
-  const updatelecture = (id) =>{
-    axios.put(`https://time-table-production.up.railway.app/departmentss/update_lecture/${id}`)
+  const updatelecture = (periodsdata) =>{
+    axios.put(`https://time-table-production.up.railway.app/departmentss/update_lecture/${periodsdata.id}`,{subject:subject,cid:classid})
     console.log(subject,classid)
   }
 
@@ -66,7 +66,7 @@ const TeacherTable = (props) => {
           <button className="View" id="delete" onClick={()=>deletelecture(periodsdata.id)}>
               Delete Lecture
             </button>
-            <button className="View" id="arrangement"  onClick={()=>updatelecture(periodsdata.id)}>
+            <button className="View" id="arrangement"  onClick={()=>updatelecture(periodsdata)}>
               Update Lecture
             </button>
            

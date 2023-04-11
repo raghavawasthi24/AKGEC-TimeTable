@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeacherTable from "../components/TeacherTable";
+import {Container} from "@mui/system"
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -57,8 +58,8 @@ const AdminFacultyVIew = () => {
   
   
   return (
-    <>
-      <div style={{ display: "flex",marginLeft:"-10rem" }}>
+    <Container>
+      <div style={{display:'flex',marginLeft:"-15rem"}}>
         <select
           id="subject"
           placeholder="Select Subject"
@@ -66,6 +67,7 @@ const AdminFacultyVIew = () => {
           className="SelectDay"
           onChange={getteacherdata}
           value={subject}
+          style={{marginLeft:"29rem",marginRight:"-29rem"}}
         >
           <option disabled>Select Subject</option>
           {subjectdata.map((subjectName, i) => (
@@ -95,6 +97,7 @@ const AdminFacultyVIew = () => {
           defaultValue="Select Day"
           className="SelectDay"
           value={day}
+          style={{marginLeft:"33rem"}}
         >
           <option value="Select Day" disabled>
             Select Day
@@ -115,7 +118,7 @@ const AdminFacultyVIew = () => {
       
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
-    </>
+    </Container>
   );
 };
 
