@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/TeacherTable.css"
+import { Container } from "@mui/system";
 
 const TeacherTable = (props) => {
   const [data, setData] = useState({});
@@ -48,7 +49,7 @@ const TeacherTable = (props) => {
   ];
 
   return (
-    <>
+    <Container>
       {open ? (
         <div className="popcontainer">
       
@@ -132,7 +133,7 @@ const TeacherTable = (props) => {
       ) : (
         <div className="empty">No TimeTable Selected</div>
       )}
-    </>
+    </Container>
   );
 };
 
