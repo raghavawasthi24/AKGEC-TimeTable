@@ -22,7 +22,7 @@ const Section = () => {
   
   
     useEffect(()=>{
-      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/11")
+      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/9")
       .then((res)=>{
         console.log(res.data)
 
@@ -94,21 +94,9 @@ const Section = () => {
       }).catch((err)=>{
         console.log(err)
       })
-
-      axios.post("https://time-table-production.up.railway.app/departmentss/create_table/",{
-        teacher_id: "20",
-        subject_id: "7",
-        class_id: [
-          "8","9"
-          ],
-       no_of_lectures: 1,
-       type:"LAB"
-      }).then((res)=>{
-        console.log(res.data)
-      }).catch((err)=>{
-        console.log(err)
-      })
     },[])
+
+    
     return (
       <div className="section">
         <div className='grid-container'>

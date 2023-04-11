@@ -65,7 +65,7 @@ const CreateTimeTable = () => {
           <div className='section-box'>
             {
               sectionNo.map(() => {
-                return (<SelectSection />)
+                return (<SelectSection section={section}/>)
               })
             }
           </div>

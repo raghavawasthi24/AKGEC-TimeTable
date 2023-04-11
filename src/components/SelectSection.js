@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../styles/SelectSection.css";
+import { createElement } from 'react';
 
-const SelectSection = () => {
+const SelectSection = (props) => {
+
+
+
   return (
     <div className='selectSection'>
-        <select className='select-opt'>
-            <option>CSE1</option>
-            <option>CSE1</option>
-            <option>CSE1</option>
-            <option>CSE1</option>
-        </select>
+      <select className='select-opt'>
+        <option>{props.section[0]}</option>
+        <option>{props.section[1]}</option>
+        <option>{props.section[2]}</option>
+        <option>{props.section[3]}</option>
+
+      </select>
     </div>
   )
 }
