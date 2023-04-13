@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeacherTable from "../components/TeacherTable";
-import {Container} from "@mui/system"
+import { Container } from "@mui/system";
+import MakeArrangementForm from "../components/MakeArrangementForm";
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
   const [subjectdata, setsubjectdata] = useState([]);
+  const [openarrangement, setopenarrangement] = useState(false);
+
   const [teacher, setteacher] = useState("Select Teacher");
   const [day, setday] = useState("Select Day");
   const [finday, setfinday] = useState("");
   const [finteacher, setfinteacher] = useState("");
   const [subject, setsubject] = useState("Select Subject");
+
   console.log(subject);
   const page = "admin";
   const fetchinfo1 = (selectsubject) => {
@@ -37,29 +41,33 @@ const AdminFacultyVIew = () => {
   };
   const finalteacher = (e) => {
     setteacher(e.target.value);
-    setday('Select Day')
-    setfinday('')
+    setday("Select Day");
+    setfinday("");
   };
   const getteacherdata = (e) => {
     setsubject(e.target.value);
     fetchinfo1(e.target.value);
-    setteacher('Select Teacher')
-    setday('Select Day')
-    setfinday('')
-    setfinteacher('')
+    setteacher("Select Teacher");
+    setday("Select Day");
+    setfinday("");
+    setfinteacher("");
   };
 
   const finalday = () => {
     setfinteacher(teacher);
     setfinday(day);
- 
   };
-  console.log(finday,finteacher,subject);
-  
-  
+  const control = () => {
+    setopenarrangement(true);
+    
+  };
+  console.log(openarrangement);
+
   return (
     <Container>
-      <div style={{display:'flex',marginLeft:"-15rem"}}>
+    { openarrangement ? (<MakeArrangementForm status={openarrangement}/>) :(null)
+      }
+      <div style={{ display: "flex", marginLeft: "-15rem" }}>
         <select
           id="subject"
           placeholder="Select Subject"
@@ -67,7 +75,7 @@ const AdminFacultyVIew = () => {
           className="SelectDay"
           onChange={getteacherdata}
           value={subject}
-          style={{marginLeft:"29rem",marginRight:"-29rem"}}
+          style={{ marginLeft: "29rem", marginRight: "-29rem" }}
         >
           <option disabled>Select Subject</option>
           {subjectdata.map((subjectName, i) => (
@@ -83,7 +91,6 @@ const AdminFacultyVIew = () => {
           defaultValue="Select Teacher"
           className="SelectDay"
           value={teacher}
-
         >
           <option disabled>Select Teacher</option>
           {teacherdata.map((teacher) => (
@@ -97,7 +104,7 @@ const AdminFacultyVIew = () => {
           defaultValue="Select Day"
           className="SelectDay"
           value={day}
-          style={{marginLeft:"33rem"}}
+          style={{ marginLeft: "33rem" }}
         >
           <option value="Select Day" disabled>
             Select Day
@@ -110,12 +117,17 @@ const AdminFacultyVIew = () => {
           <option value="Saturday">Saturday</option>
           <option value="Entire Week">Entire Week</option>
         </select>
-        <button className="View" style={{marginTop:"4rem",marginLeft:"36rem"}} onClick={finalday}>
-        View Schedule
-      </button>
+        <button
+          className="View"
+          style={{ marginTop: "4rem", marginLeft: "36rem" }}
+          onClick={finalday}
+        >
+          View Schedule
+        </button>
+        <button className="View" onClick={control}>
+          Make Arrangement
+        </button>
       </div>
-    
-      
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
     </Container>
