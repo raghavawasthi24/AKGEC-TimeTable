@@ -1,6 +1,7 @@
 import React, {  useState } from "react";
 import "../styles/Teacher.css";
 import TeacherTable from "../components/TeacherTable";
+import { Container } from "@mui/system";
 
 function Teacher() {
   const [day, setday] = useState("");
@@ -14,7 +15,8 @@ function Teacher() {
     setfinday(day);
   };
   return (
-    <>
+    <Container>
+    
       <select
         id="day"
         onChange={resultday}
@@ -36,7 +38,7 @@ function Teacher() {
       <button className="View" onClick={finalday}>View Schedule</button>
       <TeacherTable id={6} finday={finday} />
 
-    </>
+    </Container>
   );
 }
 
