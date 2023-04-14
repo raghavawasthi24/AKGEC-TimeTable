@@ -2,6 +2,7 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import Period from '../components/Period';
 import "../styles/Section.css";
+import Makearrangemettable from '../components/Makearrangemettable';
 
 const Section = () => {
   
@@ -157,6 +158,7 @@ const Section = () => {
          }  
          </div>         
         </div>
+        <Makearrangemettable/>
       </div>
     );
   

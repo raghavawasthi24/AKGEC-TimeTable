@@ -2,64 +2,43 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 
 
-const Makearrangemet = () => {
-    const[freeteacher,setfreeteacher]=useState([])
+const Makearrangemettable = () => {
+    const[arrangementdata,setarrangementdata]=useState([])
     const fetchInfo = () =>{
-        axios.get("https://time-table-production.up.railway.app/departmentss/arrangement_teachers").then((response)=>setfreeteacher(response.data))
+        axios.get(`https://time-table-production.up.railway.app/departmentss/arrangement_lectures_view/${5}`).then((response)=>setarrangementdata(response.data))
     }
     useEffect(() => {
       fetchInfo();
     }, [])
     
-    const period = [
-        "8:30-9:20",
-        "9:20-10:10",
-        "11:00-11:50",
-        "11:50-12:40",
-        "12:40-1:30",
-        "1:30-2:20",
-        "2:20-3:10",
-        "3:10-4:00",
-      ];
       
   return (
     <>
-     {/* <table>
+     <div className='popmain' style={{margin:"2rem 33rem"}}>Arrangement Table For Student</div>    
+      <table>
         <thead>
             <tr>
-                <td></td>
-                <td>Available Teacher</td>
-                <td>Subject</td>
-                <td>Class</td>
+            <td id='time'>S.NO</td>
+                <td id='time'>Period</td>
+                <td id='time'>Teacher</td>
+                <td id='time'>Subject</td>
+                <td id='time'>type</td>
+                <td id='time'>Date</td>
             </tr>
-            {period.map((period)=>(
+            {arrangementdata.map((data,i)=>(
                 <tr>
-                    <td>{period}</td>
-                    <td>
-                    <select
-          id="teacher"
-          onChange={finalteacher}
-          placeholder="Select Teacher"
-          defaultValue="Select Teacher"
-          className="SelectDay"
-          value={teacher}
-
-        >
-          <option disabled>Select Teacher</option>
-          {freeteacher.map((teacher) => (
-            <option value={teacher.user_id}>{teacher.user}</option>
-          ))}
-        </select>
-                    </td>
-                    <td></td>
-                    <td></td>
+                <td>{i+1}</td>
+                    <td>{data.period_time}</td>
+                    <td>{data.faculty_name}</td>
+                    <td>{data.subject_name}</td>
+                    <td>{data.type}</td>
+                    <td>{data.date}</td>
                 </tr>
-
             ))}
         </thead>
-     </table> */}
+     </table>
     </>
   )
 }
 
-export default Makearrangemet
+export default Makearrangemettable;
