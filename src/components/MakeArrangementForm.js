@@ -97,7 +97,36 @@ const MakeArrangementForm = () => {
     <Container>
         <Container sx={{ display: "grid" }}>
           
-              <div className="popmain" style={{margin:"0rem 3.8rem 1rem 3.8rem"}}>Make Arrangement</div>~
+              <div className="popmain" style={{margin:"0rem 3.8rem 1rem 3.8rem"}}>Make Arrangement</div>
+                <label className="popHead">Select Period</label>
+                <select
+                  defaultValue="Select Period"
+                  onChange={(e) => settime(e.target.value)}
+                  className="popInput"
+                >
+                  <option disabled value="Select Period">
+                    Select Period
+                  </option>
+                  {perioddata.map((time) => (
+                    <option value={time.period_no}>{time.timeslot}</option>
+                  ))}
+                </select>
+                <label className="popHead">Select Teacher</label>
+                <select
+                  defaultValue="Select Teacher"
+                  onChange={(e) => setfreeteacher(e.target.value)}
+                  className="popInput"
+
+                >
+                  <option disabled value="Select Teacher">
+                    Select Teacher
+                  </option>
+                  {periodteacher.map((data) =>
+                    Object.values(data).map((name) =>
+                      name.map((fullname) => (
+                        <option value={fullname.id}>
+                          {fullname.full_name}
+                        </option>
                       ))
                     )
                   )}
