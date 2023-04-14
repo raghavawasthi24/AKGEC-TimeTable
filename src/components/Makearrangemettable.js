@@ -24,7 +24,7 @@ const Makearrangemet = () => {
       
   return (
     <>
-     <table>
+     {/* <table>
         <thead>
             <tr>
                 <td></td>
@@ -57,7 +57,7 @@ const Makearrangemet = () => {
 
             ))}
         </thead>
-     </table>
+     </table> */}
     </>
   )
 }

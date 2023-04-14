@@ -23,6 +23,7 @@ function Teacher() {
         placeholder="Select Day"
         defaultValue="Select Day"
         className="SelectDay"
+        style={{marginLeft:"26rem"}}
       >
         <option value="Select Day" disabled>
           Select Day

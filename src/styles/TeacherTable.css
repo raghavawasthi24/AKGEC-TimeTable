@@ -60,6 +60,9 @@
     padding: 0rem;
     margin: 0rem;
   }
+button.updatepop{
+    color: #000;
+}
 #arrangement{
    margin-left: 34rem;
     width: 9rem;

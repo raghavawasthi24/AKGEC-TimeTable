@@ -74,6 +74,7 @@ const TeacherTable = (props) => {
   const period = [
     "8:30-9:20",
     "9:20-10:10",
+    "10:10-11:00",
     "11:00-11:50",
     "11:50-12:40",
     "12:40-1:30",
@@ -142,7 +143,7 @@ const TeacherTable = (props) => {
 
       {Object.keys(data).length && props.finday ? (
         props.finday === "Entire Week" ? (
-          <div style={{ marginLeft: "-2rem" }}>
+          <div style={{ marginLeft: "-6.5rem" }}>
             <table className="EntireWeek">
               <thead>
                 <tr className="EntireWeekRow">
