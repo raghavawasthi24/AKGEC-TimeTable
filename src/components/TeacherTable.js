@@ -143,7 +143,7 @@ const TeacherTable = (props) => {
 
       {Object.keys(data).length && props.finday ? (
         props.finday === "Entire Week" ? (
-          <div style={{ marginLeft: "-6.5rem" }}>
+          <div style={{ marginLeft: "-8.8rem" ,marginBottom:"2rem" }}>
             <table className="EntireWeek">
               <thead>
                 <tr className="EntireWeekRow">
@@ -166,11 +166,13 @@ const TeacherTable = (props) => {
                           onClick={() => control(periods)}
                           disabled={
                             props.page !== "admin" ||
-                            periods.subject_name.length === 1
+                            periods.subject_name.length === 1 ||
+                            periods.subject_name === "break"
                           }
                         >
                           <div>{periods.subject_name}</div>
                           <div>{periods.section}</div>
+                          <div style={{color:"#ff6600"}}>{periods.type}</div>
                         </button>
                       </td>
                     ))}

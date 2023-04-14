@@ -14,16 +14,11 @@ const MakeArrangementForm = () => {
   const [type, settype] = useState();
   const [subject, setsubject] = useState();
   const [section, setsection] = useState();
-  const [dept,setdept] = useState();
-
+  const [dept,setdept] = useState(0);
   const [date,setdate]=useState()
 
-
-  const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
-  const today = new Date();
-  let sysday = weekday[today.getDay()];
-  let sysno= weekday.indexOf(sysday);
+  const today = new Date(date);
+  let sysday = today.getDay();
   const fetchinfo = () => {
     axios
       .get(
@@ -78,7 +73,7 @@ const MakeArrangementForm = () => {
     axios.post(
       "https://time-table-production.up.railway.app/departmentss/arrangement_lectures_create",
       {
-        day: sysno,
+        day: sysday,
         period: parseInt(time),
         type: type,
         cid: parseInt(section),
@@ -91,7 +86,6 @@ const MakeArrangementForm = () => {
 
   // const periodteacher =(Object.values(freeteacherdata).map((data)=>((Object.keys(data))==="8:30-9:20")))
   // console.log(periodteacher)
-  console.log(date)
   const periodteacher = freeteacherdata.filter(function (value) {
     return value[time];
   });
@@ -103,36 +97,7 @@ const MakeArrangementForm = () => {
     <Container>
         <Container sx={{ display: "grid" }}>
           
-              <div className="popmain" style={{margin:"0rem 3.8rem 1rem 3.8rem"}}>Make Arrangements for {sysday}</div>
-                <label className="popHead">Select Period</label>
-                <select
-                  defaultValue="Select Period"
-                  onChange={(e) => settime(e.target.value)}
-                  className="popInput"
-                >
-                  <option disabled value="Select Period">
-                    Select Period
-                  </option>
-                  {perioddata.map((time) => (
-                    <option value={time.period_no}>{time.timeslot}</option>
-                  ))}
-                </select>
-                <label className="popHead">Select Teacher</label>
-                <select
-                  defaultValue="Select Teacher"
-                  onChange={(e) => setfreeteacher(e.target.value)}
-                  className="popInput"
-
-                >
-                  <option disabled value="Select Teacher">
-                    Select Teacher
-                  </option>
-                  {periodteacher.map((data) =>
-                    Object.values(data).map((name) =>
-                      name.map((fullname) => (
-                        <option value={fullname.id}>
-                          {fullname.full_name}
-                        </option>
+              <div className="popmain" style={{margin:"0rem 3.8rem 1rem 3.8rem"}}>Make Arrangement</div>~
                       ))
                     )
                   )}
