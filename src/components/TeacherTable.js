@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/TeacherTable.css"
+import "../styles/TeacherTable.css";
 import { Container } from "@mui/system";
-import MakeArrangementForm from "./MakeArrangementForm";
+
 
 const TeacherTable = (props) => {
   const [data, setData] = useState({});
   const [open, setopen] = useState(false);
   const [periodsdata, setperiodsdata] = useState({});
-  const[subject,setsubject]=useState()
-  const[classid,setclass]=useState()
-  
+  const [Subjectdata, setSubjectData] = useState([]);
+  const [sectiondata, setsectiondata] = useState([]);
+  const [subject, setsubject] = useState();
+  const [classid, setclassid] = useState();
 
   const deletelecture = (id) => {
-    axios.delete(`https://time-table-production.up.railway.app/departmentss/delete_lecture/${id}`).then((response) => alert(response.data.msg,)).catch((error)=>alert('Already Deleted !!'));
-    setopen(false)
-  }
-  const updatelecture = (periodsdata) =>{
-    axios.put(`https://time-table-production.up.railway.app/departmentss/update_lecture/${periodsdata.id}`,{subject:subject,cid:classid})
-    console.log(subject,classid)
-  }
+    axios
+      .delete(
+        `https://time-table-production.up.railway.app/departmentss/delete_lecture/${id}`
+      )
+      .then((response) => alert(response.data.msg))
+      .catch((error) => alert("Already Deleted !!"));
+    setopen(false);
+  };
+  const updatelecture = (periodsdata) => {
+    axios.put(
+      `https://time-table-production.up.railway.app/departmentss/update_lecture/${periodsdata.id}`,
+      { subject: subject, cid: classid }
+    );
+  };
 
   const fetchInfo = () => {
     return axios
@@ -28,10 +36,33 @@ const TeacherTable = (props) => {
       )
       .then((response) => setData(response.data));
   };
+  const fetchinfo2 = () => {
+    axios
+      .get(
+        "https://time-table-production.up.railway.app/departmentss/all_teachers_data"
+      )
+      .then((response) => setSubjectData(response.data));
+  };
+  const fetchinfo3 = () => {
+    axios
+      .get(
+        "https://time-table-production.up.railway.app/departmentss/department_wise_sections/2/1"
+      )
+      .then((response) => setsectiondata(response.data));
+  };
 
   useEffect(() => {
     if (props.finday) fetchInfo();
   }, [props.finday]);
+
+  useEffect(() => {
+    fetchinfo2()
+    fetchinfo3();
+  }, []);
+  const teachersubject = Subjectdata.filter(function (value) {
+    return value.user_id === props.id;
+  });
+
 
   const control = (periods) => {
     if (props.page === "admin") {
@@ -55,38 +86,71 @@ const TeacherTable = (props) => {
     <Container>
       {open ? (
         <div className="popcontainer">
-      
-        <div id="mask"></div>
-        <div className="popup"
-        >
-        <div className="closeButton"  onClick={()=>setopen(false)}>+</div>
-        <div className="popmain">Update Lecture</div>
-          <label className="popHead">Subject</label>
-          <input type="text" defaultValue={periodsdata.subject_name} className="popInput" onChange={(e)=>(setsubject(e.target.value))} />
-          <label className="popHead">Class</label>
-          <input type="text" defaultValue={periodsdata.section} className="popInput" onChange={(e)=>(setclass(e.target.value))}   />
-          <div className="popbuttonflex">
-          <button className="View" id="delete" onClick={()=>deletelecture(periodsdata.id)}>
-              Delete Lecture
-            </button>
-            <button className="View" id="arrangement"  onClick={()=>updatelecture(periodsdata)}>
-              Update Lecture
-            </button>
-           
+          <div id="mask"></div>
+          <div className="popup">
+            <div className="closeButton" onClick={() => setopen(false)}>
+              +
+            </div>
+            <div className="popmain">Update Lecture</div>
+            <label className="popHead">Select Subject</label>
+            <select
+              defaultValue="Select Subject"
+              onChange={(e) => setsubject(e.target.value)}
+              className="popInput"
+            >
+              <option disabled value="Select Subject">
+                Select Subject
+              </option>
+              {teachersubject.map((subject) =>
+                subject.subject.map((data) => (
+                  <option value={data.id}>{data.subject}</option>
+                ))
+              )}
+            </select>
+            <label className="popHead">Select Class</label>
+                <select
+                  defaultValue="Select Section"
+                  onChange={(e) => setclassid(e.target.value)}
+                  className="popInput"
+                >
+                  <option disabled value="Select Section">
+                    Select Section
+                  </option>
+                  {sectiondata.map((section) => (
+                    <option value={section.id}>{section.section}</option>
+                  ))}
+                </select>
+            <div className="popbuttonflex">
+              <button
+                className="View"
+                id="delete"
+                onClick={() => deletelecture(periodsdata.id)}
+              >
+                Delete Lecture
+              </button>
+              <button
+                className="View"
+                id="arrangement"
+                onClick={() => updatelecture(periodsdata)}
+              >
+                Update Lecture
+              </button>
+            </div>
           </div>
-        </div>
         </div>
       ) : null}
 
       {Object.keys(data).length && props.finday ? (
         props.finday === "Entire Week" ? (
-          <div style={{marginLeft:"-2rem"}}>
+          <div style={{ marginLeft: "-2rem" }}>
             <table className="EntireWeek">
               <thead>
                 <tr className="EntireWeekRow">
                   <td className="EntireWeekRow" id="time"></td>
                   {period.map((time, i) => (
-                    <td className="EntireWeekRow" id="time">{time}</td>
+                    <td className="EntireWeekRow" id="time">
+                      {time}
+                    </td>
                   ))}
                 </tr>
               </thead>
@@ -100,7 +164,8 @@ const TeacherTable = (props) => {
                           className="updatepop"
                           onClick={() => control(periods)}
                           disabled={
-                            props.page !== "admin" || (periods.subject_name.length === 1)
+                            props.page !== "admin" ||
+                            periods.subject_name.length === 1
                           }
                         >
                           <div>{periods.subject_name}</div>
