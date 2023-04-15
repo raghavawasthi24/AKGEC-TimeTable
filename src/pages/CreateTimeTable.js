@@ -16,6 +16,10 @@ const CreateTimeTable = () => {
     no_of_lecture: ""
   }
 
+  let subjectObj=[
+
+  ]
+
   
 
   const [sectionNo, setsectionNo] = useState([{}]);
@@ -41,6 +45,7 @@ const CreateTimeTable = () => {
 
   const deptselect = (e) => {
     setSection([]);
+    setSubjects([]);
     if(visibiltyCount<2)
     setVisibiltyCount(2);
     axios.get("https://time-table-production.up.railway.app/departmentss/department_wise_sections/1/7")
@@ -59,7 +64,7 @@ const CreateTimeTable = () => {
       .then((resp) => {
         for (let i = 0; i < resp.data.length; i++) {
           setSubjects((prev) => {
-            return [...prev, resp.data[i].subject]
+            return [...prev, resp.data[i]]
           })
         }
         console.log(resp)
@@ -68,6 +73,17 @@ const CreateTimeTable = () => {
         console.log(err)
       })
   }
+
+  const teacherSel=(e)=>{
+    axios.get(`https://time-table-production.up.railway.app/departmentss/select_teachers/${e.target.value}`).then((resp)=>{
+      console.log(resp)
+    }).catch((err)=>{
+      console.log(err)
+    })
+    console.log(e.target.value);
+  }
+
+
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -125,11 +141,11 @@ const CreateTimeTable = () => {
           <button onClick={addSec}>Add</button>
         </div>
         <div className='select-lec'>
-          <select className='select-opt' name="subject" onChange={inputHandler}>
+          <select className='select-opt' name="subject" onChange={teacherSel}>
             <option disabled selected>Select Subject</option>
             {
               subjects.map((val) => {
-                return (<option value={val}>{val}</option>)
+                return (<option value={val.id}>{val.subject}</option>)
               })
             }
           </select>
