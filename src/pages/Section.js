@@ -96,9 +96,31 @@ const Section = () => {
       })
     },[])
 
-    
+
     return (
       <div className="section">
+
+        <div className='student-opt'>
+          <select className='select-opt'>
+            <option disabled selected>Select Year</option>
+            <option>1st Year</option>
+          </select>
+
+          <select className='select-opt'>
+            <option disabled selected>Select Department</option>
+            <option>CSE</option>
+          </select>
+
+          <select className='select-opt'>
+            <option disabled selected>Select Section</option>
+            <option>s1</option>
+          </select>
+        </div>
+
+        <button className='view-student-timetable'>View TimeTable</button>
+
+
+
         <div className='grid-container'>
         <div className='period_days'>
          {

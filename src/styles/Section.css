@@ -1,5 +1,23 @@
 .section{
     margin:1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.student-opt{
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.view-student-timetable{
+    width:10rem;
+    margin-bottom:2rem;
+    padding: 0.8rem 1rem;
+    font-weight:600;
+    background-color: #FBBB00;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
 }
 .grid-container{
     background-color: white;
