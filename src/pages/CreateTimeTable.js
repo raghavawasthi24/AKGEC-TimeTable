@@ -27,6 +27,7 @@ const CreateTimeTable = () => {
   }
 
   const deptselect=()=>{
+    setSection([]);
     axios.get("https://time-table-production.up.railway.app/departmentss/department_wise_sections/1/7")
     .then((resp)=>{
       console.log(resp.data)

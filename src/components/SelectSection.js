@@ -9,10 +9,15 @@ const SelectSection = (props) => {
   return (
     <div className='selectSection'>
       <select className='select-opt'>
-        <option>{props.section[0]}</option>
+        {/* <option>{props.section[0]}</option>
         <option>{props.section[1]}</option>
         <option>{props.section[2]}</option>
-        <option>{props.section[3]}</option>
+        <option>{props.section[3]}</option> */}
+        {
+          props.section.map((val)=>(
+            <option>{val}</option>
+          ))
+        }
 
       </select>
     </div>

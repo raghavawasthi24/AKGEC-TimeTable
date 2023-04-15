@@ -59,7 +59,7 @@ const Section = () => {
         for(let j=0;j<res.data.Monday.length;j++)
         {
             classData_mon.push(res.data.Monday[j]);
-            period_time_obj.push({period:res.data.Monday[j].period});
+            period_time_obj.push({period:res.data.Monday[j].period_time});
             
         }
         for(let j=0;j<res.data.Tuesday.length;j++)
@@ -137,7 +137,7 @@ const Section = () => {
          {
             classwise_Data_Mon.map((val)=>{
                 return(
-                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
+                  <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>
                 )
             })
          }   
@@ -146,7 +146,7 @@ const Section = () => {
           {
             classwise_Data_Tue.map((val)=>{
                 return(
-                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>         
+                  <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>         
                 )
             })
          }  
@@ -155,7 +155,7 @@ const Section = () => {
           {
             classwise_Data_Wed.map((val)=>{
                 return(
-                   <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>                  
+                   <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>                  
                 )
             })
          }  
@@ -164,7 +164,7 @@ const Section = () => {
           {
             classwise_Data_Thurs.map((val)=>{
                 return(
-                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>                 
+                  <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>                 
                 )
             })
          }  
@@ -173,7 +173,7 @@ const Section = () => {
           {
             classwise_Data_Fri.map((val)=>{
                 return(
-                 <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>                 
+                 <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>                 
                 )
             })
          }  

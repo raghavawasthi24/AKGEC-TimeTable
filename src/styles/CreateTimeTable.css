@@ -7,8 +7,11 @@
 }
 .select-opt{
     width: 11rem;
-    margin: 0 1rem;
+    margin: 1rem;
     padding:0.5rem 1rem;
+    /* background-color: black; */
+    /* color: white; */
+     border-radius: 20px;
 }
 .selectSection{
     display: flex;
@@ -19,6 +22,14 @@
     /* width: 100%; */
     display: flex;
     
+}
+.selectSection button{
+    background-color: #FBBB00;
+    margin: 1rem;
+    width: 5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 20px;
 }
 .select-lec{
     display: flex;
