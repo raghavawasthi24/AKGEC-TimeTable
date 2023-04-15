@@ -12,6 +12,7 @@ const CreateTimeTable = () => {
   const [sectionNo, setsectionNo] = useState([{}]);
   const [visibiltyCount,setVisibiltyCount]=useState(0);
   const [section,setSection]=useState([]);
+  const [subjects,setSubjects]=useState([]);
 
   const addSec = () => {
     setsectionNo((prev) => {
@@ -26,7 +27,7 @@ const CreateTimeTable = () => {
     setVisibiltyCount(1)
   }
 
-  const deptselect=()=>{
+  const deptselect=(e)=>{
     setSection([]);
     axios.get("https://time-table-production.up.railway.app/departmentss/department_wise_sections/1/7")
     .then((resp)=>{
@@ -41,6 +42,19 @@ const CreateTimeTable = () => {
     }).catch((err)=>{
       console.log(err)
     })
+    axios.get("https://time-table-production.up.railway.app/departmentss/all_subjects/2/1")
+    .then((resp)=>{
+      for(let i=0;i<resp.data.length;i++)
+      {
+         setSubjects((prev)=>{
+          return[...prev,resp.data[i].subject]
+         })
+      }
+      console.log(resp)
+      console.log(subjects)
+    }).catch((err)=>{
+      console.log(err)
+    })
   }
 
   return (
@@ -50,16 +64,19 @@ const CreateTimeTable = () => {
         <div className='dept-select'>
           <select className='select-opt' onChange={yearSelect}>
             <option disabled selected>Select Year</option>
-            <option>1st Year</option>
-            <option>2nd Year</option>
-            <option>3rd Year</option>
-            <option>4th Year</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
           </select>
           <select className={visibiltyCount>0?'select-opt':'hide'} onChange={deptselect}>
             <option disabled selected>Select Department</option>
-            <option>CSE</option>
-            <option>IT</option>
-            <option>ECE</option>
+            <option value="1">CSE</option>
+            <option value="2">IT</option>
+            <option value="3">ECE</option>
+            <option value="4">EN</option>
+            <option value="5">ME</option>
+            <option value="6">CIVIL</option>
           </select>
         </div>
         <div className="selectSection">
@@ -75,8 +92,11 @@ const CreateTimeTable = () => {
         <div className='select-lec'>
           <select className='select-opt'>
             <option disabled selected>Select Subject</option>
-            <option>Data Structure</option>
-            <option>Data</option>
+            {
+               subjects.map((val)=>{
+                return(<option>{val}</option>)
+               })
+            }
           </select>
           <select className='select-opt'>
             <option disabled selected>Type of Lectures</option>
