@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../styles/CreateTimeTable.css";
-import SelectSection from '../components/SelectSection';
+// import SelectSection from '../components/SelectSection';
 import AdminNavbar from '../components/AdminNavbar';
 import Header from "../components/Header";
 import axios from 'axios';
@@ -103,9 +103,22 @@ const CreateTimeTable = () => {
         </div>
         <div className={visibiltyCount > 1 ? 'selectSection' : 'hide'}>
           <div className='section-box'>
-            {
+            {/* {
               sectionNo.map(() => {
                 return (<SelectSection section={section} />)
+              })
+            } */}
+            {
+              sectionNo.map(()=>{
+                return(<div className='selectSection'>
+                  <select className='select-opt' name="section" onChange={inputHandler}>
+                    {
+                      section.map((val)=>{
+                        return(<option value={val}>{val}</option>)
+                      })
+                    }
+                  </select>
+                </div>)
               })
             }
           </div>
