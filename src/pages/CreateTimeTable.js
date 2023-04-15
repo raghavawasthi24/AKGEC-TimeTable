@@ -27,6 +27,7 @@ const CreateTimeTable = () => {
   const [section, setSection] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [formvalues,setFormvalues]=useState(initialvalues);
+  const [teacherlist,setTeacherlist]=useState([]);
 
   const addSec = () => {
     setsectionNo((prev) => {
@@ -77,6 +78,13 @@ const CreateTimeTable = () => {
   const teacherSel=(e)=>{
     axios.get(`https://time-table-production.up.railway.app/departmentss/select_teachers/${e.target.value}`).then((resp)=>{
       console.log(resp)
+      for(let i=0;i<resp.data.length;i++)
+      {
+        setTeacherlist((prev)=>{
+          return[...prev,{id:i+1,teacher:resp.data[i].user}]
+        })
+      } 
+      console.log(teacherlist)
     }).catch((err)=>{
       console.log(err)
     })
@@ -94,7 +102,9 @@ const CreateTimeTable = () => {
     e.preventDefault();
     console.log(formvalues)
   }
-
+   const ddd=(e)=>{
+    console.log(e.target.value)
+   }
   return (
     <>
       <AdminNavbar />
@@ -120,11 +130,6 @@ const CreateTimeTable = () => {
         <div className={visibiltyCount > 1 ? 'selectSection' : 'hide'}>
           <div className='section-box'>
             {/* {
-              sectionNo.map(() => {
-                return (<SelectSection section={section} />)
-              })
-            } */}
-            {
               sectionNo.map(()=>{
                 return(<div className='selectSection'>
                   <select className='select-opt' name="section" onChange={inputHandler}>
@@ -136,6 +141,15 @@ const CreateTimeTable = () => {
                   </select>
                 </div>)
               })
+            } */}
+            {
+              <select className='select-opt' name="section" onChange={ddd} multiple>
+              {
+                section.map((val)=>{
+                  return(<option value={val}>{val}</option>)
+                })
+              }
+            </select>
             }
           </div>
           <button onClick={addSec}>Add</button>
@@ -161,7 +175,25 @@ const CreateTimeTable = () => {
           </select>
         </div>
 
-        <button type='submit'>Submit</button>
+
+        <div className='teacher-sel'>
+          <div className='teacher-sel-header'>
+            <div className='teacherNo'>SNo</div>
+            <div className='teacherName'>Name of the Faculty</div>
+            <div className='teacherSel'>.</div>
+          </div>
+          {
+            teacherlist.map((val)=>{
+              return(<div className='teacher-sel-opt'>
+                <div className='teacherNo'>{val.id}</div>
+                <div className='teacherName'>{val.teacher}</div>
+                <div className='teacherSel'>Select</div>
+              </div>)
+            })
+          }
+        </div>
+
+        
       </form>
     </>
   )
