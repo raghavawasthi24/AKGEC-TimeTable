@@ -56,6 +56,9 @@
     border: none;
     background-color: white;
     box-shadow: 1rem;
+    min-width: 6rem;
+    padding: 0rem;
+    margin: 0rem;
   }
 #arrangement{
    margin-left: 36rem;
