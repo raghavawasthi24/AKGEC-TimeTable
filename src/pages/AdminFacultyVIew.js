@@ -3,6 +3,7 @@ import axios from "axios";
 import TeacherTable from "../components/TeacherTable";
 import { Container } from "@mui/system";
 import MakeArrangementForm from "../components/MakeArrangementForm";
+import TeacherArrangemetTable from "../components/TeaceherArrangementTable";
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -12,7 +13,7 @@ const AdminFacultyVIew = () => {
   const [teacher, setteacher] = useState("Select Teacher");
   const [day, setday] = useState("Select Day");
   const [finday, setfinday] = useState("");
-  const [finteacher, setfinteacher] = useState("");
+  const [finteacher, setfinteacher] = useState('0');
   const [subject, setsubject] = useState("Select Subject");
   const page = "admin";
   const fetchinfo1 = (selectsubject) => {
@@ -61,7 +62,6 @@ const AdminFacultyVIew = () => {
   const control2 = () => {
     setopenarrangement(false);
   };
-
   return (
     <Container>
       {openarrangement ? (
@@ -140,6 +140,7 @@ const AdminFacultyVIew = () => {
       </div>
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
+      <TeacherArrangemetTable id={finteacher}/>
     </Container>
   );
 };
