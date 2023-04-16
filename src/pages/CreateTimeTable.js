@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import "../styles/CreateTimeTable.css";
 // import SelectSection from '../components/SelectSection';
 import AdminNavbar from '../components/AdminNavbar';
 import Header from "../components/Header";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export let subjectObj=[]
+export let sectionObj=[]
 
 const CreateTimeTable = () => {
 
@@ -15,7 +16,8 @@ const CreateTimeTable = () => {
     section: "",
     subject: "",
     type_of_lecture: "",
-    no_of_lecture: ""
+    no_of_lecture: "",
+    teacher:""
   }
 
   
@@ -27,6 +29,8 @@ const CreateTimeTable = () => {
   const [subjects, setSubjects] = useState([]);
   const [formvalues,setFormvalues]=useState(initialvalues);
   const [teacherlist,setTeacherlist]=useState([]);
+  // const [teacherId,setTeacherId]=useState("");
+  // const teachId=useRef();
 
   const addSec = () => {
     setsectionNo((prev) => {
@@ -78,12 +82,15 @@ const CreateTimeTable = () => {
   }
 
   const teacherSel=(e)=>{
+    setTeacherlist([]);
+    if(visibiltyCount<4)
+    setVisibiltyCount(4);
     axios.get(`https://time-table-production.up.railway.app/departmentss/select_teachers/${e.target.value}`).then((resp)=>{
       console.log(resp)
       for(let i=0;i<resp.data.length;i++)
       {
         setTeacherlist((prev)=>{
-          return[...prev,{id:i+1,teacher:resp.data[i].user}]
+          return[...prev,{id:resp.data[i].user_id,teacher:resp.data[i].user}]
         })
       } 
       console.log(teacherlist)
@@ -102,42 +109,70 @@ const CreateTimeTable = () => {
 
   
    
-  const ddd=(e)=>{
+  const sectionVal=(e)=>{
+    if(visibiltyCount<3)
+    setVisibiltyCount(3);
     if(e.target.checked)
     {
-      subjectObj.push(e.target.value);
+      sectionObj.push(e.target.value);
       // console.log(e.target.value)
     }
     else
-    // subjectObj.pop(e.target.value);
+    // sectionObj.pop(e.target.value);
     {
-      for(let i=0;i<subjectObj.length;i++)
+      for(let i=0;i<sectionObj.length;i++)
       {
-        if(subjectObj[i]===e.target.value)
+        if(sectionObj[i]===e.target.value)
         {
-        for(let j=i;j<subjectObj.length;j++)
+        for(let j=i;j<sectionObj.length;j++)
         {
-           subjectObj[j]=subjectObj[j+1]
+           sectionObj[j]=sectionObj[j+1]
         }
-        subjectObj.length--;
+        sectionObj.length--;
         
       }
       }
     }
-    console.log(subjectObj)
-    setSectionSel(subjectObj)
+    console.log(sectionObj)
+    setSectionSel(sectionObj)
   }
+
+  const no_of_lecSel=()=>{
+    if(visibiltyCount<5)
+    setVisibiltyCount(5);
+  }
+
+  const type_of_lecSel=()=>{
+    if(visibiltyCount<6)
+    setVisibiltyCount(6);
+  }
+
+
 
   const submitHandler=(e)=>{
     e.preventDefault();
-    console.log(subjectObj)
+    console.log(formvalues)
+    console.log(sectionObj)
     console.log({
       year: formvalues.year,
-    department: "",
+    department: formvalues.department,
     section: sectionSel,
     subject: formvalues.subject,
-    type_of_lecture: "",
-    no_of_lecture: ""
+    type_of_lecture:  formvalues.type_of_lecture,
+    no_of_lecture:  formvalues.no_of_lecture,
+    teacher:formvalues.teacher,
+    })
+
+    axios.post("https://time-table-production.up.railway.app/departmentss/create_table/",{
+    class_id: sectionSel,
+    subject_id: formvalues.subject,
+    type:  formvalues.type_of_lecture,
+    no_of_lectures:  formvalues.no_of_lecture,
+    teacher_id:formvalues.teacher,
+    }).then((resp)=>{
+      console.log(resp)
+    }).catch((err)=>{
+      console.log(err)
     })
   }
   return (
@@ -152,7 +187,7 @@ const CreateTimeTable = () => {
             <option value="3">3rd Year</option>
             <option value="4">4th Year</option>
           </select>
-          <select className={visibiltyCount > 0 ? 'select-opt' : 'hide'} onChange={e => { inputHandler(e); deptselect()}}>
+          <select className={visibiltyCount > 0 ? 'select-opt' : 'hide'} name="department" onChange={e => { inputHandler(e); deptselect()}}>
             <option disabled selected>Select Department</option>
             <option value="1">CSE</option>
             <option value="2">IT</option>
@@ -189,16 +224,16 @@ const CreateTimeTable = () => {
             {
               section.map((val)=>{
                 return(<div>
-                  <input type="checkbox" value={val.id} onClick={ddd}/>
+                  <input type="checkbox" value={val.id} onClick={sectionVal}/>
                   <label>{val.section}</label>
                 </div>)
               })
             }
           </div>
-          <button onClick={addSec}>Add</button>
+          {/* <button onClick={addSec}>Add</button> */}
         </div>
         <div className='select-lec'>
-          <select className='select-opt' name="subject" onChange={teacherSel}>
+          <select className={visibiltyCount > 2 ? 'select-opt' : 'hide'} name="subject" onChange={e => { inputHandler(e); teacherSel(e)}}>
             <option disabled selected>Select Subject</option>
             {
               subjects.map((val) => {
@@ -206,12 +241,12 @@ const CreateTimeTable = () => {
               })
             }
           </select>
-          <select className='select-opt'>
+          <select className={visibiltyCount > 3 ? 'select-opt' : 'hide'} name="type_of_lecture" onChange={e => { inputHandler(e); no_of_lecSel()}}>
             <option disabled selected>Type of Lectures</option>
-            <option>Theory</option>
-            <option>Lab</option>
+            <option>THEORY</option>
+            <option>LAB</option>
           </select>
-          <select className='select-opt'>
+          <select className={visibiltyCount > 4 ? 'select-opt' : 'hide'} name="no_of_lecture" onChange={e => { inputHandler(e); type_of_lecSel()}}>
             <option disabled selected>No of Lectures</option>
             <option>1</option>
             <option>2</option>
@@ -219,22 +254,23 @@ const CreateTimeTable = () => {
         </div>
 
 
-        <div className='teacher-sel'>
-          <div className='teacher-sel-header'>
-            <div className='teacherNo'>SNo</div>
-            <div className='teacherName'>Name of the Faculty</div>
-            <div className='teacherSel'>.</div>
-          </div>
+        <div className={visibiltyCount > 5 ? 'teacher-sel' : 'hide'}>
+
+
+
+          
+            <select className='select-opt'  name='teacher' onChange={e=>{inputHandler(e)}}>
+              <option selected disabled>Select Teacher</option>
           {
             teacherlist.map((val)=>{
-              return(<div className='teacher-sel-opt'>
-                <div className='teacherNo'>{val.id}</div>
-                <div className='teacherName'>{val.teacher}</div>
-                <div className='teacherSel'>Select</div>
-              </div>)
+              return(<option value={val.id}>{val.teacher}</option>)
             })
           }
+          </select>
+          
         </div>
+
+        <button type='submit'> Create TimeTable</button>
 
         
       </form>
