@@ -59,7 +59,7 @@ const Section = () => {
         for(let j=0;j<res.data.Monday.length;j++)
         {
             classData_mon.push(res.data.Monday[j]);
-            period_time_obj.push({period:res.data.Monday[j].period});
+            period_time_obj.push({period:res.data.Monday[j].period_time});
             
         }
         for(let j=0;j<res.data.Tuesday.length;j++)
@@ -96,9 +96,31 @@ const Section = () => {
       })
     },[])
 
-    
+
     return (
       <div className="section">
+
+        <div className='student-opt'>
+          <select className='select-opt'>
+            <option disabled selected>Select Year</option>
+            <option>1st Year</option>
+          </select>
+
+          <select className='select-opt'>
+            <option disabled selected>Select Department</option>
+            <option>CSE</option>
+          </select>
+
+          <select className='select-opt'>
+            <option disabled selected>Select Section</option>
+            <option>s1</option>
+          </select>
+        </div>
+
+        <button className='view-student-timetable'>View TimeTable</button>
+
+
+
         <div className='grid-container'>
         <div className='period_days'>
          {
@@ -126,7 +148,6 @@ const Section = () => {
             classwise_Data_Tue.map((val)=>{
                 return(
                   <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>         
-
                 )
             })
          }  
