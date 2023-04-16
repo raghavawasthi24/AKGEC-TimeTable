@@ -1,3 +1,4 @@
+import { ConnectingAirportsOutlined } from '@mui/icons-material';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 
@@ -5,14 +6,14 @@ import React, { useState,useEffect } from 'react'
 const TeacherArrangemetTable = (props) => {
     const[arrangementdata,setarrangementdata]=useState([])
     const fetchInfo = () =>{
-        console.log(props.id)
+
         axios.get(`https://time-table-production.up.railway.app/departmentss/arrangement_lectures_teacher_view/${props.id}`).then((response)=>setarrangementdata(response.data))
     }
     useEffect(() => {
       fetchInfo();
     }, [])
     
-      
+
   return (
     <>
      <div className='popmain' style={{margin:"2rem 28.5rem"}}>Arrangement Table</div>    

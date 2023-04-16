@@ -26,7 +26,7 @@ const AdminFacultyVIew = () => {
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_subjects"
+        "https://time-table-production.up.railway.app/departmentss/all_subject"
       )
       .then((response) => setsubjectdata(response.data));
   };
