@@ -1,5 +1,8 @@
 .createTable{
     width:100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .dept-select{
     display: flex;
@@ -16,6 +19,7 @@
 .selectSection{
     display: flex;
     justify-content: center;
+    align-items: center;
     /* flex-wrap: wrap; */
 }
 .section-box{
@@ -39,7 +43,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 4rem 0;
+    margin: 0.5rem 0;
 }
 .teacher-sel-header{
     display: flex;
