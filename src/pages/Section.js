@@ -2,7 +2,6 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import Period from '../components/Period';
 import "../styles/Section.css";
-import Makearrangemettable from '../components/Makearrangemettable';
 
 const Section = () => {
   
@@ -116,7 +115,7 @@ const Section = () => {
          {
             classwise_Data_Mon.map((val)=>{
                 return(
-                  {/* <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/> */}
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
                 )
             })
          }   
@@ -125,7 +124,7 @@ const Section = () => {
           {
             classwise_Data_Tue.map((val)=>{
                 return(
-                  {/* <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>          */}
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
                 )
             })
          }  
@@ -134,7 +133,7 @@ const Section = () => {
           {
             classwise_Data_Wed.map((val)=>{
                 return(
-                  {/* <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>                   */}
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
                 )
             })
          }  
@@ -143,7 +142,7 @@ const Section = () => {
           {
             classwise_Data_Thurs.map((val)=>{
                 return(
-                  {/* <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>                 */}
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
                 )
             })
          }  
@@ -152,13 +151,12 @@ const Section = () => {
           {
             classwise_Data_Fri.map((val)=>{
                 return(
-                  {/* <Period subject={val.subject_name} faculty={val.faculty_name} type={val.type} days={val.days}/>                 */}
+                  <Period subject={val.subject} faculty={val.faculty} type={val.type} days={val.days}/>
                 )
             })
          }  
          </div>         
         </div>
-        <Makearrangemettable/>
       </div>
     );
   
