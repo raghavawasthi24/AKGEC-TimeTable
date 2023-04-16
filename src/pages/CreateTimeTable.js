@@ -5,6 +5,8 @@ import AdminNavbar from '../components/AdminNavbar';
 import Header from "../components/Header";
 import axios from 'axios';
 
+export let subjectObj=[]
+
 const CreateTimeTable = () => {
 
   const initialvalues = {
@@ -16,15 +18,12 @@ const CreateTimeTable = () => {
     no_of_lecture: ""
   }
 
-  let subjectObj=[
-
-  ]
-
   
 
   const [sectionNo, setsectionNo] = useState([{}]);
   const [visibiltyCount, setVisibiltyCount] = useState(0);
   const [section, setSection] = useState([]);
+  const [sectionSel,setSectionSel]=useState([]);
   const [subjects, setSubjects] = useState([]);
   const [formvalues,setFormvalues]=useState(initialvalues);
   const [teacherlist,setTeacherlist]=useState([]);
@@ -54,7 +53,10 @@ const CreateTimeTable = () => {
         console.log(resp.data)
         for (let i = 0; i < resp.data.length; i++) {
           setSection((prev) => {
-            return [...prev, resp.data[i].section]
+            return [...prev, {
+              id:resp.data[i].id,
+              section:resp.data[i].section
+            }]
           })
         }
         console.log(section)
@@ -98,13 +100,46 @@ const CreateTimeTable = () => {
     setFormvalues({ ...formvalues, [name]: value });
   }
 
+  
+   
+  const ddd=(e)=>{
+    if(e.target.checked)
+    {
+      subjectObj.push(e.target.value);
+      // console.log(e.target.value)
+    }
+    else
+    // subjectObj.pop(e.target.value);
+    {
+      for(let i=0;i<subjectObj.length;i++)
+      {
+        if(subjectObj[i]===e.target.value)
+        {
+        for(let j=i;j<subjectObj.length;j++)
+        {
+           subjectObj[j]=subjectObj[j+1]
+        }
+        subjectObj.length--;
+        
+      }
+      }
+    }
+    console.log(subjectObj)
+    setSectionSel(subjectObj)
+  }
+
   const submitHandler=(e)=>{
     e.preventDefault();
-    console.log(formvalues)
+    console.log(subjectObj)
+    console.log({
+      year: formvalues.year,
+    department: "",
+    section: sectionSel,
+    subject: formvalues.subject,
+    type_of_lecture: "",
+    no_of_lecture: ""
+    })
   }
-   const ddd=(e)=>{
-    console.log(e.target.value)
-   }
   return (
     <>
       <AdminNavbar />
@@ -142,7 +177,7 @@ const CreateTimeTable = () => {
                 </div>)
               })
             } */}
-            {
+            {/* {
               <select className='select-opt' name="section" onChange={ddd} multiple>
               {
                 section.map((val)=>{
@@ -150,6 +185,14 @@ const CreateTimeTable = () => {
                 })
               }
             </select>
+            } */}
+            {
+              section.map((val)=>{
+                return(<div>
+                  <input type="checkbox" value={val.id} onClick={ddd}/>
+                  <label>{val.section}</label>
+                </div>)
+              })
             }
           </div>
           <button onClick={addSec}>Add</button>
