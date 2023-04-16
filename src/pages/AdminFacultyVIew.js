@@ -3,6 +3,7 @@ import axios from "axios";
 import TeacherTable from "../components/TeacherTable";
 import { Container } from "@mui/system";
 import MakeArrangementForm from "../components/MakeArrangementForm";
+import TeacherArrangemetTable from "../components/TeaceherArrangementTable";
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -12,10 +13,8 @@ const AdminFacultyVIew = () => {
   const [teacher, setteacher] = useState("Select Teacher");
   const [day, setday] = useState("Select Day");
   const [finday, setfinday] = useState("");
-  const [finteacher, setfinteacher] = useState("");
+  const [finteacher, setfinteacher] = useState('0');
   const [subject, setsubject] = useState("Select Subject");
-
-  console.log(subject);
   const page = "admin";
   const fetchinfo1 = (selectsubject) => {
     axios
@@ -27,7 +26,7 @@ const AdminFacultyVIew = () => {
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_subjects"
+        "https://time-table-production.up.railway.app/departmentss/all_subject"
       )
       .then((response) => setsubjectdata(response.data));
   };
@@ -59,15 +58,24 @@ const AdminFacultyVIew = () => {
   };
   const control = () => {
     setopenarrangement(true);
-    
   };
-  console.log(openarrangement);
-
+  const control2 = () => {
+    setopenarrangement(false);
+  };
   return (
     <Container>
-    { openarrangement ? (<MakeArrangementForm status={openarrangement}/>) :(null)
-      }
-      <div style={{ display: "flex", marginLeft: "-15rem" }}>
+      {openarrangement ? (
+        <div className="popcontainer" >
+          <div id="mask"></div>
+          <div className="popup" style={{height:"90%",top:"1rem"}}>
+            <div className="closeButton" onClick={control2} style={{marginLeft:"32rem"}}>
+              +
+            </div>
+            <MakeArrangementForm />
+          </div>
+        </div>
+      ) : null}
+      <div style={{ display: "flex", marginLeft: "-10rem" }}>
         <select
           id="subject"
           placeholder="Select Subject"
@@ -117,19 +125,22 @@ const AdminFacultyVIew = () => {
           <option value="Saturday">Saturday</option>
           <option value="Entire Week">Entire Week</option>
         </select>
+      </div>
+      <div>
         <button
           className="View"
-          style={{ marginTop: "4rem", marginLeft: "36rem" }}
+          style={{ marginLeft: "26rem" }}
           onClick={finalday}
         >
           View Schedule
         </button>
-        <button className="View" onClick={control}>
+        <button className="View" onClick={control} style={{ width: "10rem" }}>
           Make Arrangement
         </button>
       </div>
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
+      <TeacherArrangemetTable id={finteacher}/>
     </Container>
   );
 };
