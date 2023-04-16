@@ -23,6 +23,7 @@ function Teacher() {
         placeholder="Select Day"
         defaultValue="Select Day"
         className="SelectDay"
+        style={{marginLeft:"26rem"}}
       >
         <option value="Select Day" disabled>
           Select Day
@@ -36,7 +37,7 @@ function Teacher() {
         <option value="Entire Week">Entire Week</option>
       </select>
       <button className="View" onClick={finalday}>View Schedule</button>
-      <TeacherTable id={6} finday={finday} />
+      <TeacherTable id={9} finday={finday} />
 
     </Container>
   );

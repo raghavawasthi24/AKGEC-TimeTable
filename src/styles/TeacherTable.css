@@ -35,17 +35,17 @@
 .popmain{
   font-size: 1.5rem;
   font-weight: 700;
-  margin:0rem 10.9rem
+  margin:0rem 12.3rem
 }
 
 .popHead{
     margin-left: 1rem;
     font-size: 1rem;
     font-weight: 600;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
 }
 .popInput{
-    margin: 0rem 3rem 0rem 2rem;
+    margin: 0rem 2rem 0rem 2rem;
     font-size: 1rem;
     padding: 0.5rem;
 }
@@ -60,13 +60,16 @@
     padding: 0rem;
     margin: 0rem;
   }
+button.updatepop{
+    color: #000;
+}
 #arrangement{
-   margin-left: 36rem;
-    width: 10rem;
+   margin-left: 34rem;
+    width: 9rem;
 
 }
 #delete{
-    margin-left: 10rem;
+    margin-left: 12rem;
     background-color: red;
 }
 #time{
