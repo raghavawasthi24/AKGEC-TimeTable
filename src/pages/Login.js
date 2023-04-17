@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef} from 'react';
+import {useNavigate} from "react-router-dom"
 import "../styles/Login.css";
 import Cookies from "universal-cookie";
 import jwt from "jwt-decode";
@@ -24,6 +25,7 @@ const Login = () => {
   const [adminturn, setAdminturn] = useState(false);
   const [pos, setPos] = useState(false);
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
 
   const boldline = useRef();
@@ -228,7 +230,9 @@ const Login = () => {
 
           <input type='submit' className='submit' />
         </form>
-
+        <div>Don't have an account ?
+            <div onClick={()=>navigate("/register")} >Register</div>
+        </div>
       </div>
     </div>
   )
