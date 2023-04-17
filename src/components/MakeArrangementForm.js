@@ -97,7 +97,7 @@ const MakeArrangementForm = () => {
     <Container>
         <Container sx={{ display: "grid" }}>
           
-              <div className="popmain" style={{margin:"0rem 3.8rem 1rem 3.8rem"}}>Make Arrangement</div>
+              <div className="popmain" style={{margin:"0rem 7.8rem 1rem 7.8rem"}}>Make Arrangement</div>
                 <label className="popHead">Select Period</label>
                 <select
                   defaultValue="Select Period"
