@@ -5,7 +5,7 @@ import React, { useState,useEffect } from 'react'
 const Makearrangemettable = () => {
     const[arrangementdata,setarrangementdata]=useState([])
     const fetchInfo = () =>{
-        axios.get(`https://time-table-production.up.railway.app/departmentss/arrangement_lectures_view/${5}`).then((response)=>setarrangementdata(response.data))
+        axios.get(`${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_view/${5}`).then((response)=>setarrangementdata(response.data))
     }
     useEffect(() => {
       fetchInfo();
