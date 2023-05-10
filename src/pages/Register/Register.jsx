@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Box,
@@ -6,25 +6,74 @@ import {
   TextField,
   Button,
   Container,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  FormHelperText,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 const Register = () => {
-    const initialvalues = {
-        full_name: "",
-        mobile_number: "",
-        email: "",
-        gender: "",
-        residence: "",
-      }
+  const initialvalues = {
+    full_name: "",
+    mobile_number: "",
+    age: "",
+    email: "",
+    password: "",
+    gender: "",
+  };
+  let error = {};
+
   const navigate = useNavigate();
   const [formvalues, setformvalues] = useState(initialvalues);
-  const regex_email = /^([a-z]){3,15}[2][12]([0-9]){5,6}@akgec.ac.in$/;
-  const regex_contact = /^[6-9]([0-9]){9}$/;
+  const [formerror, setformerror] = useState(error);
+  const [submitbtn, setsubmitbtn] = useState(false);
+
+  const inputhandler = (e) => {
+    const { name, value } = e.target;
+    setformvalues({ ...formvalues, [name]: value });
+  };
+  const regex_fullname = /^[A-Za-z]+([\ A-Za-z]+)*$/;
+  const regex_email = /^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$/;
+  const regex_mobile = /^[6-9]([0-9]){9}$/;
+
+  const validate = () => {
+    error.full_name = regex_fullname.test(formvalues.full_name)
+      ? ""
+      : "Invalid Name";
+    error.email = regex_email.test(formvalues.email) ? "" : "Invalid Email";
+    error.mobile = regex_mobile.test(formvalues.mobile_number)
+      ? ""
+      : "Invalid Mobile Number";
+    error.age = formvalues.age ? "" : "Enter Age";
+    error.password = formvalues.password ? "" : "Enter Password";
+    error.gender = formvalues.gender ? "" : "Enter Gender";
+    setformerror({ ...error });
+
+    return Object.values(error).every((x) => x === "");
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios
+      .post(`${process.env.REACT_APP_URL}/accounts/register/`, {
+        full_name: formvalues.full_name,
+        email: formvalues.email,
+        age: formvalues.age,
+        gender: formvalues.gender,
+        password: formvalues.password,
+        mobile_number: formvalues.mobile_number,
+      })
+      .then((response) => alert("Email Sent Successfully")).catch((report)=>alert((Object.keys(report.response.data.error))  + " Must be Filled"));
+  };
+  useEffect(() => {
+    if (validate()) {
+      setsubmitbtn(true);
+    }
+  }, []);
+
   return (
     <>
       <Container
@@ -33,122 +82,137 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          width: "50%",
         }}
       >
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="Mobile Number"
-                label="Mobile Number"
-                name="Mobile Number"
-                autoComplete="Mobile Number"
-                type="number"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="Age"
-                label="Age"
-                name="Age"
-                autoComplete="Age"
-                type="number"
-              />
-            </Grid>
-           
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                type="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-              />
-            </Grid>
-            <Grid sx={{marginTop:"1rem",display:"flex"}} >
-              <FormLabel id="demo-controlled-radio-buttons-group" sx={{padding:"1rem"}}>
-                Gender
-              </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                // value={value}
-                // onChange={handleChange}
-                sx={{margin:"1rem"}}
-              >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
+        <form onChange={validate}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  value={formvalues.full_name}
+                  error={Boolean(formerror.full_name)}
+                  fullWidth
+                  name="full_name"
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={inputhandler}
+                  helperText={formerror.full_name}
+                  required={true}
                 />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  error={Boolean(formerror.mobile)}
+                  fullWidth
+                  name="mobile_number"
+                  id="Mobile Number"
+                  label="Mobile Number"
+                  value={formvalues.mobile_number}
+                  helperText={formerror.mobile}
+                  type="number"
+                  onChange={inputhandler}
                 />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio />}
-                  label="Other"
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="age"
+                  error={Boolean(formerror.age)}
+                  fullWidth
+                  id="Age"
+                  label="Age"
+                  value={formvalues.age}
+                  helperText={formerror.age}
+                  type="number"
+                  onChange={inputhandler}
                 />
-              </RadioGroup>
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, backgroundColor: "#FBC705" , borderRadius:"18px" }}
-          >
-            Register
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Typography>
-                {" "}
-                Already have an account?
-                <Typography
-                  sx={{ color: "#6358DC" }}
-                  onClick={() => navigate("/login")}
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  error={Boolean(formerror.email)}
+                  name="email"
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  value={formvalues.email}
+                  helperText={formerror.email}
+                  type="email"
+                  onChange={inputhandler}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  error={Boolean(formerror.email)}
+                  helperText={formerror.password}
+                  name="password"
+                  fullWidth
+                  value={formvalues.password}
+                  label="Password"
+                  type="password"
+                  id="password"
+                  onChange={inputhandler}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl
+                  variant="outlined"
+                  style={{ minWidth: "50vw" }}
+                  error={Boolean(formerror.gender)}
                 >
-                  Sign in
-                </Typography>
-              </Typography>
+                  <InputLabel id="demo-simple-select-label">Gender </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="gender"
+                    onChange={inputhandler}
+                    value={formvalues.gender}
+                    fullWidth
+                    name="gender"
+                  >
+                    <MenuItem value={"Male"}>Male</MenuItem>
+                    <MenuItem value={"Female"}>Female</MenuItem>
+                    <MenuItem value={"Others"}>Others</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormHelperText>{formerror.gender}</FormHelperText>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#FBC705",
+                borderRadius: "18px",
+              }}
+              onClick={handleSubmit}
+            >
+              Register
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Typography sx={{ display: "flex" }}>
+                  {" "}
+                  Already have an account?
+                  <Typography
+                    sx={{ color: "#6358DC", marginLeft: "10px" }}
+                    onClick={() => navigate("/login")}
+                  >
+                    Sign in
+                  </Typography>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+        </form>
       </Container>
     </>
   );

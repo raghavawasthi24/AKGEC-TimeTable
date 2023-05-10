@@ -1,7 +1,8 @@
 import React, {useEffect,useState} from 'react';
 import axios from 'axios';
-import Period from '../../components/Period/Period';
-import "./Student.css";
+import Period from '../components/Period';
+import "../styles/Section.css";
+import Makearrangemettable from '../components/Makearrangemettable';
 
 
 const Student = () => {
@@ -190,6 +191,7 @@ const Student = () => {
          }  
          </div>         
         </div>
+        <Makearrangemettable/>
       </div>
     );
   

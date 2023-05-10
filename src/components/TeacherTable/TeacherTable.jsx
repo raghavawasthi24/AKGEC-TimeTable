@@ -179,6 +179,54 @@ const TeacherTable = (props) => {
                   </tr>
                 ))}
               </tbody>
+              <tbody>
+                {Object.keys(data).map((days) => (
+                  <tr className="EntireWeekRow">
+                    <td className="EntireWeekRow">{days}</td>
+                    {data[days].map((periods) => (
+                      <td className="EntireWeekRow">
+                        <button
+                          className="updatepop"
+                          onClick={() => control(periods)}
+                          disabled={
+                            props.page !== "admin" ||
+                            periods.subject_name.length === 1 ||
+                            periods.subject_name === "break"
+                          }
+                        >
+                          <div>{periods.subject_name}</div>
+                          <div>{periods.section}</div>
+                          <div style={{color:"#ff6600"}}>{periods.type}</div>
+                        </button>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+              <tbody>
+                {Object.keys(data).map((days) => (
+                  <tr className="EntireWeekRow">
+                    <td className="EntireWeekRow">{days}</td>
+                    {data[days].map((periods) => (
+                      <td className="EntireWeekRow">
+                        <button
+                          className="updatepop"
+                          onClick={() => control(periods)}
+                          disabled={
+                            props.page !== "admin" ||
+                            periods.subject_name.length === 1 ||
+                            periods.subject_name === "break"
+                          }
+                        >
+                          <div>{periods.subject_name}</div>
+                          <div>{periods.section}</div>
+                          <div style={{color:"#ff6600"}}>{periods.type}</div>
+                        </button>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         ) : (
