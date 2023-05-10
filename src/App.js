@@ -7,8 +7,8 @@ import Header from './components/Header';
 import Teacher from './pages/Teacher';
 import Login from './pages/Login';
 import AdminFacultyVIew from './pages/AdminFacultyVIew';
-import Register from "./pages/Register"
-import ProfileUpdate from './pages/ProfileUpdate';
+import Register from "./pages/Admin/Register Teacher/Register"
+import ProfileUpdate from './pages/Admin/Teacher Profile Update/ProfileUpdate';
 
 
 const App = () => {
