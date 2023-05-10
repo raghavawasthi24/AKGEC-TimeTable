@@ -37,7 +37,7 @@ function Teacher() {
         <option value="Entire Week">Entire Week</option>
       </select>
       <button className="View" onClick={finalday}>View Schedule</button>
-      <TeacherTable id={9} finday={finday} />
+      <TeacherTable id={2} finday={finday} />
 
     </Container>
   );

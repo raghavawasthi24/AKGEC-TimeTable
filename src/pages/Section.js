@@ -2,6 +2,7 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import Period from '../components/Period';
 import "../styles/Section.css";
+import Makearrangemettable from '../components/Makearrangemettable';
 
 const Section = () => {
   
@@ -22,7 +23,7 @@ const Section = () => {
   
   
     useEffect(()=>{
-      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/9")
+      axios.get("https://time-table-production-f8a5.up.railway.app/departmentss/view-time-table1/2")
       .then((res)=>{
         console.log(res.data)
 
@@ -183,6 +184,7 @@ const Section = () => {
          }  
          </div>         
         </div>
+        <Makearrangemettable/>
       </div>
     );
   

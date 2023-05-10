@@ -19,14 +19,14 @@ const AdminFacultyVIew = () => {
   const fetchinfo1 = (selectsubject) => {
     axios
       .get(
-        `https://time-table-production.up.railway.app/departmentss/select_teachers/${selectsubject}`
+        `${process.env.REACT_APP_URL}/${selectsubject}`
       )
       .then((response) => setteacherdata(response.data));
   };
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_subject"
+        `${process.env.REACT_APP_URL}/departmentss/all_subject`
       )
       .then((response) => setsubjectdata(response.data));
   };

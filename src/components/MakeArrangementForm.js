@@ -22,35 +22,35 @@ const MakeArrangementForm = () => {
   const fetchinfo = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_teachers_data"
+        `${process.env.REACT_APP_URL}/departmentss/all_teachers_data`
       )
       .then((response) => setSubjectData(response.data));
   };
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/arrangement_teachers"
+        `${process.env.REACT_APP_URL}/departmentss/arrangement_teachers`
       )
       .then((response) => setfreeteacherdata(response.data));
   };
   const fetchinfo3 = (dept) => {
     axios
       .get(
-        `https://time-table-production.up.railway.app/departmentss/department_wise_sections/2/${dept}`
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/2/${dept}`
       )
       .then((response) => setsectiondata(response.data));
   };
   const fetchinfo4 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/view_period/"
+        `${process.env.REACT_APP_URL}/departmentss/view_period/`
       )
       .then((response) => setperioddata(response.data));
   };
   const fetchinfo5 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_departments"
+        `${process.env.REACT_APP_URL}/departmentss/all_departments`
       )
       .then((response) => setdepdata(response.data));
   };
@@ -71,7 +71,7 @@ const MakeArrangementForm = () => {
 
   const create = () => {
     axios.post(
-      "https://time-table-production.up.railway.app/departmentss/arrangement_lectures_create",
+      `${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_create`,
       {
         day: sysday,
         period: parseInt(time),

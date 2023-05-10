@@ -16,7 +16,7 @@ const TeacherTable = (props) => {
   const deletelecture = (id) => {
     axios
       .delete(
-        `https://time-table-production.up.railway.app/departmentss/delete_lecture/${id}`
+        `${process.env.REACT_APP_URL}/departmentss/delete_lecture/${id}`
       )
       .then((response) => alert(response.data.msg))
       .catch((error) => alert("Already Deleted !!"));
@@ -24,7 +24,7 @@ const TeacherTable = (props) => {
   };
   const updatelecture = (periodsdata) => {
     axios.put(
-      `https://time-table-production.up.railway.app/departmentss/update_lecture/${periodsdata.id}`,
+      `${process.env.REACT_APP_URL}/departmentss/update_lecture/${periodsdata.id}`,
       { subject: subject, cid: classid }
     );
   };
@@ -32,21 +32,21 @@ const TeacherTable = (props) => {
   const fetchInfo = () => {
     return axios
       .get(
-        `https://time-table-production.up.railway.app/departmentss/view_teacher/${props.id}`
+        `${process.env.REACT_APP_URL}/departmentss/view_teacher/${props.id}`
       )
       .then((response) => setData(response.data));
   };
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_teachers_data"
+        `${process.env.REACT_APP_URL}/departmentss/all_teachers_data`
       )
       .then((response) => setSubjectData(response.data));
   };
   const fetchinfo3 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/department_wise_sections/2/1"
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/2/1`
       )
       .then((response) => setsectiondata(response.data));
   };
@@ -155,6 +155,54 @@ const TeacherTable = (props) => {
                   ))}
                 </tr>
               </thead>
+              <tbody>
+                {Object.keys(data).map((days) => (
+                  <tr className="EntireWeekRow">
+                    <td className="EntireWeekRow">{days}</td>
+                    {data[days].map((periods) => (
+                      <td className="EntireWeekRow">
+                        <button
+                          className="updatepop"
+                          onClick={() => control(periods)}
+                          disabled={
+                            props.page !== "admin" ||
+                            periods.subject_name.length === 1 ||
+                            periods.subject_name === "break"
+                          }
+                        >
+                          <div>{periods.subject_name}</div>
+                          <div>{periods.section}</div>
+                          <div style={{color:"#ff6600"}}>{periods.type}</div>
+                        </button>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+              <tbody>
+                {Object.keys(data).map((days) => (
+                  <tr className="EntireWeekRow">
+                    <td className="EntireWeekRow">{days}</td>
+                    {data[days].map((periods) => (
+                      <td className="EntireWeekRow">
+                        <button
+                          className="updatepop"
+                          onClick={() => control(periods)}
+                          disabled={
+                            props.page !== "admin" ||
+                            periods.subject_name.length === 1 ||
+                            periods.subject_name === "break"
+                          }
+                        >
+                          <div>{periods.subject_name}</div>
+                          <div>{periods.section}</div>
+                          <div style={{color:"#ff6600"}}>{periods.type}</div>
+                        </button>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
               <tbody>
                 {Object.keys(data).map((days) => (
                   <tr className="EntireWeekRow">

@@ -49,7 +49,7 @@ const Login = () => {
     if (verified === true) {
       if (error === true) {
         console.log(formvalues)
-        axios.post("https://time-table-production.up.railway.app/accounts/login/", {
+        axios.post(`${process.env.REACT_APP_URL}/accounts/login/`, {
           email: formvalues.email,
           password: formvalues.password
         }).then((resp) => {

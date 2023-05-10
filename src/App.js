@@ -8,6 +8,7 @@ import Teacher from './pages/Teacher';
 import Login from './pages/Login';
 import AdminFacultyVIew from './pages/AdminFacultyVIew';
 import Register from "./pages/Register"
+import ProfileUpdate from './pages/ProfileUpdate';
 
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
       <Route path="/login" element={<Login/>} />
       <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
       <Route path="/register" element={<Register/>} />
-
+      <Route path='/profileupdate' element={<ProfileUpdate/>}/>
       </Routes>
     </BrowserRouter>
     </>
