@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
-import "../styles/Teacher.css";
-import TeacherTable from "../components/TeacherTable";
+import "./Teacher.css";
+import TeacherTable from "../../components/TeacherTable/TeacherTable";
 import { Container } from "@mui/system";
 
 function Teacher() {

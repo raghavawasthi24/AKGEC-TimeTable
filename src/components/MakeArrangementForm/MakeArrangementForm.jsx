@@ -43,7 +43,7 @@ const MakeArrangementForm = () => {
   const fetchinfo4 = () => {
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/view_period/`
+        `${process.env.REACT_APP_URL}/departmentss/view_period`
       )
       .then((response) => setperioddata(response.data));
   };
@@ -197,4 +197,5 @@ const MakeArrangementForm = () => {
   );
 };
 
-export default MakeArrangementForm;
+
+export default MakeArrangementForm

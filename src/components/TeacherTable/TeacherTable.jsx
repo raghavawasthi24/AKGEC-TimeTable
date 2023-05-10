@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/TeacherTable.css";
+import "./TeacherTable.css";
 import { Container } from "@mui/system";
 
 

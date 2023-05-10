@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {Route, Routes } from 'react-router-dom';
 import './App.css';
 import CreateTimeTable from './pages/CreateTimeTable';
 import Section from './pages/Section';
@@ -16,9 +16,8 @@ const App = () => {
   return(
     <>
     <Header/>
-  <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Section/>} />
+      <Route path="/" element={<Student/>} />
       <Route path="/Teacher" element={<Teacher/>} />
       <Route path="/create-time-table" element={<CreateTimeTable/>} />
       <Route path="/login" element={<Login/>} />
@@ -26,7 +25,7 @@ const App = () => {
       <Route path="/register" element={<Register/>} />
       <Route path='/profileupdate' element={<ProfileUpdate/>}/>
       </Routes>
-    </BrowserRouter>
+    
     </>
   )
   

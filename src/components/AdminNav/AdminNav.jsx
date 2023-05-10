@@ -1,7 +1,7 @@
 import React from 'react';
-import "../styles/AdminNavbar.css";
+import "./AdminNav.css";
 
-const AdminNavbar = () => {
+const AdminNav = () => {
   return (
     <div className='AdminNavbar'>
         <button>View Student TimeTable</button>
@@ -12,4 +12,4 @@ const AdminNavbar = () => {
   )
 }
 
-export default AdminNavbar
+export default AdminNav

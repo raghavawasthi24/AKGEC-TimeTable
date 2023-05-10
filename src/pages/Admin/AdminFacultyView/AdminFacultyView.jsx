@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TeacherTable from "../components/TeacherTable";
+import TeacherTable from '../../../components/TeacherTable/TeacherTable';
 import { Container } from "@mui/system";
-import MakeArrangementForm from "../components/MakeArrangementForm";
-import TeacherArrangemetTable from "../components/TeaceherArrangementTable";
+import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
+import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -140,7 +140,7 @@ const AdminFacultyVIew = () => {
       </div>
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
-      <TeacherArrangemetTable id={finteacher}/>
+      <TeacherArrangementTable id={finteacher}/>
     </Container>
   );
 };
