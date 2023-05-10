@@ -19,7 +19,7 @@ const AdminFacultyVIew = () => {
   const fetchinfo1 = (selectsubject) => {
     axios
       .get(
-        `${process.env.REACT_APP_URL}/${selectsubject}`
+        `${process.env.REACT_APP_URL}/departmentss/select_teachers/${selectsubject}`
       )
       .then((response) => setteacherdata(response.data));
   };
