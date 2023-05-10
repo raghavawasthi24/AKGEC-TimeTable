@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/TeacherTable.css";
+import "./TeacherTable.css";
 import { Container } from "@mui/system";
 
 
@@ -16,7 +16,7 @@ const TeacherTable = (props) => {
   const deletelecture = (id) => {
     axios
       .delete(
-        `https://time-table-production.up.railway.app/departmentss/delete_lecture/${id}`
+        `${process.env.REACT_APP_URL}/departmentss/delete_lecture/${id}`
       )
       .then((response) => alert(response.data.msg))
       .catch((error) => alert("Already Deleted !!"));
@@ -24,7 +24,7 @@ const TeacherTable = (props) => {
   };
   const updatelecture = (periodsdata) => {
     axios.put(
-      `https://time-table-production.up.railway.app/departmentss/update_lecture/${periodsdata.id}`,
+      `${process.env.REACT_APP_URL}/departmentss/update_lecture/${periodsdata.id}`,
       { subject: subject, cid: classid }
     );
   };
@@ -32,21 +32,21 @@ const TeacherTable = (props) => {
   const fetchInfo = () => {
     return axios
       .get(
-        `https://time-table-production.up.railway.app/departmentss/view_teacher/${props.id}`
+        `${process.env.REACT_APP_URL}/departmentss/view_teacher/${props.id}`
       )
       .then((response) => setData(response.data));
   };
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_teachers_data"
+        `${process.env.REACT_APP_URL}/departmentss/all_teachers_data`
       )
       .then((response) => setSubjectData(response.data));
   };
   const fetchinfo3 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/department_wise_sections/2/1"
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/2/1`
       )
       .then((response) => setsectiondata(response.data));
   };

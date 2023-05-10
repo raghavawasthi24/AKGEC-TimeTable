@@ -1,10 +1,10 @@
 import React, {useEffect,useState} from 'react';
 import axios from 'axios';
-import Period from '../components/Period';
-import "../styles/Section.css";
+import Period from '../../components/Period/Period';
+import "./Student.css";
 
 
-const Section = () => {
+const Student = () => {
   
     let classData_mon=[];
     let classData_tue=[];
@@ -23,7 +23,7 @@ const Section = () => {
   
   
     useEffect(()=>{
-      axios.get("https://time-table-production.up.railway.app/departmentss/view-time-table1/14")
+      axios.get(`${process.env.REACT_APP_URL}/departmentss/view-time-table1/14`)
       .then((res)=>{
         console.log(res.data)
 
@@ -105,16 +105,22 @@ const Section = () => {
           <select className='select-opt'>
             <option disabled selected>Select Year</option>
             <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
           </select>
 
           <select className='select-opt'>
             <option disabled selected>Select Department</option>
             <option>CSE</option>
+            <option>CS</option>
+            <option>IT</option>
+            <option>ECE</option>
           </select>
 
           <select className='select-opt'>
             <option disabled selected>Select Section</option>
-            <option>s1</option>
+            <option>S1</option>
           </select>
         </div>
 
@@ -189,4 +195,4 @@ const Section = () => {
   
 }
 
-export default Section
+export default Student

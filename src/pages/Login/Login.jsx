@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import "../styles/Login.css";
+import "./Login.css";
 import Cookies from "universal-cookie";
-import jwt from "jwt-decode";
+// import jwt from "jwt-decode";
 import TextField from '@mui/material/TextField';
-import Header from '../components/Header';
+// import Header from '../components/Header';
 import axios from 'axios';
 
 
@@ -47,7 +47,7 @@ const Login = () => {
     if (verified === true) {
       if (error === true) {
         console.log(formvalues)
-        axios.post("https://time-table-production.up.railway.app/accounts/login/", {
+        axios.post(`${process.env.REACT_APP_URL}/accounts/login/`, {
           email: formvalues.email,
           password: formvalues.password
         }).then((resp) => {
@@ -90,7 +90,7 @@ const Login = () => {
         console.log(formvalues)
         console.log("admin")
         const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
-        axios.post("https://time-table-production.up.railway.app/accounts/register/",{
+        axios.post("${process.env.REACT_APP_URL}/accounts/register/",{
           mobile_number:"9151240246",
           email: "raghavawathi240@gmail.com",
           full_name:"Raghav Awasthi",

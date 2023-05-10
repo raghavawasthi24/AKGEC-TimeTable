@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {Route, Routes } from 'react-router-dom';
 import './App.css';
-import CreateTimeTable from './pages/CreateTimeTable';
-import Section from './pages/Section';
-import Header from './components/Header';
-import Teacher from './pages/Teacher';
-import Login from './pages/Login';
-import AdminFacultyVIew from './pages/AdminFacultyVIew';
+import CreateTimeTable from './pages/Admin/CreateTimeTable/CreateTimeTable';
+import Student from './pages/Student/Student';
+import Header from './components/Header/Header';
+import Teacher from './pages/Teacher/Teacher';
+import Login from './pages/Login/Login';
+import AdminFacultyVIew from './pages/Admin/AdminFacultyView/AdminFacultyView';
 
 
 const App = () => {
@@ -14,15 +14,14 @@ const App = () => {
   return(
     <>
     <Header/>
-  <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Section/>} />
+      <Route path="/" element={<Student/>} />
       <Route path="/Teacher" element={<Teacher/>} />
       <Route path="/create-time-table" element={<CreateTimeTable/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
       </Routes>
-    </BrowserRouter>
+    
     </>
   )
   

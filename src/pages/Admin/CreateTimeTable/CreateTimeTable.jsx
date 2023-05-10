@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import "../styles/CreateTimeTable.css";
+import "./CreateTimeTable.css";
 // import SelectSection from '../components/SelectSection';
-import AdminNavbar from '../components/AdminNavbar';
-import Header from "../components/Header";
+import AdminNavbar from '../../../components/AdminNav/AdminNav';
+// import Header from "../components/Header";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Period from '../components/Period';
+// import { useNavigate } from 'react-router-dom';
+import Period from '../../../components/Period/Period';
 
 
 export let sectionObj = []
@@ -54,7 +54,7 @@ const CreateTimeTable = () => {
     setSubjects([]);
     if (visibiltyCount < 2)
       setVisibiltyCount(2);
-    axios.get("https://time-table-production.up.railway.app/departmentss/department_wise_sections/1/7")
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/department_wise_sections/1/7`)
       .then((resp) => {
         console.log(resp.data)
         for (let i = 0; i < resp.data.length; i++) {
@@ -69,7 +69,7 @@ const CreateTimeTable = () => {
       }).catch((err) => {
         console.log(err)
       })
-    axios.get("https://time-table-production.up.railway.app/departmentss/all_subjects/2/1")
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/2/1`)
       .then((resp) => {
         for (let i = 0; i < resp.data.length; i++) {
           setSubjects((prev) => {
@@ -87,7 +87,7 @@ const CreateTimeTable = () => {
     setTeacherlist([]);
     if (visibiltyCount < 4)
       setVisibiltyCount(4);
-    axios.get(`https://time-table-production.up.railway.app/departmentss/select_teachers/${e.target.value}`).then((resp) => {
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/select_teachers/${e.target.value}`).then((resp) => {
       console.log(resp)
       for (let i = 0; i < resp.data.length; i++) {
         setTeacherlist((prev) => {
@@ -161,7 +161,7 @@ const CreateTimeTable = () => {
 
     })
 
-    axios.post("https://time-table-production.up.railway.app/departmentss/create_table/", {
+    axios.post(`${process.env.REACT_APP_URL}/departmentss/create_table/`, {
       class_id: sectionSel,
       subject_id: formvalues.subject,
       type: formvalues.type_of_lecture,
@@ -193,7 +193,7 @@ const CreateTimeTable = () => {
 
 
   const apicall = () => {
-    axios.get(`https://time-table-production.up.railway.app/departmentss/view-time-table1/${sectionSel[0]}`)
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/view-time-table1/${sectionSel[0]}`)
       .then((res) => {
         console.log(res.data)
 

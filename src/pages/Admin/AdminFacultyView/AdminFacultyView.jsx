@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TeacherTable from "../components/TeacherTable";
+import TeacherTable from '../../../components/TeacherTable/TeacherTable';
 import { Container } from "@mui/system";
-import MakeArrangementForm from "../components/MakeArrangementForm";
-import TeacherArrangemetTable from "../components/TeaceherArrangementTable";
+import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
+import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -19,14 +19,14 @@ const AdminFacultyVIew = () => {
   const fetchinfo1 = (selectsubject) => {
     axios
       .get(
-        `https://time-table-production.up.railway.app/departmentss/select_teachers/${selectsubject}`
+        `${process.env.REACT_APP_URL}/departmentss/select_teachers/${selectsubject}`
       )
       .then((response) => setteacherdata(response.data));
   };
   const fetchinfo2 = () => {
     axios
       .get(
-        "https://time-table-production.up.railway.app/departmentss/all_subject"
+        `${process.env.REACT_APP_URL}/departmentss/all_subject`
       )
       .then((response) => setsubjectdata(response.data));
   };
@@ -140,7 +140,7 @@ const AdminFacultyVIew = () => {
       </div>
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
-      <TeacherArrangemetTable id={finteacher}/>
+      <TeacherArrangementTable id={finteacher}/>
     </Container>
   );
 };
