@@ -24,8 +24,8 @@ const ProfileUpdate = () => {
   const [subjectdata, setSubjectData] = useState([]);
   const [dept, setdept] = useState(null);
   const [selectedCities, setSelectedCities] = useState(null);
-  const [temp, settemp] = useState({ name: "", value: "" });
-  const arr = [];
+  
+
 
   // console.log(dept)
 
@@ -36,22 +36,18 @@ const ProfileUpdate = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/departmentss/Profileupdate/9`)
       .then((response) => setProfileData(response.data));
+    
   }, []);
 
   useEffect(() => {
     if (dept)
       axios
         .get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/2/${dept}`)
-        .then((response) => setSubjectData(response.data));
+        .then((response) => { 
+          const arr = response.data.map((sub) => ({name: sub.subject, value: sub.sub_id }))
+          setSubjectData(arr)})
   }, [dept]);
 
-  useEffect(() => {
-    console.log(subjectdata)
-    subjectdata.map((sub) => (
-    (settemp({name: sub.subject, value: sub.sub_id })),
-    arr.push(temp)));
-    console.log(arr);
-  }, [subjectdata]);
 
   return (
     <>
@@ -88,7 +84,7 @@ const ProfileUpdate = () => {
                 <MultiSelect
                   value={selectedCities}
                   onChange={(e) => setSelectedCities(e.value)}
-                  options={arr}
+                  options={subjectdata}
                   optionLabel="name"
                   placeholder="Select Subjects"
                   display="chip"

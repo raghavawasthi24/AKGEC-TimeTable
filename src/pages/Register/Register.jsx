@@ -25,38 +25,50 @@ const Register = () => {
     password: "",
     gender: "",
   };
-  let error = {};
 
   const navigate = useNavigate();
   const [formvalues, setformvalues] = useState(initialvalues);
-  const [formerror, setformerror] = useState(error);
-  const [submitbtn, setsubmitbtn] = useState(false);
+  const [formerror, setformerror] = useState({});
+  // const [submitbtn, setsubmitbtn] = useState(false);
 
   const inputhandler = (e) => {
     const { name, value } = e.target;
+    validate(name,value)
     setformvalues({ ...formvalues, [name]: value });
   };
   const regex_fullname = /^[A-Za-z]+([\ A-Za-z]+)*$/;
   const regex_email = /^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$/;
   const regex_mobile = /^[6-9]([0-9]){9}$/;
 
-  const validate = () => {
-    error.full_name = regex_fullname.test(formvalues.full_name)
-      ? ""
-      : "Invalid Name";
-    error.email = regex_email.test(formvalues.email) ? "" : "Invalid Email";
-    error.mobile = regex_mobile.test(formvalues.mobile_number)
-      ? ""
-      : "Invalid Mobile Number";
-    error.age = formvalues.age ? "" : "Enter Age";
-    error.password = formvalues.password ? "" : "Enter Password";
-    error.gender = formvalues.gender ? "" : "Enter Gender";
-    setformerror({ ...error });
+  const validate = (name,value) => {
+  let error = {};
+  switch(name){
+    case 'full_name':{
+      error.full_name = regex_fullname.test(value)
+        ? ""
+        : "Invalid Name";}
+        break
+      case 'email' :{ error.email = regex_email.test(value) ? "" : "Invalid Email"}
+      break
+      default:{}
 
-    return Object.values(error).every((x) => x === "");
+      }
+      
+  
+
+
+   
+    // error.mobile = regex_mobile.test(formvalues.mobile_number)
+    //   ? ""
+    //   : "Invalid Mobile Number";
+    // error.age = formvalues.age ? "" : "Enter Age";
+    // error.password = formvalues.password ? "" : "Enter Password";
+    // error.gender = formvalues.gender ? "" : "Enter Gender";
+    setformerror({ ...formerror,...error });
   };
   const handleSubmit = (e) => {
     e.preventDefault()
+    if(Object.values(formerror).every((x) => x === "" )&&Object.values(formvalues).every((x) => x !== "")){
     axios
       .post(`${process.env.REACT_APP_URL}/accounts/register/`, {
         full_name: formvalues.full_name,
@@ -67,12 +79,17 @@ const Register = () => {
         mobile_number: formvalues.mobile_number,
       })
       .then((response) => alert("Email Sent Successfully")).catch((report)=>alert((Object.keys(report.response.data.error))  + " Must be Filled"));
-  };
-  useEffect(() => {
-    if (validate()) {
-      setsubmitbtn(true);
-    }
-  }, []);
+  }
+  else{
+    alert(JSON.stringify(formerror))
+  }};
+  // useEffect(() => {
+  //   console.log(formerror)
+
+  //   if (Object.values(formerror).every((x) => x === "")) {
+  //     setsubmitbtn(true);
+  //   }
+  // }, [formerror]);
 
   return (
     <>
@@ -88,8 +105,8 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <form onChange={validate}>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+        <form >
+          <Box component="form"  sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -194,6 +211,7 @@ const Register = () => {
                 borderRadius: "18px",
               }}
               onClick={handleSubmit}
+              // disabled={!submitbtn}
             >
               Register
             </Button>
