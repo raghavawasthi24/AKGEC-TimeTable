@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Teacher from './pages/Teacher/Teacher';
 import Login from './pages/Login/Login';
 import AdminFacultyVIew from './pages/Admin/AdminFacultyView/AdminFacultyView';
+import Register from './pages/Register/Register';
 
 
 const App = () => {
@@ -20,6 +21,8 @@ const App = () => {
       <Route path="/create-time-table" element={<CreateTimeTable/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
+      <Route path="/register" element={<Register/>} />
+
       </Routes>
     
     </>
