@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import "./CreateTimeTable.css";
 // import SelectSection from '../components/SelectSection';
 import AdminNavbar from '../../../components/AdminNav/AdminNav';
@@ -416,3 +416,15 @@ const CreateTimeTable = () => {
 }
 
 export default CreateTimeTable
+
+// import React from 'react'
+
+// const CreateTimeTable = () => {
+//   return (
+//     <div className='createTimeTable'>
+
+//     </div>
+//   )
+// }
+
+// export default CreateTimeTable
