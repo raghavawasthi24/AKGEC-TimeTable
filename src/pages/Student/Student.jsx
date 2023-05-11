@@ -22,11 +22,19 @@ const Student = () => {
     useState(classData_thurs);
   const [classwise_Data_Fri, setClasswise_Data_Fri] = useState(classData_fri);
   const [period_time, setPeriod_time] = useState(period_time_obj);
-  const [open, setopen] = useState(false);
 
-  useEffect(() => {
+  const [open, setopen] = useState(false);
+  const[deptdata,setdeptdata]=useState([])
+  const[sectiondata,setsectiondata]=useState([])
+  const[year,setyear]=useState()
+  const[dept,setdept]=useState()
+  const[classtable,setclasstable]=useState()
+
+
+  const View = () => {
+    if(classtable){
     axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/view-time-table1/14`)
+      .get(`${process.env.REACT_APP_URL}/departmentss/view-time-table/${classtable}`)
       .then((res) => {
         console.log(res.data);
 
@@ -86,53 +94,64 @@ const Student = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+}}
+ 
+  useEffect(() => {
+    if(year)
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/all_departments`).then((response)=>setdeptdata(response.data))
+    
+  }, [year])
 
+ 
+  useEffect(() => {
+    if(year && dept)
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${year}/${dept}`).then((response)=>setsectiondata(response.data));
+  }, [year,dept])
+  
+  
   const handleOpen = () => {
     if (open === false) setopen(true);
     else setopen(false);
-  };
+  }
 
   return (
     <div className="section">
       <button
         className="view-student-timetable"
-        style={{ right: "5rem", position: "fixed",backgroundColor:"#252525",color:"white" }}
+        style={{ right: "5rem", position: "absolute",backgroundColor:"#252525",color:"white" }}
         onClick={()=>navigate("/Login")}
       >
         Login
       </button>
 
       <div className="student-opt">
-        <select className="select-opt">
+        <select className="select-opt" onChange={(e)=>setyear(e.target.value)}>
           <option disabled selected>
             Select Year
           </option>
-          <option>1st Year</option>
-          <option>2nd Year</option>
-          <option>3rd Year</option>
-          <option>4th Year</option>
+          <option value={1}>1st Year</option>
+          <option value={2}>2nd Year</option>
+          <option value={3}>3rd Year</option>
+          <option value={4}>4th Year</option>
         </select>
 
-        <select className="select-opt">
+        <select className="select-opt" onChange={(e)=>setdept(e.target.value)}>
           <option disabled selected>
             Select Department
           </option>
-          <option>CSE</option>
-          <option>CS</option>
-          <option>IT</option>
-          <option>ECE</option>
+          {deptdata.map((dept)=>(<option value={dept.deptid}>{dept.dept}</option>))}
         </select>
 
-        <select className="select-opt">
+        <select className="select-opt" onChange={(e)=>setclasstable(e.target.value)} >
           <option disabled selected>
             Select Section
           </option>
-          <option>S1</option>
+          {sectiondata.map((sec)=>( <option value={sec.id}>{sec.section}</option>))}
+         
         </select>
       </div>
       <div>
-        <button className="view-student-timetable">View TimeTable</button>
+        <button className="view-student-timetable" onClick={View}>View TimeTable</button>
         <button className="view-student-timetable" onClick={handleOpen}>
           View Arrangement
         </button>
