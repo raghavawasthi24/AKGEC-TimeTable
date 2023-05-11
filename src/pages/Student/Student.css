@@ -7,11 +7,11 @@
 .student-opt{
     display: flex;
     justify-content: center;
-    margin: 2rem 0;
+    margin: 5rem 0 0 0;
 }
 .view-student-timetable{
     width:10rem;
-    margin-bottom:2rem;
+    margin:0.5rem 1rem;
     padding: 0.8rem 1rem;
     font-weight:600;
     background-color: #FBBB00;
