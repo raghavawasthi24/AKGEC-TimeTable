@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TeacherTable.css";
-import { Container } from "@mui/system";
+import { Container ,Box} from "@mui/system";
 
 
 const TeacherTable = (props) => {
@@ -143,7 +143,7 @@ const TeacherTable = (props) => {
 
       {Object.keys(data).length && props.finday ? (
         props.finday === "Entire Week" ? (
-          <div style={{ marginLeft: "-8.8rem" ,marginBottom:"2rem" }}>
+          <Box sx={{ margin: "0rem -5.8vw" ,marginBottom:"2rem" }}>
             <table className="EntireWeek">
               <thead>
                 <tr className="EntireWeekRow">
@@ -179,56 +179,8 @@ const TeacherTable = (props) => {
                   </tr>
                 ))}
               </tbody>
-              <tbody>
-                {Object.keys(data).map((days) => (
-                  <tr className="EntireWeekRow">
-                    <td className="EntireWeekRow">{days}</td>
-                    {data[days].map((periods) => (
-                      <td className="EntireWeekRow">
-                        <button
-                          className="updatepop"
-                          onClick={() => control(periods)}
-                          disabled={
-                            props.page !== "admin" ||
-                            periods.subject_name.length === 1 ||
-                            periods.subject_name === "break"
-                          }
-                        >
-                          <div>{periods.subject_name}</div>
-                          <div>{periods.section}</div>
-                          <div style={{color:"#ff6600"}}>{periods.type}</div>
-                        </button>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-              <tbody>
-                {Object.keys(data).map((days) => (
-                  <tr className="EntireWeekRow">
-                    <td className="EntireWeekRow">{days}</td>
-                    {data[days].map((periods) => (
-                      <td className="EntireWeekRow">
-                        <button
-                          className="updatepop"
-                          onClick={() => control(periods)}
-                          disabled={
-                            props.page !== "admin" ||
-                            periods.subject_name.length === 1 ||
-                            periods.subject_name === "break"
-                          }
-                        >
-                          <div>{periods.subject_name}</div>
-                          <div>{periods.section}</div>
-                          <div style={{color:"#ff6600"}}>{periods.type}</div>
-                        </button>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
             </table>
-          </div>
+          </Box>
         ) : (
           <table>
             <thead>
@@ -250,7 +202,7 @@ const TeacherTable = (props) => {
           </table>
         )
       ) : (
-        <div className="empty">No TimeTable Selected</div>
+        <Container className="empty">No TimeTable Selected</Container>
       )}
     </Container>
   );
