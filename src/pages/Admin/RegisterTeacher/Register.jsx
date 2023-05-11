@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProfileUpdate from "../TeacherProfileUpdate/ProfileUpdate";
 
 
 
@@ -33,6 +34,7 @@ const Register = () => {
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formerror, setformerror] = useState({});
   // const [submitbtn, setsubmitbtn] = useState(false);
+  const[update,setupdate]=useState(false)
 
   const inputhandler = (e) => {
     const { name, value } = e.target;
@@ -55,7 +57,7 @@ const Register = () => {
       break
       case 'mobile_number': error.mobile =regex_mobile.test(value) ? "" : "Invalid Mobile Number";
       break
-      case 'age': error.age = value ? "" : "Enter Age";
+      case 'age': error.age = (value>18) ? "" : "Enter Valid Age";
       break
       case 'password': error.password = value? "" : "Enter Password";
       break
@@ -78,7 +80,7 @@ const Register = () => {
         password: formvalues.password,
         mobile_number: formvalues.mobile_number,
       })
-      .then((response)=>(localStorage.setItem(response.data[1].profile_id))).catch((report)=>toast.error((Object.keys(report.response.data.error))  + " Already Registered"));
+      .then((response)=>(setupdate(true),(localStorage.setItem("profile_id",JSON.stringify(response.data[1].profile_id))))).catch((report)=>toast.error((Object.keys(report.response.data.error))  + " Already Registered"));
   }
   else{
     toast.error("Invalid Details")
@@ -93,6 +95,8 @@ const Register = () => {
 
   return (
     <>
+    {update ? <ProfileUpdate profile_id={localStorage.getItem("profile_id")}/> :
+    <Box>
       <Container
         sx={{
           marginTop: 8,
@@ -231,6 +235,8 @@ const Register = () => {
           </Box>
       </Container>
       <ToastContainer/>
+    </Box>
+    }
     </>
   );
 };
