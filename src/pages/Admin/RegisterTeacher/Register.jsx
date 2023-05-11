@@ -218,7 +218,7 @@ const Register = () => {
             >
               Register
             </Button>
-            <Grid container justifyContent="flex-end">
+            {/* <Grid container justifyContent="flex-end">
               <Grid item>
                 <Box sx={{ display: "flex" }}>
                   {" "}
@@ -231,7 +231,7 @@ const Register = () => {
                   </Typography>
                 </Box>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
       </Container>
       <ToastContainer/>
