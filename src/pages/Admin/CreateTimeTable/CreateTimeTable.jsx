@@ -10,9 +10,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 let initialteacherSelArray=[];
+let teacherArr=[];
+let noOfLecSel=[];
+let typeOfLecSel=[];
 
 const CreateTimeTable = () => {
 
@@ -44,6 +47,12 @@ const CreateTimeTable = () => {
     }
    ]
 
+   let teacher_id=[];
+   let subject_id=[];
+   let class_id=[];
+   let no_of_lectures=[];
+   let type=[];
+
    const handleChange=(e)=>{
     const {name,value}=e.target;
     setFormvalues({...formvalues,[name]:value})
@@ -59,6 +68,15 @@ const CreateTimeTable = () => {
     console.log(initialteacherSelArray)
    }
 
+   const handleLec=(e,subIndex)=>{
+     noOfLecSel[subIndex]=e.target.value;
+     console.log(noOfLecSel);
+   }
+
+   const handleType=(e,subIndex)=>{
+    typeOfLecSel[subIndex]=e.target.value;
+    console.log(typeOfLecSel);
+  }
 
    useEffect(()=>{
     axios.get(`${process.env.REACT_APP_URL}/departmentss/all_subject`)
@@ -97,6 +115,23 @@ const CreateTimeTable = () => {
 
    },[])
 
+   const createTimeTable=()=>{
+    {
+      subjects.map((val)=>{
+        return(teacherArr.push(val.sub_id))
+      })
+    }
+    {sections.map((val)=>
+      {
+        return(
+          no_of_lectures.push(noOfLecSel),
+          type.push(typeOfLecSel),
+          teacher_id.push(teacherArr)
+        )
+      })}
+      console.log(no_of_lectures,type,teacher_id);
+   }
+
 
 
   return (
@@ -119,7 +154,7 @@ const CreateTimeTable = () => {
           </FormControl>)
       })}
       
-       <TableContainer>
+       <TableContainer sx={{width:"70%",margin:"auto"}}>
          <Table>
           <TableHead>
             <TableRow>
@@ -159,14 +194,16 @@ const CreateTimeTable = () => {
                 })
               }
               <TableCell>
-                <TextField></TextField>
+                <TextField
+                 name='noOfLec'
+                 onChange={e=>handleLec(e,subIndex)}/>
               </TableCell>
               <TableCell>
               <FormControl fullWidth>
                  <InputLabel id="demo-simple-select-label">Select</InputLabel>
                  <Select
-                   label="Type"
-                   onChange={e=>handleChange(e)}
+                   label="Select"
+                   onChange={e=>handleType(e,subIndex)}
                    name="typeOfLec"
                  >
                 <MenuItem value="Theory">Theory</MenuItem>
@@ -181,6 +218,8 @@ const CreateTimeTable = () => {
           </TableBody>
          </Table>
        </TableContainer>
+
+       <Button variant="contained" onClick={createTimeTable}>Create TimeTable</Button>
 
     </div>
   )
