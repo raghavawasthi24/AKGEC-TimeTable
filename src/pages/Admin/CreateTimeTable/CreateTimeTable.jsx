@@ -12,53 +12,52 @@ import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { TextField } from '@mui/material';
 
+let initialteacherSelArray=[];
+
 const CreateTimeTable = () => {
+
+  
    let initialvalues={
     year:"",
     department:""
    }
-   let inputfields=[
-    {
-      name:"year",
-      label:"year",
-      options:["1","2"]
-    },
-    {
-      name:"department",
-      label:"department"
-    }
-   ]
-
-  // let initialteacherSelArray= new Array();
-  let initialteacherSelArray=[];
-  // let dd=[];
-
-   
-   const year=["1","2","3","4"];
-   const deptarment=["CSE","IT","ECE"]
 
    const [formvalues,setFormvalues]=useState(initialvalues);
    const [subjects,setSubjects]=useState([]);
    const [teachers,setTeachers]=useState([]);
    const [sections,setSections]=useState([]);
-  //  const  [flag,setFlag]=useState(true);
-  //  const [finalTeacherSelArray,setFinalTeacherSelArray]=useState(initialteacherSelArray);
 
+   const year=["1","2","3","4"];
+   const department=["CSE","IT","ECE"]
 
+   
+   let inputfields=[
+    {
+      name:"year",
+      label:"Year",
+      options:["1","2","3","4"]
+    },
+    {
+      name:"department",
+      label:"Department",
+      options:["1","2","3","4"]
+    }
+   ]
 
    const handleChange=(e)=>{
     const {name,value}=e.target;
     setFormvalues({...formvalues,[name]:value})
    }
 
-   const handleTeacher=(e,secInd,index)=>{  
+   const handleTeacher=(e,secIndex,subIndex)=>{  
     // if(secInd)
-    let total=secInd*subjects.length+index;
-    initialteacherSelArray[total]=e.target.value;
+    // let total=secIndex*subjects.length+subIndex;
+    // console.log(initialteacherSelArray,secIndex,subIndex,e.target.value)
+    initialteacherSelArray[secIndex][subIndex]=e.target.value;
+    // console.log(initialteacherSelArray[secIndex][subIndex],subIndex,secIndex)
     // console.log(e.target.value)
     console.log(initialteacherSelArray)
    }
-
 
 
    useEffect(()=>{
@@ -99,11 +98,12 @@ const CreateTimeTable = () => {
    },[])
 
 
+
   return (
     <div className='createTimeTable'>
       {inputfields.map((key)=>{
         return(<FormControl>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <InputLabel id="demo-simple-select-label">{key.label}</InputLabel>
         <Select
             value={formvalues[key.name]}
             label={key.label}
@@ -111,7 +111,7 @@ const CreateTimeTable = () => {
             name={key.name}
           >
           {
-            year.map((val,index)=>{
+            year.map((val)=>{
               return(<MenuItem value={val}>{val}</MenuItem>)
             })
           }
@@ -135,22 +135,22 @@ const CreateTimeTable = () => {
           </TableHead>
           <TableBody>
             {
-              subjects.map((key,index)=>{
+              subjects.map((key,subIndex)=>{
                 return(
                   <TableRow>
                     <TableCell>{key.subject}</TableCell>
                     {
-                     sections.map((val,secInd)=>{
+                     sections.map((val,secIndex)=>{
                        return(<TableCell>                   
                         <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Select</InputLabel>
                           <Select
                             label="Select"
-                            onChange={e=>handleTeacher(e,secInd,index)}
+                            onChange={e=>handleTeacher(e,secIndex,subIndex)}
                             name="teacherSel"
                           >
                            {
-                            teachers[index][key.subject].map((teacher)=>{return <MenuItem value={teacher.user_id}>{teacher.user}</MenuItem>})
+                            teachers[subIndex][key.subject].map((teacher)=>{return <MenuItem value={teacher.user_id}>{teacher.user}</MenuItem>})
                            }
                           </Select>
                         </FormControl>
