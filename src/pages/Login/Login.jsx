@@ -63,6 +63,8 @@ const Login = () => {
           
           if((resp.data[0].access) && (resp.data[1].Admin===false)){
           localStorage.setItem("accessToken",resp.data[0].access);
+          localStorage.setItem("user","faculty");
+
           navigate("/teacher")
 
           }
@@ -119,7 +121,9 @@ const Login = () => {
           
           if((resp.data[0].access) && (resp.data[1].Admin===true)){
           localStorage.setItem("accessToken",resp.data[0].access);
-          navigate("/adminfaculty")
+          localStorage.setItem("user","Admin");
+
+          navigate("/admin")
 
           }
           else{

@@ -1,7 +1,10 @@
 import { Typography } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const TeacherProfile = () => {
+  
+   
   return (
     <>
     <Typography component="h1" variant="h5">TeacherProfile</Typography>

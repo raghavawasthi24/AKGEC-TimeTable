@@ -26,7 +26,7 @@ const TeacherTable = (props) => {
     axios.put(
       `${process.env.REACT_APP_URL}/departmentss/update_lecture/${periodsdata.id}`,
       { subject: subject, cid: classid }
-    );
+    ).then(()=>setopen(false));
   };
 
   const fetchInfo = () => {
@@ -52,21 +52,26 @@ const TeacherTable = (props) => {
   };
 
   useEffect(() => {
-    if (props.finday) fetchInfo();
+    if (props.finday)
+     fetchInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.finday]);
 
   useEffect(() => {
+    if (localStorage.getItem("user")==="Admin"){
     fetchinfo2()
     fetchinfo3();
+    }
   }, []);
+
   const teachersubject = Subjectdata.filter(function (value) {
     return value.user_id === props.id;
   });
 
 
+
   const control = (periods) => {
-    if (props.page === "admin") {
+    if (props.page === "Admin") {
       setopen(true);
       setperiodsdata(periods);
     } else props.page("null");
@@ -166,9 +171,10 @@ const TeacherTable = (props) => {
                           className="updatepop"
                           onClick={() => control(periods)}
                           disabled={
-                            props.page !== "admin" ||
+                            props.page !== "Admin" ||
                             periods.subject_name.length === 1 ||
-                            periods.subject_name === "break"
+                            periods.type === "BREAK"||
+                            periods.type === "OTHERS"
                           }
                         >
                           <div>{periods.subject_name}</div>
