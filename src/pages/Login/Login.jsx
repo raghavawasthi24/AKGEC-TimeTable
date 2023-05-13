@@ -66,14 +66,15 @@ const Login = () => {
           navigate("/teacher")
 
           }
+
+          else{
+            toast.error("Try Logging as Admin")
+          }
         }).catch((err) => {
-          console.log(err)
+          toast.error("Invalid Details")
         })
-        
-        console.log("faculty")
       }
-      else
-        console.log("sry");
+  
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facultyturn])
@@ -125,11 +126,9 @@ const Login = () => {
             toast.error("Try Logging as Teacher")
           }
         }).catch((err) => {
-          console.log(err)
+        toast.error("Invalid Details")
         })
       }
-      else
-        console.log("sry");
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminturn])
