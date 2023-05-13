@@ -1,13 +1,16 @@
 import React, {  useState } from "react";
 import "./Teacher.css";
 import TeacherTable from "../../components/TeacherTable/TeacherTable";
-import { Container } from "@mui/system";
+import { Container ,Box} from "@mui/system";
 import TeacherArrangementTable from "../../components/TeacherArrangementTable/TeacherArrangementTable"
+import Logout from "../../components/Logout/LogoutBtn"
+// import Student from "../Student/Student"
 
-function Teacher() {
+const Teacher = () =>{
   const [day, setday] = useState("");
   const [finday, setfinday] = useState("");
   const [open,setopen]=useState(false)
+  // const[studentview,setstudentview]=useState(false)
  
   const resultday = (e) => {
     setday(e.target.value);
@@ -20,10 +23,23 @@ function Teacher() {
     if (open === false) setopen(true);
     else setopen(false);
   };
+  // const showstudent = () => {
+  //   if(studentview===false)
+  //      setstudentview(true)
+  //   else setstudentview(false)
+  // }
 
   return (
+    <>
+    {/* {studentview ? <Student/>: */}
     <Container>
-    
+    <Box sx={{margin:"1rem 0rem",right: "36rem", position: "absolute"}}>
+      {/* <button className="View" style={{width:"12rem"}} onClick={showstudent}>
+          View Student TimeTable
+        </button> */}
+       <Logout />
+      </Box>
+      <Box>
       <select
         id="day"
         onChange={resultday}
@@ -47,10 +63,12 @@ function Teacher() {
       <button className="View" style={{width:"12rem"}} onClick={handleOpen}>
           View Arrangement
         </button>
+        </Box>
       <TeacherTable id={2} finday={finday} />
       {open ? <TeacherArrangementTable/> :null }
     </Container>
+    {/* } */}
+    </>
   );
 }
-
 export default Teacher;

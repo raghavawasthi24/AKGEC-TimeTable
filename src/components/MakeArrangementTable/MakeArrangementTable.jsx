@@ -2,14 +2,14 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 
 
-const Makearrangemettable = () => {
+const Makearrangemettable = (props) => {
     const[arrangementdata,setarrangementdata]=useState([])
-    const fetchInfo = () =>{
-        axios.get(`${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_view/${5}`).then((response)=>setarrangementdata(response.data))
-    }
+   
     useEffect(() => {
-      fetchInfo();
-    }, [])
+      if(props.id)
+      axios.get(`${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_view/${props.id}`).then((response)=>setarrangementdata(response.data))
+      
+    }, [props.id])
     
       
   return (
