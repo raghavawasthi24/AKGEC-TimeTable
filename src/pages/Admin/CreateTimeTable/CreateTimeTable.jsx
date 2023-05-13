@@ -10,66 +10,103 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
-import { Button, TextField } from '@mui/material';
+import { Button, FormGroup, TextField } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 let initialteacherSelArray=[];
-let teacherArr=[];
+let subArr=[];
 let noOfLecSel=[];
 let typeOfLecSel=[];
+let teacher_id=[];
+let subject_id=[];
+let class_id=[];
+let no_of_lectures=[];
+let type=[];
+let sectionUpdates=[];
 
 const CreateTimeTable = () => {
 
-  
-   let initialvalues={
+  let initialvalues={
     year:"",
-    department:""
-   }
+    departments:"",
+  }
 
+  const handleChange=(e)=>{
+    console.log(e.target.value)
+    const {name,value}=e.target;
+    setFormvalues({...formvalues,[name]:value})
+    console.log(formvalues);
+  }
+   
    const [formvalues,setFormvalues]=useState(initialvalues);
+   const [department,setDepartment]=useState([]);
    const [subjects,setSubjects]=useState([]);
    const [teachers,setTeachers]=useState([]);
    const [sections,setSections]=useState([]);
+   const [selectedSection,setSelectedSection]=useState([]);
 
    const year=["1","2","3","4"];
-   const department=["CSE","IT","ECE"]
-
    
-   let inputfields=[
-    {
-      name:"year",
-      label:"Year",
-      options:["1","2","3","4"]
-    },
-    {
-      name:"department",
-      label:"Department",
-      options:["1","2","3","4"]
+
+  
+
+   const yearHandler=()=>{
+    axios.get("https://time-table-production-f8a5.up.railway.app/departmentss/all_departments")
+    .then((resp)=>{
+      console.log(resp.data)
+      setDepartment(resp.data)
+      // console.log(department)
+    }).catch((err)=>{
+      console.log(err)
+    })
+   }
+
+   const handleDept=(e)=>{
+    console.log(formvalues)
+    axios.get(`${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${e.target.value}/${formvalues.year}`)
+    .then((res)=>{
+      console.log(res)
+      setSections(res.data)
+      // initialteacherSelArray=res.data;
+      
+    })
+      .catch((err)=>{
+        console.log(err)
+      
+    })
+   }
+
+   const sectionHandler=(e,id)=>{
+    if(e.target.checked){
+      sectionUpdates.push(e.target.value)
+      // setSelectedSection(...selectedSection,e.target.value)
+      class_id.push(id);
     }
-   ]
+    else{
+      const itemToBeRemoved=e.target.value
+       const idToBeRemoved=id;
+      sectionUpdates.splice(sectionUpdates.findIndex(a => a === itemToBeRemoved), 1)
+      class_id.splice(class_id.findIndex(a => a === idToBeRemoved), 1)
+    }
+    console.log(sectionUpdates,class_id);
+    
+    
+   }
 
-   let teacher_id=[];
-   let subject_id=[];
-   let class_id=[];
-   let no_of_lectures=[];
-   let type=[];
-
-   const handleChange=(e)=>{
-    const {name,value}=e.target;
-    setFormvalues({...formvalues,[name]:value})
+   const create=()=>{
+    setSelectedSection(sectionUpdates);
+    sectionUpdates.map((val)=>initialteacherSelArray.push([]));
+    console.log(initialteacherSelArray);
    }
 
    const handleTeacher=(e,secIndex,subIndex)=>{  
-    // if(secInd)
-    // let total=secIndex*subjects.length+subIndex;
-    // console.log(initialteacherSelArray,secIndex,subIndex,e.target.value)
     initialteacherSelArray[secIndex][subIndex]=e.target.value;
-    // console.log(initialteacherSelArray[secIndex][subIndex],subIndex,secIndex)
-    // console.log(e.target.value)
     console.log(initialteacherSelArray)
    }
 
    const handleLec=(e,subIndex)=>{
-     noOfLecSel[subIndex]=e.target.value;
+     noOfLecSel[subIndex]=parseInt(e.target.value);
      console.log(noOfLecSel);
    }
 
@@ -100,68 +137,83 @@ const CreateTimeTable = () => {
      
     })
 
-    axios.get(`${process.env.REACT_APP_URL}/departmentss/department_wise_sections/2/1`)
-    .then((res)=>{
-      console.log(res)
-      setSections(res.data)
-      // initialteacherSelArray=res.data;
-      res.data.map((val)=>initialteacherSelArray.push([]));
-      console.log(initialteacherSelArray);
-    })
-      .catch((err)=>{
-        console.log(err)
-      
-    })
+    
 
    },[])
 
    const createTimeTable=()=>{
-    {
+    teacher_id=initialteacherSelArray;
+    
       subjects.map((val)=>{
-        return(teacherArr.push(val.sub_id))
+        return(subArr.push(val.sub_id))
       })
-    }
-    {sections.map((val)=>
+    
+    selectedSection.map((val)=>
       {
         return(
           no_of_lectures.push(noOfLecSel),
           type.push(typeOfLecSel),
-          teacher_id.push(teacherArr)
+          subject_id.push(subArr)
         )
-      })}
-      console.log(no_of_lectures,type,teacher_id);
+      })
+      console.log(no_of_lectures,type,teacher_id,class_id,subject_id);
+      axios.post("https://time-table-production-f8a5.up.railway.app/departmentss/create_table/",{
+        teacher_id:teacher_id,
+        subject_id:subject_id,
+        class_id:class_id,
+        no_of_lectures:no_of_lectures,
+        type:type
+      }).then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err);
+      })
    }
 
 
 
   return (
     <div className='createTimeTable'>
-      {inputfields.map((key)=>{
-        return(<FormControl>
-          <InputLabel id="demo-simple-select-label">{key.label}</InputLabel>
-        <Select
-            value={formvalues[key.name]}
-            label={key.label}
-            onChange={handleChange}
-            name={key.name}
-          >
-          {
-            year.map((val)=>{
-              return(<MenuItem value={val}>{val}</MenuItem>)
-            })
-          }
-          </Select>
-          </FormControl>)
-      })}
-      
+      <FormControl fullWidth>
+                 <InputLabel>Year</InputLabel>
+                 <Select
+                   label="Year"
+                   name="year"
+                   value={formvalues.year}
+                   onChange={e=>{handleChange(e);yearHandler()}}
+                 >
+                {
+                  year.map((val)=>{return(<MenuItem value={val}>{val}</MenuItem>)})
+                }
+                 </Select>
+               </FormControl>
+
+               <FormControl fullWidth>
+                 <InputLabel id="demo-simple-select-label">Department</InputLabel>
+                 <Select
+                   label="Department"
+                   name="departments"
+                   value={formvalues.departments}
+                   onChange={e=>{handleChange(e);handleDept(e)}}                  
+                 >
+                {
+                  department.map((val)=>{return(<MenuItem value={val.deptid}>{val.dept}</MenuItem>)})
+                }
+                 </Select>
+               </FormControl>
+
+               <FormGroup>
+                {sections.map((val)=>{return(<FormControlLabel control={<Checkbox/>} label={val.section} value={val.section} onChange={e=>{sectionHandler(e,val.id)}}/>)})}
+               </FormGroup>
+      <Button onClick={create}>Click</Button>
        <TableContainer sx={{width:"70%",margin:"auto"}}>
          <Table>
           <TableHead>
             <TableRow>
               <TableCell>Subjets</TableCell>
               {
-                sections.map((val)=>{
-                  return(<TableCell>{val.section}</TableCell>)
+                sectionUpdates.map((val)=>{
+                  return(<TableCell>{val}</TableCell>)
                 })
               }
               <TableCell>No of Lecture</TableCell>
@@ -175,7 +227,7 @@ const CreateTimeTable = () => {
                   <TableRow>
                     <TableCell>{key.subject}</TableCell>
                     {
-                     sections.map((val,secIndex)=>{
+                     selectedSection.map((val,secIndex)=>{
                        return(<TableCell>                   
                         <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Select</InputLabel>
@@ -206,8 +258,8 @@ const CreateTimeTable = () => {
                    onChange={e=>handleType(e,subIndex)}
                    name="typeOfLec"
                  >
-                <MenuItem value="Theory">Theory</MenuItem>
-                 <MenuItem value="Lab">Lab</MenuItem>
+                <MenuItem value="THEORY">Theory</MenuItem>
+                 <MenuItem value="LAB">Lab</MenuItem>
                  </Select>
                </FormControl>
               </TableCell>

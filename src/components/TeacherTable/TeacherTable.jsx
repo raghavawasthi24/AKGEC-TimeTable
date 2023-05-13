@@ -53,6 +53,7 @@ const TeacherTable = (props) => {
 
   useEffect(() => {
     if (props.finday) fetchInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.finday]);
 
   useEffect(() => {

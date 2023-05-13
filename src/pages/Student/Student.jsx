@@ -29,12 +29,12 @@ const Student = () => {
   const[year,setyear]=useState()
   const[dept,setdept]=useState()
   const[classtable,setclasstable]=useState()
-
+ 
 
   const View = () => {
-    if(classtable){
+    console.log(classtable)
     axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/view-time-table/${classtable}`)
+      .get(`${process.env.REACT_APP_URL}/departmentss/view-time-table/2`)
       .then((res) => {
         console.log(res.data);
 
@@ -94,7 +94,7 @@ const Student = () => {
       .catch((err) => {
         console.log(err);
       });
-}}
+}
  
   useEffect(() => {
     if(year)

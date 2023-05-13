@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   Typography,
   Box,
@@ -12,7 +12,7 @@ import {
   FormControl,
   FormHelperText,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,7 +30,7 @@ const Register = () => {
     gender: "",
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formerror, setformerror] = useState({});
   // const [submitbtn, setsubmitbtn] = useState(false);
@@ -39,9 +39,10 @@ const Register = () => {
   const inputhandler = (e) => {
     const { name, value } = e.target;
     validate(name,value)
-    setformvalues({ ...formvalues, [name]: value });
-  };
-  const regex_fullname = /^[A-Za-z]+([\ A-Za-z]+)*$/;
+    setformvalues({ ...formvalues, [name]: value })
+  }
+
+  const regex_fullname = /^[A-Za-z]+([A-Za-z]+)*$/;
   const regex_email = /^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$/;
   const regex_mobile = /^[6-9]([0-9]){9}$/;
 
@@ -78,9 +79,9 @@ const Register = () => {
         age: formvalues.age,
         gender: formvalues.gender,
         password: formvalues.password,
-        mobile_number: formvalues.mobile_number,
+        mobile_number: formvalues.mobile_number
       })
-      .then((response)=>(setupdate(true),(localStorage.setItem("profile_id",JSON.stringify(response.data[1].profile_id))))).catch((report)=>toast.error((Object.keys(report.response.data.error))  + " Already Registered"));
+      .then((response)=>(setupdate(true)(localStorage.setItem("profile_id",JSON.stringify(response.data[1].profile_id))))).catch((report)=>toast.error((Object.keys(report.response.data.error))  + " Already Registered"));
   }
   else{
     toast.error("Invalid Details")

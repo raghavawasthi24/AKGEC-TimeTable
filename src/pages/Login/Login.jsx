@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "./Login.css";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 // import jwt from "jwt-decode";
 import TextField from '@mui/material/TextField';
 // import Header from '../components/Header';
@@ -14,7 +14,7 @@ const Login = () => {
     password: ""
   }
 
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
   const [formvalues, setFormvalues] = useState(initialvalues);
   const [error, setError] = useState(true);
@@ -23,7 +23,7 @@ const Login = () => {
   const [facultyturn, setFacultyturn] = useState(false);
   const [adminturn, setAdminturn] = useState(false);
   const [pos, setPos] = useState(false);
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
 
 
   const boldline = useRef();
@@ -66,7 +66,7 @@ const Login = () => {
       else
         console.log("sry");
     }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facultyturn])
 
   const adminHandler = (e) => {
@@ -90,7 +90,7 @@ const Login = () => {
         console.log(formvalues)
         console.log("admin")
         const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
-        axios.post("${process.env.REACT_APP_URL}/accounts/register/",{
+        axios.post(`${process.env.REACT_APP_URL}/accounts/register`,{
           mobile_number:"9151240246",
           email: "raghavawathi240@gmail.com",
           full_name:"Raghav Awasthi",
@@ -110,7 +110,7 @@ const Login = () => {
       else
         console.log("sry");
     }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminturn])
 
   //  VALIDATION STARTED
@@ -164,7 +164,7 @@ const Login = () => {
 
         {/* FACULTY LOGIN FORM START */}
 
-        <form className='faculty-form' id={pos == false ? "" : "hide"} onSubmit={facultyvalidateForm}>
+        <form className='faculty-form' id={pos === false ? "" : "hide"} onSubmit={facultyvalidateForm}>
           <TextField
             label="Email Address"
             variant="filled"
@@ -198,7 +198,7 @@ const Login = () => {
         {/* FACULTY LOGIN FORM END */}
         {/* ADMIN LOGIN FORM START */}
 
-        <form className='admin-form' id={pos == true ? "" : "hide"} onSubmit={adminvalidateForm}>
+        <form className='admin-form' id={pos === true ? "" : "hide"} onSubmit={adminvalidateForm}>
           <TextField
             label="Email Address"
             variant="filled"

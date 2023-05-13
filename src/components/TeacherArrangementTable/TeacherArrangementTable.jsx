@@ -11,6 +11,7 @@ const TeacherArrangemetTable = (props) => {
     }
     useEffect(() => {
       fetchInfo();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
 

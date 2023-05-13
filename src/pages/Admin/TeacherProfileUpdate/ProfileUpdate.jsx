@@ -2,7 +2,6 @@ import {
   Container,
   Grid,
   Typography,
-  TextField,
   MenuItem,
   Select,
   FormControl,
@@ -48,7 +47,7 @@ const ProfileUpdate = (props) => {
           const arr = response.data.map((sub) => ({
             name: sub.subject,
             value: sub.sub_id,
-          }));
+          }))
           setSubjectData(arr);
         });
   }, [dept]);
@@ -97,9 +96,9 @@ const ProfileUpdate = (props) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Department"
-                    onChange={(e) => (
-                      setdept(e.target.value), setSelectedSubject(null)
-                    )}
+                    onChange={(e) => {
+                      setdept(e.target.value); setSelectedSubject(null)
+                    }}
                     defaultValue={""}
                     fullWidth
                     // name='Department'
