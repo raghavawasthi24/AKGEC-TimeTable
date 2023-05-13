@@ -1,4 +1,5 @@
 .AdminNavbar{
+    margin-left: -16vw;
     width:100vw;
     display: flex;
     justify-content: flex-end;

@@ -1,15 +1,18 @@
-import React, {  useState } from "react";
+import React, {  useState ,useEffect} from "react";
 import "./Teacher.css";
 import TeacherTable from "../../components/TeacherTable/TeacherTable";
 import { Container ,Box} from "@mui/system";
 import TeacherArrangementTable from "../../components/TeacherArrangementTable/TeacherArrangementTable"
 import Logout from "../../components/Logout/LogoutBtn"
+import TeacherProfile from "./TeacherProfile";
+import axios from "axios";
 // import Student from "../Student/Student"
 
 const Teacher = () =>{
   const [day, setday] = useState("");
   const [finday, setfinday] = useState("");
   const [open,setopen]=useState(false)
+  const [teacherdata,setteacherdata]=useState([])
   // const[studentview,setstudentview]=useState(false)
  
   const resultday = (e) => {
@@ -23,11 +26,16 @@ const Teacher = () =>{
     if (open === false) setopen(true);
     else setopen(false);
   };
-  // const showstudent = () => {
-  //   if(studentview===false)
-  //      setstudentview(true)
-  //   else setstudentview(false)
-  // }
+  useEffect(() => {
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+   axios.get(`${process.env.REACT_APP_URL}/departmentss/my_profile`,
+    {
+     headers: {
+       Authorization: AuthStr,
+     },
+   } ).then((response)=>setteacherdata(response.data))
+  }, [])
+  
 
   return (
     <>
@@ -40,6 +48,7 @@ const Teacher = () =>{
        <Logout />
       </Box>
       <Box>
+      {/* <TeacherProfile/> */}
       <select
         id="day"
         onChange={resultday}
@@ -64,8 +73,8 @@ const Teacher = () =>{
           View Arrangement
         </button>
         </Box>
-      <TeacherTable id={2} finday={finday} />
-      {open ? <TeacherArrangementTable/> :null }
+      <TeacherTable id={teacherdata.profile_id} finday={finday} />
+      {open ? <TeacherArrangementTable id={teacherdata.profile_id}/> :null }
     </Container>
     {/* } */}
     </>

@@ -4,6 +4,7 @@ import axios from "axios";
 import Period from "../../components/Period/Period";
 import "../Student/Student.css";
 import Makearrangemettable from "../../components/MakeArrangementTable/MakeArrangementTable";
+import AdminNav from "../../components/AdminNav/AdminNav";
 
 const Student = () => {
   const navigate = useNavigate()
@@ -29,6 +30,9 @@ const Student = () => {
   const[year,setyear]=useState()
   const[dept,setdept]=useState()
   const[classtable,setclasstable]=useState()
+  const[adminnav,setadminnav]=useState(false)
+
+
 
 
   const View = () => {
@@ -112,20 +116,33 @@ const Student = () => {
     if (open === false) setopen(true);
     else setopen(false);
   }
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+    if(user==="Admin"){
+       setadminnav(true)
+    
+    }
+    else{
+       setadminnav(false)
+
+    }
+  }, [])
+  
 
   return (
     <div className="section">
+      {adminnav?<AdminNav/>:
       <button
         className="view-student-timetable"
         style={{ right: "5rem", position: "absolute",backgroundColor:"#252525",color:"white" }}
         onClick={()=>navigate("/Login")}
       >
         Login
-      </button>
+      </button>}
 
       <div className="student-opt">
-        <select className="select-opt" onChange={(e)=>setyear(e.target.value)}>
-          <option disabled selected>
+        <select className="select-opt" onChange={(e)=>setyear(e.target.value)} defaultValue="Select Year">
+          <option disabled >
             Select Year
           </option>
           <option value={1}>1st Year</option>
@@ -134,15 +151,15 @@ const Student = () => {
           <option value={4}>4th Year</option>
         </select>
 
-        <select className="select-opt" onChange={(e)=>setdept(e.target.value)}>
-          <option disabled selected>
+        <select className="select-opt" onChange={(e)=>setdept(e.target.value)} defaultValue="Select Department">
+          <option disabled >
             Select Department
           </option>
           {deptdata.map((dept)=>(<option value={dept.deptid}>{dept.dept}</option>))}
         </select>
 
-        <select className="select-opt" onChange={(e)=>setclasstable(e.target.value)} >
-          <option disabled selected>
+        <select className="select-opt" onChange={(e)=>setclasstable(e.target.value)} defaultValue="Select Section" >
+          <option disabled>
             Select Section
           </option>
           {sectiondata.map((sec)=>( <option value={sec.id}>{sec.section}</option>))}

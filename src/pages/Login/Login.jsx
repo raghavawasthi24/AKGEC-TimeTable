@@ -63,17 +63,20 @@ const Login = () => {
           
           if((resp.data[0].access) && (resp.data[1].Admin===false)){
           localStorage.setItem("accessToken",resp.data[0].access);
+          localStorage.setItem("user","faculty");
+
           navigate("/teacher")
 
           }
+
+          else{
+            toast.error("Try Logging as Admin")
+          }
         }).catch((err) => {
-          console.log(err)
+          toast.error("Invalid Details")
         })
-        
-        console.log("faculty")
       }
-      else
-        console.log("sry");
+  
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facultyturn])
@@ -118,18 +121,18 @@ const Login = () => {
           
           if((resp.data[0].access) && (resp.data[1].Admin===true)){
           localStorage.setItem("accessToken",resp.data[0].access);
-          navigate("/adminfaculty")
+          localStorage.setItem("user","Admin");
+
+          navigate("/admin")
 
           }
           else{
             toast.error("Try Logging as Teacher")
           }
         }).catch((err) => {
-          console.log(err)
+        toast.error("Invalid Details")
         })
       }
-      else
-        console.log("sry");
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminturn])

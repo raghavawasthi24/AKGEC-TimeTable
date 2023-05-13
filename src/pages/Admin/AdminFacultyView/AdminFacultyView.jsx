@@ -4,7 +4,7 @@ import TeacherTable from '../../../components/TeacherTable/TeacherTable';
 import { Container,Box } from "@mui/system";
 import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
 import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
-import Logout from "../../../components/Logout/LogoutBtn";
+import AdminNav from "../../../components/AdminNav/AdminNav";
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -16,7 +16,9 @@ const AdminFacultyVIew = () => {
   const [finday, setfinday] = useState("");
   const [finteacher, setfinteacher] = useState('0');
   const [subject, setsubject] = useState("Select Subject");
-  const page = "admin";
+  const[open,setopen]=useState(false)
+  const page = (localStorage.getItem('user'));
+  console.log(page)
   const fetchinfo1 = (selectsubject) => {
     axios
       .get(
@@ -63,14 +65,16 @@ const AdminFacultyVIew = () => {
   const control2 = () => {
     setopenarrangement(false);
   };
+    
+  const handleOpen = () => {
+    if (open === false) setopen(true);
+    else setopen(false);
+  }
+  
   return (
     <Container>
-     <Box sx={{margin:"1rem 0rem",right: "36rem", position: "absolute"}}>
-      {/* <button className="View" style={{width:"12rem"}} onClick={showstudent}>
-          View Student TimeTable
-        </button> */}
-       <Logout />
-      </Box>
+      <AdminNav/>
+
       {openarrangement ? (
         <div className="popcontainer" >
           <div id="mask"></div>
@@ -82,7 +86,7 @@ const AdminFacultyVIew = () => {
           </div>
         </div>
       ) : null}
-      <div style={{ display: "flex", marginLeft: "-10rem" }}>
+      <div style={{ display: "flex", marginLeft: "-10rem" ,marginTop:"-3rem" }}>
         <select
           id="subject"
           placeholder="Select Subject"
@@ -133,7 +137,8 @@ const AdminFacultyVIew = () => {
           <option value="Entire Week">Entire Week</option>
         </select>
       </div>
-      <div>
+      
+      <Container sx={{marginLeft:"-7vw"}}>
         <button
           className="View"
           style={{ marginLeft: "26rem" }}
@@ -144,10 +149,15 @@ const AdminFacultyVIew = () => {
         <button className="View" onClick={control} style={{ width: "10rem" }}>
           Make Arrangement
         </button>
-      </div>
+        <button className="View" onClick={handleOpen} style={{ width: "10rem" }}>
+          View Arrangement
+        </button>
+        </Container>
 
       <TeacherTable page={page} id={finteacher} finday={finday} />
-      <TeacherArrangementTable id={finteacher}/>
+      {open ? <TeacherArrangementTable id={finteacher}/> : null}
+
+      
     </Container>
   );
 };
