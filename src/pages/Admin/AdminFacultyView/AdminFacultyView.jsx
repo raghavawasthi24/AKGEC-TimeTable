@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeacherTable from '../../../components/TeacherTable/TeacherTable';
-import { Container } from "@mui/system";
+import { Container,Box } from "@mui/system";
 import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
 import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
+import Logout from "../../../components/Logout/LogoutBtn";
 
 const AdminFacultyVIew = () => {
   const [teacherdata, setteacherdata] = useState([]);
@@ -64,6 +65,12 @@ const AdminFacultyVIew = () => {
   };
   return (
     <Container>
+     <Box sx={{margin:"1rem 0rem",right: "36rem", position: "absolute"}}>
+      {/* <button className="View" style={{width:"12rem"}} onClick={showstudent}>
+          View Student TimeTable
+        </button> */}
+       <Logout />
+      </Box>
       {openarrangement ? (
         <div className="popcontainer" >
           <div id="mask"></div>

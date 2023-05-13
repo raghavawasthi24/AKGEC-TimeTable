@@ -29,12 +29,11 @@ const Student = () => {
   const[year,setyear]=useState()
   const[dept,setdept]=useState()
   const[classtable,setclasstable]=useState()
- 
+
 
   const View = () => {
-    console.log(classtable)
     axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/view-time-table/2`)
+      .get(`${process.env.REACT_APP_URL}/departmentss/view-time-table/${classtable}`)
       .then((res) => {
         console.log(res.data);
 
@@ -228,7 +227,7 @@ const Student = () => {
           })}
         </div>
       </div>
-      {open ? <Makearrangemettable /> : null}
+      {open ? <Makearrangemettable id={classtable}/> : null}
     </div>
   );
 };

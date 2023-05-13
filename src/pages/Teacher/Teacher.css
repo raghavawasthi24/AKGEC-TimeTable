@@ -23,7 +23,7 @@ tr,td,th,table{
     border-radius: 6px;
     width: 10rem;
     padding: 0.5rem 1rem;
-    margin: 4rem -32rem 1rem 30rem ;
+    margin: 5rem -32rem 1rem 30rem ;
 }
 .View{
     padding: 0.5rem 1rem;
@@ -38,7 +38,7 @@ tr,td,th,table{
     font-size: 3rem;
     padding: 16rem 3rem;
     text-align: center;
-    width: 40rem;
+    /* width: 40rem; */
     /* height: 25rem; */
     margin: auto;
     background-color: rgba(217, 217, 217, 0.4);
