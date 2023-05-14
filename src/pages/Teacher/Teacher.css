@@ -23,22 +23,23 @@ tr,td,th,table{
     border-radius: 6px;
     width: 10rem;
     padding: 0.5rem 1rem;
-    margin: 4rem -32rem 1rem 30rem ;
+    margin: 5rem -32rem 1rem 30rem ;
 }
 .View{
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     width: 8rem;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    font-weight:600;
+    background-color: #FBBB00;
     border: none;
-    background: #FBBB00;
-    border-radius: 30px;
+    border-radius: 20px;
+    font-size: 0.8rem;
     margin: 1rem -33rem 1rem 34rem ;
 }
 .empty{
     font-size: 3rem;
     padding: 16rem 3rem;
     text-align: center;
-    width: 40rem;
+    /* width: 40rem; */
     /* height: 25rem; */
     margin: auto;
     background-color: rgba(217, 217, 217, 0.4);

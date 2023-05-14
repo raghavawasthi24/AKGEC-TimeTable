@@ -5,9 +5,14 @@ import "./Login.css";
 import TextField from '@mui/material/TextField';
 // import Header from '../components/Header';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Container } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
+  const navigate = useNavigate()
 
   const initialvalues = {
     email: "",
@@ -53,18 +58,25 @@ const Login = () => {
         }).then((resp) => {
           // userToken.accessToken=resp.data.access,
           // setUser(resp.data.access);
-         
-          console.log(resp.data.access);
-          localStorage.setItem("accessToken",resp.data.access);
+          // console.log(resp.data.access);
+          
+          
+          if((resp.data[0].access) && (resp.data[1].Admin===false)){
+          localStorage.setItem("accessToken",resp.data[0].access);
+          localStorage.setItem("user","faculty");
+
+          navigate("/teacher")
+
+          }
+
+          else{
+            toast.error("Try Logging as Admin")
+          }
         }).catch((err) => {
-          console.log(err)
+          toast.error("Invalid Details")
         })
-        // const AuthStr = 'Bearer '.concat(user);
-        
-        console.log("faculty")
       }
-      else
-        console.log("sry");
+  
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facultyturn])
@@ -89,26 +101,38 @@ const Login = () => {
       if (error === true) {
         console.log(formvalues)
         console.log("admin")
-        const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
-        axios.post(`${process.env.REACT_APP_URL}/accounts/register`,{
-          mobile_number:"9151240246",
-          email: "raghavawathi240@gmail.com",
-          full_name:"Raghav Awasthi",
-          gender:"Male",
-          age:60,
-          password:"string"
-        }, {
-          headers: {
-            Authorization: AuthStr,
-          },
-        } ).then((resp) => {
-          console.log(resp.data)
+        // const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
+        axios.post(`${process.env.REACT_APP_URL}/accounts/login/`,{
+          // mobile_number:"9151240246",
+          // email: "raghavawathi240@gmail.com",
+          // full_name:"Raghav Awasthi",
+          // gender:"Male",
+          // age:60,
+          // password:"string"
+          email: formvalues.email,
+          password: formvalues.password
+        },
+        //  {
+        //   headers: {
+        //     Authorization: AuthStr,
+        //   },
+        // } 
+        ).then((resp) => {
+          
+          if((resp.data[0].access) && (resp.data[1].Admin===true)){
+          localStorage.setItem("accessToken",resp.data[0].access);
+          localStorage.setItem("user","Admin");
+
+          navigate("/admin")
+
+          }
+          else{
+            toast.error("Try Logging as Teacher")
+          }
         }).catch((err) => {
-          console.log(err)
+        toast.error("Invalid Details")
         })
       }
-      else
-        console.log("sry");
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminturn])
@@ -150,6 +174,7 @@ const Login = () => {
 
 
   return (
+    <Container>
     <div className='login'>
       <div className='login-form'>
         <p style={{ color: 'red' }}>{errors}</p>
@@ -231,6 +256,9 @@ const Login = () => {
 
       </div>
     </div>
+    <ToastContainer/>
+
+    </Container>
   )
 }
 

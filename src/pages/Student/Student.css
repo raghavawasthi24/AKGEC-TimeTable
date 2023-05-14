@@ -5,9 +5,16 @@
     align-items: center;
 }
 .student-opt{
+   
     display: flex;
     justify-content: center;
     margin: 5rem 0 0 0;
+}
+.select-opt{
+    border-radius: 12px;
+    width: 15vw;
+    padding: 1rem;
+    margin: 1rem;
 }
 .view-student-timetable{
     width:10rem;
