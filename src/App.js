@@ -8,7 +8,8 @@ import Teacher from './pages/Teacher/Teacher';
 import Login from './pages/Login/Login';
 import AdminFacultyVIew from './pages/Admin/AdminFacultyView/AdminFacultyView';
 import Register from "./pages/Admin/RegisterTeacher/Register"
-// import ProfileUpdate from './pages/Admin/TeacherProfileUpdate/ProfileUpdate';
+import TeacherProfile from './pages/Teacher/TeacherProfile';
+
 
 
 const App = () => {
@@ -21,9 +22,10 @@ const App = () => {
       <Route path="/Teacher" element={<Teacher/>} />
       <Route path="/create-time-table" element={<CreateTimeTable/>} />
       <Route path="/login" element={<Login/>} />
-      <Route path="/admin" element={<AdminFacultyVIew/>} />
+      <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
       <Route path="/register" element={<Register/>} />
-      {/* <Route path='/profileupdate' element={<ProfileUpdate/>}/> */}
+      <Route path="/teacherprofile" element={<TeacherProfile/>}/>
+      <Route path="/*" element={<Login/>}/>
       </Routes>
     
     </>

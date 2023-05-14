@@ -51,7 +51,7 @@ const Login = () => {
   useEffect(() => {
     if (verified === true) {
       if (error === true) {
-        console.log(formvalues)
+        // console.log(formvalues)
         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`, {
           email: formvalues.email,
           password: formvalues.password
@@ -99,8 +99,8 @@ const Login = () => {
   useEffect(() => {
     if (verified === true) {
       if (error === true) {
-        console.log(formvalues)
-        console.log("admin")
+        // console.log(formvalues)
+        // console.log("admin")
         // const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`,{
           // mobile_number:"9151240246",
