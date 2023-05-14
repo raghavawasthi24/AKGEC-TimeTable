@@ -5,16 +5,14 @@ import { useNavigate } from 'react-router-dom'
 
 const LogoutBtn = () => {
     const navigate = useNavigate()
+    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+    axios.defaults.headers.common['Authorization'] = AuthStr;
 
     const clear = () =>{
-      const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
-      console.log(AuthStr)
 
-      axios.post(`${process.env.REACT_APP_URL}/accounts/logout1/`,{headers: {
-        headers: {
-          Authorization: AuthStr,
-        },
-      }})
+      axios.post(`${process.env.REACT_APP_URL}/accounts/logout1/`
+       
+      )
         localStorage.removeItem("accessToken")
         localStorage.removeItem("user")
 

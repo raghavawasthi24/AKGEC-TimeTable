@@ -30,13 +30,9 @@ const Teacher = () =>{
   };
   useEffect(() => {
   if(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="faculty")){
-  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+
    axios.get(`${process.env.REACT_APP_URL}/departmentss/my_profile`,
-    {
-     headers: {
-       Authorization: AuthStr,
-     },
-   } ).then((response)=>setteacherdata(response.data))}
+   ).then((response)=>setteacherdata(response.data))}
    else
     navigate("/login")
   }, [])

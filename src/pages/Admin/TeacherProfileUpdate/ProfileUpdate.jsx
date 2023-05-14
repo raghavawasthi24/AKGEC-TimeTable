@@ -27,6 +27,8 @@ const ProfileUpdate = (props) => {
   const [subjectdata, setSubjectData] = useState([]);
   const [dept, setdept] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  axios.defaults.headers.common['Authorization'] = AuthStr;
 
   // console.log(dept)
 

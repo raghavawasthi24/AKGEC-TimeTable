@@ -30,6 +30,9 @@ const Register = () => {
     password: "",
     gender: "",
   };
+  
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  axios.defaults.headers.common['Authorization'] = AuthStr;
 
   const navigate = useNavigate();
   const [formvalues, setformvalues] = useState(initialvalues);
@@ -79,7 +82,7 @@ const Register = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  
     if(Object.values(formerror).every((x) => x === "" )&&Object.values(formvalues).every((x) => x !== "")){
     axios
       .post(`${process.env.REACT_APP_URL}/accounts/register/`, {
@@ -89,9 +92,7 @@ const Register = () => {
         gender: formvalues.gender,
         password: formvalues.password,
         mobile_number: formvalues.mobile_number
-      },{ headers: {
-        Authorization: AuthStr,
-      }})
+      })
       .then((response)=>(setupdate(true)(localStorage.setItem("profile_id",JSON.stringify(response.data[1].profile_id))))).catch((report)=>toast.error((Object.keys(report.response.data.error))  + " Already Registered"));
   }
   else{
