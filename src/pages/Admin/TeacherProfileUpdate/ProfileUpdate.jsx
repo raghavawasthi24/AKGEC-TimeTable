@@ -22,6 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProfileUpdate = (props) => {
+
   // const [profileData, setProfileData] = useState([]);
   const [departmentData, setDepartmentData] = useState([]);
   const [subjectdata, setSubjectData] = useState([]);
@@ -34,7 +35,7 @@ const ProfileUpdate = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/all_departments`)
+      .get(`${process.env.REACT_APP_URL}/departmentss/departments`)
       .then((response) => setDepartmentData(response.data));
     // axios
     //   .get(`${process.env.REACT_APP_URL}/departmentss/Profileupdate/9`)

@@ -46,7 +46,7 @@ const Register = () => {
     setformvalues({ ...formvalues, [name]: value })
   }
 
-  const regex_fullname = /^[A-Za-z]+([A-Za-z]+)*$/;
+  const regex_fullname =/^[A-Za-z]+( [A-Za-z]+)*( [A-Za-z]{1,})$/;
   const regex_email = /^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$/;
   const regex_mobile = /^[6-9]([0-9]){9}$/;
    
