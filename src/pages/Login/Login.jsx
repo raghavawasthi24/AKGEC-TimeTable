@@ -49,6 +49,8 @@ const Login = () => {
   }
 
   useEffect(() => {
+    delete axios.defaults.headers.common.Authorization
+    
     if (verified === true) {
       if (error === true) {
         // console.log(formvalues)
