@@ -7,11 +7,14 @@ const LogoutBtn = () => {
     const navigate = useNavigate()
 
     const clear = () =>{
-    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+      const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+      console.log(AuthStr)
 
       axios.post(`${process.env.REACT_APP_URL}/accounts/logout1/`,{headers: {
-        Authorization: AuthStr,
-      },})
+        headers: {
+          Authorization: AuthStr,
+        },
+      }})
         localStorage.removeItem("accessToken")
         localStorage.removeItem("user")
 

@@ -3,12 +3,14 @@ import "./Teacher.css";
 import TeacherTable from "../../components/TeacherTable/TeacherTable";
 import { Container ,Box} from "@mui/system";
 import TeacherArrangementTable from "../../components/TeacherArrangementTable/TeacherArrangementTable"
-import Logout from "../../components/Logout/LogoutBtn"
-import TeacherProfile from "./TeacherProfile";
+
 import axios from "axios";
+import TeacherNav from "../../components/TeacherNav/TeacherNav";
+import { useNavigate } from "react-router-dom";
 // import Student from "../Student/Student"
 
 const Teacher = () =>{
+  const navigate= useNavigate()
   const [day, setday] = useState("");
   const [finday, setfinday] = useState("");
   const [open,setopen]=useState(false)
@@ -27,13 +29,16 @@ const Teacher = () =>{
     else setopen(false);
   };
   useEffect(() => {
+  if(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="faculty")){
   const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
    axios.get(`${process.env.REACT_APP_URL}/departmentss/my_profile`,
     {
      headers: {
        Authorization: AuthStr,
      },
-   } ).then((response)=>setteacherdata(response.data))
+   } ).then((response)=>setteacherdata(response.data))}
+   else
+    navigate("/login")
   }, [])
   
 
@@ -41,21 +46,15 @@ const Teacher = () =>{
     <>
     {/* {studentview ? <Student/>: */}
     <Container>
-    <Box sx={{margin:"1rem 0rem",right: "36rem", position: "absolute"}}>
-      {/* <button className="View" style={{width:"12rem"}} onClick={showstudent}>
-          View Student TimeTable
-        </button> */}
-       <Logout />
-      </Box>
-      <Box>
-      {/* <TeacherProfile/> */}
+    <TeacherNav/>
+      <Box >
       <select
         id="day"
         onChange={resultday}
         placeholder="Select Day"
         defaultValue="Select Day"
         className="SelectDay"
-        style={{marginLeft:"21rem"}}
+        style={{marginLeft:"21rem",marginTop:"6rem"}}
       >
         <option value="Select Day" disabled>
           Select Day
@@ -73,8 +72,8 @@ const Teacher = () =>{
           View Arrangement
         </button>
         </Box>
-      <TeacherTable id={teacherdata.profile_id} finday={finday} />
-      {open ? <TeacherArrangementTable id={teacherdata.profile_id}/> :null }
+      <TeacherTable id={teacherdata.user_id} finday={finday} />
+      {open ? <TeacherArrangementTable id={teacherdata.user_id}/> :null }
     </Container>
     {/* } */}
     </>

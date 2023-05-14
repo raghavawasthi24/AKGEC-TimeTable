@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeacherTable from '../../../components/TeacherTable/TeacherTable';
-import { Container,Box } from "@mui/system";
+import { Container ,Box} from "@mui/system";
 import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
 import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
 import AdminNav from "../../../components/AdminNav/AdminNav";
+import { useNavigate } from "react-router-dom";
 
 const AdminFacultyVIew = () => {
+  const navigate =useNavigate()
   const [teacherdata, setteacherdata] = useState([]);
   const [subjectdata, setsubjectdata] = useState([]);
   const [openarrangement, setopenarrangement] = useState(false);
@@ -18,7 +20,7 @@ const AdminFacultyVIew = () => {
   const [subject, setsubject] = useState("Select Subject");
   const[open,setopen]=useState(false)
   const page = (localStorage.getItem('user'));
-  console.log(page)
+
   const fetchinfo1 = (selectsubject) => {
     axios
       .get(
@@ -35,7 +37,11 @@ const AdminFacultyVIew = () => {
   };
 
   useEffect(() => {
+    if(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin")){
     fetchinfo2();
+  }
+  else
+  navigate("/login")
   }, []);
 
   const resultday = (e) => {
@@ -72,9 +78,10 @@ const AdminFacultyVIew = () => {
   }
   
   return (
-    <Container>
-      <AdminNav/>
+    <>
+    <AdminNav />
 
+    <Container>
       {openarrangement ? (
         <div className="popcontainer" >
           <div id="mask"></div>
@@ -159,6 +166,7 @@ const AdminFacultyVIew = () => {
 
       
     </Container>
+    </>
   );
 };
 

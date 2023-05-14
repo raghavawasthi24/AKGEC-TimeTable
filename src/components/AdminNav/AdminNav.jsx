@@ -7,6 +7,7 @@ const AdminNav = () => {
   const navigate = useNavigate()
   return (
     <div className='AdminNavbar'>
+        <button className='View' onClick={()=>navigate("/register")}>Register Teacher</button>
         <button className='View' onClick={()=>navigate("/")}>View Student TimeTable</button>
         <button className='View' onClick={()=>navigate("/admin")}>View Teacher TimeTable</button>
         <button className='View' onClick={()=>navigate("/create-time-table")}>Create TimeTable</button>

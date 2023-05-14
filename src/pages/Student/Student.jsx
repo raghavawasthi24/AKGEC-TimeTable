@@ -130,8 +130,9 @@ const Student = () => {
   
 
   return (
-    <div className="section">
-      {adminnav?<AdminNav/>:
+    <>
+    {adminnav?<AdminNav />:
+
       <button
         className="view-student-timetable"
         style={{ right: "5rem", position: "absolute",backgroundColor:"#252525",color:"white" }}
@@ -139,6 +140,7 @@ const Student = () => {
       >
         Login
       </button>}
+      <div className="section">
 
       <div className="student-opt">
         <select className="select-opt" onChange={(e)=>setyear(e.target.value)} defaultValue="Select Year">
@@ -246,6 +248,7 @@ const Student = () => {
       </div>
       {open ? <Makearrangemettable id={classtable}/> : null}
     </div>
+</>
   );
 };
 
