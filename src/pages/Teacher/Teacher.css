@@ -33,7 +33,7 @@ tr,td,th,table{
     border: none;
     border-radius: 20px;
     font-size: 0.8rem;
-    margin: 1rem -33rem 1rem 34rem ;
+    /* margin: 1rem -33rem 1rem 34rem ; */
 }
 .empty{
     font-size: 3rem;
