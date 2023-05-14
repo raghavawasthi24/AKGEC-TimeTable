@@ -21,6 +21,9 @@ const AdminFacultyVIew = () => {
   const[open,setopen]=useState(false)
   const page = (localStorage.getItem('user'));
 
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  axios.defaults.headers.common['Authorization'] = AuthStr;
+
   const fetchinfo1 = (selectsubject) => {
     axios
       .get(

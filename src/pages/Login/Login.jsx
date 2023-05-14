@@ -99,24 +99,13 @@ const Login = () => {
   useEffect(() => {
     if (verified === true) {
       if (error === true) {
-        // console.log(formvalues)
-        // console.log("admin")
-        // const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken")); 
+        
         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`,{
-          // mobile_number:"9151240246",
-          // email: "raghavawathi240@gmail.com",
-          // full_name:"Raghav Awasthi",
-          // gender:"Male",
-          // age:60,
-          // password:"string"
+      
           email: formvalues.email,
           password: formvalues.password
         },
-        //  {
-        //   headers: {
-        //     Authorization: AuthStr,
-        //   },
-        // } 
+        
         ).then((resp) => {
           
           if((resp.data[0].access) && (resp.data[1].Admin===true)){
