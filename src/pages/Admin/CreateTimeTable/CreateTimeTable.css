@@ -1,79 +1,26 @@
+.createTimeTable{
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.createTimeTableControls{
+    width:50%;
+    margin-top: 5%;
+    padding:2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 10px grey;
+}
 .createTable{
-    width:100vw;
+    margin:2% 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-.dept-select{
-    display: flex;
-    justify-content: center;
-}
-.select-opt{
-    width: 11rem;
-    margin: 1rem;
-    padding:0.5rem 1rem;
-    /* background-color: black; */
-    /* color: white; */
-     border-radius: 12px;
-}
-.selectSection{
-    display: flex;
     justify-content: center;
     align-items: center;
-    /* flex-wrap: wrap; */
-}
-.section-box{
-    /* width: 100%; */
-    display: flex;
-    
-}
-.selectSection button{
-    background-color: #FBBB00;
-    margin: 1rem;
-    width: 5rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 20px;
-}
-.select-lec{
-    display: flex;
-    justify-content: center;
-}
-.teacher-sel{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0.5rem 0;
-}
-.teacher-sel-header{
-    display: flex;
-    background-color: #D9D9D9;
-    font-weight: 500;
-}
-.teacher-sel-opt{
-    display: flex;
-}
-.teacherNo{
-    width:2rem;
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    padding:0.5rem 2rem;
-}
-.teacherName{
-    width: 15rem;
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    padding:0.5rem 2rem;
-}
-.teacherSel{
-    width:3rem;
-    color: blue;
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    padding:0.5rem 2rem;
 }
 .hide{
     display: none;

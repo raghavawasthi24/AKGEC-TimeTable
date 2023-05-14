@@ -8,6 +8,7 @@ import Teacher from './pages/Teacher/Teacher';
 import Login from './pages/Login/Login';
 import AdminFacultyVIew from './pages/Admin/AdminFacultyView/AdminFacultyView';
 import Register from "./pages/Admin/RegisterTeacher/Register"
+import Successful from './pages/Admin/CreateTimeTable/Successful';
 // import ProfileUpdate from './pages/Admin/TeacherProfileUpdate/ProfileUpdate';
 
 
@@ -23,6 +24,7 @@ const App = () => {
       <Route path="/login" element={<Login/>} />
       <Route path="/adminfaculty" element={<AdminFacultyVIew/>} />
       <Route path="/register" element={<Register/>} />
+      <Route path="/created" element={<Successful/>} />
       {/* <Route path='/profileupdate' element={<ProfileUpdate/>}/> */}
       </Routes>
     
