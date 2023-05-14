@@ -73,7 +73,7 @@ const CreateTimeTable = () => {
     console.log(formvalues);
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${e.target.value}/${formvalues.year}`
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${formvalues.year}/${e.target.value}`
       )
       .then((res) => {
         console.log(res);
