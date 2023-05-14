@@ -7,6 +7,7 @@ const Makearrangemettable = (props) => {
    
    
     useEffect(() => {
+      console.log(props.id)
       if(props.id)
       axios.get(`${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_view/${props.id}`).then((response)=>setarrangementdata(response.data))
       
@@ -14,8 +15,8 @@ const Makearrangemettable = (props) => {
     
       
   return (
-    <>
-     <div className='popmain' style={{margin:"2rem 33rem"}}>Arrangement Table For Student</div>    
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+     <div className='popmain' style={{margin:"5%"}}>Arrangement Table For Student</div>    
       <table>
         <thead>
             <tr>
@@ -38,7 +39,7 @@ const Makearrangemettable = (props) => {
             ))}
         </thead>
      </table>
-    </>
+    </div>
   )
 }
 
