@@ -95,7 +95,7 @@ const TeacherTable = (props) => {
   return (
     <Container>
       {open ? (
-        <div className="popcontainer">
+        <Container className="popcontainer">
           <div id="mask"></div>
           <div className="popup">
             <div className="closeButton" onClick={() => setopen(false)}>
@@ -147,7 +147,7 @@ const TeacherTable = (props) => {
               </button>
             </div>
           </div>
-        </div>
+        </Container>
       ) : null}
 
       {Object.keys(data).length && props.finday ? (
