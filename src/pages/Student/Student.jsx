@@ -190,6 +190,7 @@ const Student = () => {
         {open ? <Makearrangemettable  id={formvalues.section}/> : null}
       </div>
     </div>
+
   );
 };
 

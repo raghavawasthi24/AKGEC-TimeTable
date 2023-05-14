@@ -16,6 +16,8 @@ const MakeArrangementForm = () => {
   const [section, setsection] = useState();
   const [dept,setdept] = useState(0);
   const [date,setdate]=useState()
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  axios.defaults.headers.common['Authorization'] = AuthStr;
 
   const today = new Date(date);
   let sysday = today.getDay();

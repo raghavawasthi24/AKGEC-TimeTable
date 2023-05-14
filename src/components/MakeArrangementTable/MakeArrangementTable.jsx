@@ -5,6 +5,7 @@ import React, { useState,useEffect } from 'react'
 const Makearrangemettable = (props) => {
     const[arrangementdata,setarrangementdata]=useState([])
    
+   
     useEffect(() => {
       console.log(props.id)
       if(props.id)

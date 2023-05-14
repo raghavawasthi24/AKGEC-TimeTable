@@ -13,6 +13,9 @@ const TeacherTable = (props) => {
   const [subject, setsubject] = useState();
   const [classid, setclassid] = useState();
 
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  axios.defaults.headers.common['Authorization'] = AuthStr;
+
   const deletelecture = (id) => {
     axios
       .delete(
@@ -58,7 +61,7 @@ const TeacherTable = (props) => {
   }, [props.finday]);
 
   useEffect(() => {
-    if (localStorage.getItem("user")==="Admin"){
+    if (localStorage.getItem("user")==="Admin" && localStorage.getItem("accessToken")){
     fetchinfo2()
     fetchinfo3();
     }

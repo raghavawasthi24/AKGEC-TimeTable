@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import {
   Typography,
   Box,
@@ -12,11 +12,12 @@ import {
   FormControl,
   FormHelperText,
 } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProfileUpdate from "../TeacherProfileUpdate/ProfileUpdate";
+import AdminNav from "../../../components/AdminNav/AdminNav";
 
 
 
@@ -29,8 +30,11 @@ const Register = () => {
     password: "",
     gender: "",
   };
+  
+  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+  axios.defaults.headers.common['Authorization'] = AuthStr;
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formerror, setformerror] = useState({});
   // const [submitbtn, setsubmitbtn] = useState(false);
@@ -45,6 +49,13 @@ const Register = () => {
   const regex_fullname = /^[A-Za-z]+([A-Za-z]+)*$/;
   const regex_email = /^[a-zA-Z0-9._%+-]+@akgec\.ac\.in$/;
   const regex_mobile = /^[6-9]([0-9]){9}$/;
+   
+  useEffect(() => {
+   if(!(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin"))){
+    navigate("/login")
+   }
+  }, [])
+  
 
   const validate = (name,value) => {
   let error = {};
@@ -71,6 +82,7 @@ const Register = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
+  
     if(Object.values(formerror).every((x) => x === "" )&&Object.values(formvalues).every((x) => x !== "")){
     axios
       .post(`${process.env.REACT_APP_URL}/accounts/register/`, {
@@ -96,6 +108,9 @@ const Register = () => {
 
   return (
     <>
+  
+    <AdminNav/>
+ 
     {update ? <ProfileUpdate profile_id={localStorage.getItem("profile_id")}/> :
     <Box>
       <Container
@@ -104,13 +119,13 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "50%",
+          width: "30%",
         }}
       >
         <Typography component="h1" variant="h5">
-          Register
+          Register Teacher
         </Typography>
-          <Box component="form"  sx={{ mt: 3 }}>
+          <Box component="form"  sx={{ mt: 3 ,width:"100%" }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -118,12 +133,11 @@ const Register = () => {
                   error={Boolean(formerror.full_name)}
                   fullWidth
                   name="full_name"
-                  id="firstName"
-                  label="First Name"
+                  id="FullName"
+                  label="Full Name"
                   autoFocus
                   onChange={inputhandler}
                   helperText={formerror.full_name}
-                  required={true}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -183,7 +197,7 @@ const Register = () => {
               <Grid item xs={12}>
                 <FormControl
                   variant="outlined"
-                  style={{ minWidth: "50vw" }}
+                  style={{ minWidth: "100%" }}
                   error={Boolean(formerror.gender)}
                 >
                   <InputLabel id="demo-simple-select-label">Gender </InputLabel>

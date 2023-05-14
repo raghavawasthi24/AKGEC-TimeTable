@@ -5,6 +5,8 @@ import React, { useState,useEffect } from 'react'
 
 const TeacherArrangemetTable = (props) => {
     const[arrangementdata,setarrangementdata]=useState([])
+    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+    axios.defaults.headers.common['Authorization'] = AuthStr;
     const fetchInfo = () =>{
 
         axios.get(`${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_teacher_view/${props.id}`).then((response)=>setarrangementdata(response.data))
