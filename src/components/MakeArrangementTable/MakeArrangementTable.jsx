@@ -4,8 +4,7 @@ import React, { useState,useEffect } from 'react'
 
 const Makearrangemettable = (props) => {
     const[arrangementdata,setarrangementdata]=useState([])
-    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
-    axios.defaults.headers.common['Authorization'] = AuthStr;
+   
    
     useEffect(() => {
       if(props.id)
