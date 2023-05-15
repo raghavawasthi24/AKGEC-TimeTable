@@ -27,7 +27,6 @@ const Register = () => {
     mobile_number: "",
     age: "",
     email: "",
-    password: "",
     gender: "",
   };
   
@@ -71,8 +70,8 @@ const Register = () => {
       break
       case 'age': error.age = (value>18) ? "" : "Enter Valid Age";
       break
-      case 'password': error.password = value? "" : "Enter Password";
-      break
+      // case 'password': error.password = value? "" : "Enter Password";
+      // break
       case 'gender': error.gender = value ? "" : "Enter Gender";
       break
       default:{}
@@ -90,7 +89,7 @@ const Register = () => {
         email: formvalues.email,
         age: formvalues.age,
         gender: formvalues.gender,
-        password: formvalues.password,
+        password: "string",
         mobile_number: formvalues.mobile_number
       })
       .then((response)=>(setupdate(true)(localStorage.setItem("profile_id",JSON.stringify(response.data[1].profile_id))))).catch((report)=>toast.error((Object.keys(report.response.data.error))  + " Already Registered"));
@@ -180,7 +179,7 @@ const Register = () => {
                   onChange={inputhandler}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   variant="outlined"
                   error={Boolean(formerror.email)}
@@ -193,7 +192,7 @@ const Register = () => {
                   id="password"
                   onChange={inputhandler}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <FormControl
                   variant="outlined"
