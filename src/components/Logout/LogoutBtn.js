@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const LogoutBtn = () => {
   const styled = {
     logout: {
-      width: "100%",
+      width: "100vw",
       padding: "1% 0",
       position: "relative",
     },

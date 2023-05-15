@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import LogoutBtn from "../../components/Logout/LogoutBtn";
 
+// let tt=[]
+
 const Student = () => {
   let initialvalues = {
     year: "",
@@ -54,7 +56,8 @@ const Student = () => {
   const [department, setDepartment] = useState([]);
   const [section, setSection] = useState([]);
   const [timetable, setTimetable] = useState([]);
-  const [open,setOpen]=useState(true);
+  const [viewTable,setViewTable]=useState(false);
+  const [open,setOpen]=useState(false);
 
   const handleYear = (e) => {
     axios
@@ -95,7 +98,11 @@ const Student = () => {
         console.log(res);
         // initialvalues.department=e.target.value;
         setTimetable(res.data);
-        console.log(timetable.Monday[0])
+        setViewTable(true);
+        console.log(timetable.Monday)
+        console.log(period_days[0])
+       
+        console.log(timetable)
       });
   };
   const openArrangement=()=>{
@@ -157,10 +164,10 @@ const Student = () => {
         </Stack>
       </div>
 
-      <div className="studentTableBox">
+      <div className={viewTable?"studentTableBox":"hide"}>
         <TableContainer sx={{ width: "90vw"}}>
-          <Table>
-            <TableHead sx={{backgroundColor:"rgba(128, 128, 128, 0.464)"}}>
+          <Table size="small">
+            <TableHead sx={{backgroundColor:"rgba(128, 128, 128, 0.264)"}}>
               <TableRow>
                 <TableCell size="small"></TableCell>
                 {period_time.map((val) => {
@@ -170,15 +177,24 @@ const Student = () => {
             </TableHead>
 
             <TableBody>
-              {period_days.map((val, daysInd) => {
+              {Object.values(timetable).map((val, daysInd) => {
                 return (
                   <TableRow>
-                    <TableCell>{val}</TableCell>
-                    {/* {period_time.map((item, timeInd) => {
-                      <TableCell>
-                        <p>{timetable.val[timeInd].subject_name}</p>
-                      </TableCell>;
-                    })} */}
+                    <TableCell>{Object.keys(timetable)[daysInd]}</TableCell>
+                    {val.map((item, timeInd) => {
+                      return(
+                        <TableCell sx={{width:"1rem"}}>
+                          <div style={{textAlign:"center"}}>
+                            <p>{item.subject_name}</p>
+                            <p style={{fontWeight:"bold"}}>{item.faculty_name}</p>
+                                                    <p style={{color:"red"}}>{item.type}</p>
+                          </div>
+                        {/* {console.log(item.id)} */}
+                        
+                      </TableCell>
+                      )
+                      
+                    })}
                   </TableRow>
                 );
               })}
@@ -186,9 +202,9 @@ const Student = () => {
           </Table>
         </TableContainer>
       </div>
-      <div>
+      
         {open ? <Makearrangemettable  id={formvalues.section}/> : null}
-      </div>
+     
     </div>
 
   );

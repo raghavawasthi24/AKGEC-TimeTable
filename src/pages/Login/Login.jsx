@@ -198,13 +198,13 @@ const Login = () => {
             size='small'
             onChange={facultyHandler} />
 
-          <div className='remember'>
+          {/* <div className='remember'>
             <div className='checkbox'>
               <input type='checkbox' />
               <label>Remember Me</label>
             </div>
             <p>Forgot Password?</p>
-          </div>
+          </div> */}
 
           <input type='submit' className='submit' />
         </form>
