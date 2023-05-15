@@ -55,10 +55,10 @@ const CreateTimeTable = () => {
  
   const year = ["1", "2", "3", "4"];
 
-  const yearHandler = () => {
+  const yearHandler = (e) => {
     axios
       .get(
-        "https://time-table-production-f8a5.up.railway.app/departmentss/all_departments"
+        `${process.env.REACT_APP_URL}/departmentss/all_departments/${e.target.value}`
       )
       .then((resp) => {
         console.log(resp.data);
@@ -197,7 +197,7 @@ const CreateTimeTable = () => {
             value={formvalues.year}
             onChange={(e) => {
               handleChange(e);
-              yearHandler();
+              yearHandler(e);
             }}
           >
             {year.map((val) => {

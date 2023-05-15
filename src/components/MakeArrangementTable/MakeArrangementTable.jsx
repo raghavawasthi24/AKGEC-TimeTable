@@ -15,9 +15,9 @@ const Makearrangemettable = (props) => {
     
       
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+    <div style={{width:"90%",overflow:"hidden",display:"flex",flexDirection:"column",alignItems:"center"}}>
      <div className='popmain' style={{margin:"5%"}}>Arrangement Table For Student</div>    
-      <table>
+      <table style={{overflowX:"scroll"}}>
         <thead>
             <tr>
             <td id='time'>S.NO</td>
