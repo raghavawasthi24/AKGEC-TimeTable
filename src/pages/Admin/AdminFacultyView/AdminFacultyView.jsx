@@ -88,7 +88,7 @@ const AdminFacultyVIew = () => {
       {openarrangement ? (
         <div className="popcontainer" >
           <div id="mask"></div>
-          <div className="popup" style={{height:"90%",top:"1rem"}}>
+          <div className="popup" style={{height:"100%",top:"1rem"}}>
             <div className="closeButton" onClick={control2} style={{marginLeft:"32rem"}}>
               +
             </div>

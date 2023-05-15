@@ -16,6 +16,7 @@ import Checkbox from "@mui/material/Checkbox";
 import "./CreateTimeTable.css";
 import CreateIcon from '@mui/icons-material/Create';
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../../../components/AdminNav/AdminNav";
 
 
 let initialteacherSelArray = [];
@@ -185,6 +186,7 @@ const CreateTimeTable = () => {
   };
 
   return (
+    <><AdminNav/>
     <div className="createTimeTable">
       <div className={show?"createTimeTableControls":"hide"}>
         <FormControl fullWidth sx={{margin:"1rem"}}>
@@ -316,6 +318,7 @@ const CreateTimeTable = () => {
         </Button>
       </div>
     </div>
+    </>
   );
 };
 

@@ -52,7 +52,7 @@ const MakeArrangementForm = () => {
   const fetchinfo5 = () => {
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/all_departments`
+        `${process.env.REACT_APP_URL}/departmentss/departments`
       )
       .then((response) => setdepdata(response.data));
   };
