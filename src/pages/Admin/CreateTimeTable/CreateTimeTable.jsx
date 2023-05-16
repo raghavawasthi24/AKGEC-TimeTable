@@ -10,11 +10,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
-import { Button, FormGroup, TextField } from "@mui/material";
+import {  FormGroup, TextField } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import "./CreateTimeTable.css";
-import CreateIcon from '@mui/icons-material/Create';
+// import CreateIcon from '@mui/icons-material/Create';
 import { useNavigate } from "react-router-dom";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 
@@ -50,7 +50,7 @@ const CreateTimeTable = () => {
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState([]);
   const [show,setShow]=useState(true);
-  const [disabled,setDisabled]=useState(false)
+  // const [disabled,setDisabled]=useState(false)
   const navigate=useNavigate();
  
   const year = ["1", "2", "3", "4"];
@@ -86,7 +86,7 @@ const CreateTimeTable = () => {
   };
 
   const sectionHandler = (e, id) => {
-    setDisabled(true);
+    // setDisabled(true);
     if (e.target.checked) {
       sectionUpdates.push(e.target.value);
       // setSelectedSection(...selectedSection,e.target.value)
@@ -237,13 +237,14 @@ const CreateTimeTable = () => {
             );
           })}
         </FormGroup>
-        <Button
+        {/* <Button
          onClick={create}
           variant="contained"
-           disabled={disabled?false:true} sx={{margin:"1rem"}}>Continue</Button>
+           disabled={disabled?false:true} sx={{margin:"1rem"}}>Continue</Button> */}
+           <button className="button" onClick={create} style={{margin:"2rem"}} >Continue</button>
       </div>
       <div className={show?"hide":"createTable"}>
-        <TableContainer sx={{ width: "90%"}}>
+        <TableContainer sx={{ width: "100%"}}>
           <Table>
             <TableHead>
               <TableRow>
@@ -313,9 +314,10 @@ const CreateTimeTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant="contained" onClick={createTimeTable} sx={{margin:"2%"}} startIcon={<CreateIcon/>}>
+        {/* <Button variant="contained" onClick={createTimeTable} sx={{margin:"2%"}} startIcon={<CreateIcon/>}>
           Create TimeTable
-        </Button>
+        </Button> */}
+        <button className="button" onClick={createTimeTable} style={{margin:"2rem"}} >Create TimeTable</button>
       </div>
     </div>
     </>

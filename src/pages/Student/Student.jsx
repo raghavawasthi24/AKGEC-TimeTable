@@ -174,7 +174,7 @@ const Student = () => {
         </Stack>
       </div>
 
-      <div className={(open==1)&&viewTable ?"studentTableBox": "hide"}>
+      <div className={(open===1)&&viewTable ?"studentTableBox": "hide"}>
         <TableContainer sx={{ width: "90vw" }}>
           <Table size="small">
             <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
@@ -213,7 +213,7 @@ const Student = () => {
         </TableContainer>
       </div>
 
-      {open==2 ?<Makearrangemettable id={formvalues.section} />:null}
+      {open===2 ?<Makearrangemettable id={formvalues.section} />:null}
     </div>
     </>
   );

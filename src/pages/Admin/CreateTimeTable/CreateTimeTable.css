@@ -6,7 +6,7 @@
     align-items: center;
 }
 .createTimeTableControls{
-    width:50%;
+    width:70%;
     margin-top: 5%;
     padding:2%;
     display: flex;
@@ -16,7 +16,9 @@
     box-shadow: 1px 1px 10px grey;
 }
 .createTable{
-    margin:2% 0;
+    width:90%;
+    margin:2% auto;
+    border: 1px solid grey;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,4 +26,10 @@
 }
 .hide{
     display: none;
+}
+@media screen and (max-width:662px) {
+    .createTimeTableControls{
+        width:90%;
+        box-shadow: none;
+    }
 }
