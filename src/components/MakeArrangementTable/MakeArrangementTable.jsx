@@ -16,6 +16,7 @@ const Makearrangemettable = (props) => {
     
       
   return (
+    <>
     <div style={{width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
      <Typography className='popmain' sx={{margin:"2% 0",fontWeight:"bold", fontSize:{sm:"2rem"}}}>Arrangement Table For Student</Typography>    
       <div style={{width:"100%",overflowX:"scroll",border:"1px solid grey"}}>
@@ -43,6 +44,7 @@ const Makearrangemettable = (props) => {
              </table>
       </div>
     </div>
+    </>
   )
 }
 

@@ -59,7 +59,7 @@ const Student = () => {
   const [timetable, setTimetable] = useState([]);
   const [viewTable, setViewTable] = useState(false);
   let [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(0);
 
   const handleYear = (e) => {
     delete axios.defaults.headers.common["Authorization"];
@@ -105,7 +105,7 @@ const Student = () => {
         console.log(res);
         // initialvalues.department=e.target.value;
         setTimetable(res.data);
-        setOpen(true);
+        setOpen(1);
         setLoading(false);
         setViewTable(true);
         console.log(timetable.Monday);
@@ -170,11 +170,11 @@ const Student = () => {
         <Stack spacing={2} direction="row" sx={{margin:"2rem 0"}}>
           <button className="button" onClick={viewTimeTable}>View TimeTable</button>
           <button className="button" style={{color:"white",backgroundColor:"black"}} onClick={
-            ()=>setOpen(false)}>View Arrangement</button>
+            ()=>setOpen(2)}>View Arrangement</button>
         </Stack>
       </div>
 
-      <div className={open&&viewTable ?"studentTableBox": "hide"}>
+      <div className={(open==1)&&viewTable ?"studentTableBox": "hide"}>
         <TableContainer sx={{ width: "90vw" }}>
           <Table size="small">
             <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
@@ -213,7 +213,7 @@ const Student = () => {
         </TableContainer>
       </div>
 
-      {open ?null:<Makearrangemettable id={formvalues.section} />}
+      {open==2 ?<Makearrangemettable id={formvalues.section} />:null}
     </div>
     </>
   );
