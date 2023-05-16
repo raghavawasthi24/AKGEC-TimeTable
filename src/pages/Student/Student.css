@@ -2,11 +2,17 @@
     width:100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     /* overflow-x: hidden; */
+}
+.studentControlsSel{
+    width: 100%;
+   display: flex;
+   justify-content: space-between;
 }
 .studentControls{
     width:70%;
+    margin: auto;
     /* margin:1%; */
     padding:3%;
     display: flex;
@@ -16,6 +22,7 @@
 }
 .studentTableBox{
     width:90%;
+    margin: auto;
     /* overflow-x: scroll; */
     border: 1px solid grey;
     /* display: none; */
@@ -27,6 +34,9 @@
     justify-content: flex-end;
 }
 @media screen and (max-width:585px) {
+    .studentControlsSel{
+        flex-direction: column;
+    }
     .studentControls{
         width: 90%;
     }

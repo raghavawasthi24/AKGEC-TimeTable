@@ -16,8 +16,9 @@ import {
   TableHead,
   TableBody,
 } from "@mui/material";
-import LogoutBtn from "../../components/Logout/LogoutBtn";
+// import LogoutBtn from "../../components/Logout/LogoutBtn";
 import LogInBtn from "../../components/LogInBtn/LogInBtn";
+import AdminNav from "../../components/AdminNav/AdminNav";
 
 // let tt=[]
 
@@ -125,48 +126,52 @@ const Student = () => {
           />
         </div>
     <div className="student">
-      <div className="logIndiv">
-        {localStorage.getItem("user")? <LogoutBtn />:<LogInBtn/>}
-        </div>
+      {
+        localStorage.getItem("user")?<AdminNav/>:<div className="logIndiv">
+        <LogInBtn/> </div>
+      }
+      
       <div className="studentControls">
-        <FormControl sx={{ width: "90%", margin: "2%" }}>
-          <InputLabel>Year</InputLabel>
-          <Select
-            label="Year"
-            name="year"
-            onChange={(e) => {
-              handleChange(e);
-              handleYear(e);
-            }}
-          >
-            {year.map((val) => {
-              return <MenuItem value={val}>{val}</MenuItem>;
-            })}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ width: "90%", margin: "2%" }}>
-          <InputLabel>Department</InputLabel>
-          <Select
-            label="Department"
-            name="department"
-            onChange={(e) => {
-              handleChange(e);
-              handleDept(e);
-            }}
-          >
-            {department.map((val) => {
-              return <MenuItem value={val.id}>{val.dept}</MenuItem>;
-            })}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ width: "90%", margin: "2%" }}>
-          <InputLabel>Section</InputLabel>
-          <Select label="Section" name="section" onChange={handleChange}>
-            {section.map((val) => {
-              return <MenuItem value={val.id}>{val.section}</MenuItem>;
-            })}
-          </Select>
-        </FormControl>
+        <div className="studentControlsSel">
+          <FormControl sx={{ width: "90%", margin: "2%" }}>
+            <InputLabel>Year</InputLabel>
+            <Select
+              label="Year"
+              name="year"
+              onChange={(e) => {
+                handleChange(e);
+                handleYear(e);
+              }}
+            >
+              {year.map((val) => {
+                return <MenuItem value={val}>{val}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ width: "90%", margin: "2%" }}>
+            <InputLabel>Department</InputLabel>
+            <Select
+              label="Department"
+              name="department"
+              onChange={(e) => {
+                handleChange(e);
+                handleDept(e);
+              }}
+            >
+              {department.map((val) => {
+                return <MenuItem value={val.id}>{val.dept}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ width: "90%", margin: "2%" }}>
+            <InputLabel>Section</InputLabel>
+            <Select label="Section" name="section" onChange={handleChange}>
+              {section.map((val) => {
+                return <MenuItem value={val.id}>{val.section}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
+        </div>
         <Stack spacing={2} direction="row" sx={{margin:"2rem 0"}}>
           <button className="button" onClick={viewTimeTable}>View TimeTable</button>
           <button className="button" style={{color:"white",backgroundColor:"black"}} onClick={
