@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import axios from "axios";
 import Makearrangemettable from "../../components/MakeArrangementTable/MakeArrangementTable";
 import Stack from "@mui/material/Stack";
+import BeatLoader from "react-spinners/BeatLoader";
 import {
   TableCell,
   TableContainer,
@@ -57,6 +58,7 @@ const Student = () => {
   const [section, setSection] = useState([]);
   const [timetable, setTimetable] = useState([]);
   const [viewTable, setViewTable] = useState(false);
+  let [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleYear = (e) => {
@@ -94,6 +96,7 @@ const Student = () => {
   // }
   const viewTimeTable = () => {
     console.log(formvalues);
+    setLoading(true);
     axios
       .get(
         `${process.env.REACT_APP_URL}/departmentss/view-time-table/${formvalues.section}`
@@ -102,6 +105,8 @@ const Student = () => {
         console.log(res);
         // initialvalues.department=e.target.value;
         setTimetable(res.data);
+        setOpen(true);
+        setLoading(false);
         setViewTable(true);
         console.log(timetable.Monday);
         console.log(period_days[0]);
@@ -109,12 +114,16 @@ const Student = () => {
         console.log(timetable);
       });
   };
-  const openArrangement = () => {
-    if (open) setOpen(false);
-    else setOpen(true);
-  };
 
   return (
+    <>
+    <div className={loading ? "loading" : "hide"}>
+          <BeatLoader
+            color={'black'}
+            loading={loading}
+            size={15}
+          />
+        </div>
     <div className="student">
       <div className="logIndiv">
         {localStorage.getItem("user")? <LogoutBtn />:<LogInBtn/>}
@@ -160,18 +169,19 @@ const Student = () => {
         </FormControl>
         <Stack spacing={2} direction="row" sx={{margin:"2rem 0"}}>
           <button className="button" onClick={viewTimeTable}>View TimeTable</button>
-          <button className="button" style={{color:"white",backgroundColor:"black"}} onClick={openArrangement}>View Arrangement</button>
+          <button className="button" style={{color:"white",backgroundColor:"black"}} onClick={
+            ()=>setOpen(false)}>View Arrangement</button>
         </Stack>
       </div>
 
-      <div className={viewTable ? "studentTableBox" : "hide"}>
+      <div className={open&&viewTable ?"studentTableBox": "hide"}>
         <TableContainer sx={{ width: "90vw" }}>
           <Table size="small">
             <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
               <TableRow>
                 <TableCell size="small"></TableCell>
                 {period_time.map((val) => {
-                  return <TableCell size="small">{val}</TableCell>;
+                  return <TableCell size="small" sx={{textAlign:"center"}}>{val}</TableCell>;
                 })}
               </TableRow>
             </TableHead>
@@ -180,7 +190,7 @@ const Student = () => {
               {Object.values(timetable).map((val, daysInd) => {
                 return (
                   <TableRow>
-                    <TableCell>{Object.keys(timetable)[daysInd]}</TableCell>
+                    <TableCell sx={{textAlign:"center"}}>{Object.keys(timetable)[daysInd]}</TableCell>
                     {val.map((item, timeInd) => {
                       return (
                         <TableCell sx={{ width: "1rem" }}>
@@ -203,8 +213,9 @@ const Student = () => {
         </TableContainer>
       </div>
 
-      {open ? <Makearrangemettable id={formvalues.section} /> : null}
+      {open ?null:<Makearrangemettable id={formvalues.section} />}
     </div>
+    </>
   );
 };
 
