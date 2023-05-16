@@ -6,9 +6,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 import Makearrangemettable from "../../components/MakeArrangementTable/MakeArrangementTable";
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 import {
-  Button,
   TableCell,
   TableContainer,
   Table,
@@ -17,6 +16,7 @@ import {
   TableBody,
 } from "@mui/material";
 import LogoutBtn from "../../components/Logout/LogoutBtn";
+import LogInBtn from "../../components/LogInBtn/LogInBtn";
 
 // let tt=[]
 
@@ -56,12 +56,14 @@ const Student = () => {
   const [department, setDepartment] = useState([]);
   const [section, setSection] = useState([]);
   const [timetable, setTimetable] = useState([]);
-  const [viewTable,setViewTable]=useState(false);
-  const [open,setOpen]=useState(false);
+  const [viewTable, setViewTable] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleYear = (e) => {
     axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/all_departments/${e.target.value}`)
+      .get(
+        `${process.env.REACT_APP_URL}/departmentss/all_departments/${e.target.value}`
+      )
       .then((res) => {
         console.log(res);
         // initialvalues.year=e.target.value;
@@ -99,24 +101,24 @@ const Student = () => {
         // initialvalues.department=e.target.value;
         setTimetable(res.data);
         setViewTable(true);
-        console.log(timetable.Monday)
-        console.log(period_days[0])
-       
-        console.log(timetable)
+        console.log(timetable.Monday);
+        console.log(period_days[0]);
+
+        console.log(timetable);
       });
   };
-  const openArrangement=()=>{
-    if(open)
-    setOpen(false)
-    else
-    setOpen(true)
-  }
+  const openArrangement = () => {
+    if (open) setOpen(false);
+    else setOpen(true);
+  };
 
   return (
     <div className="student">
-      <LogoutBtn/>
+      <div className="logIndiv">
+        {localStorage.getItem("user")? <LogoutBtn />:<LogInBtn/>}
+        </div>
       <div className="studentControls">
-        <FormControl sx={{width:"90%",margin:"2%"}}>
+        <FormControl sx={{ width: "90%", margin: "2%" }}>
           <InputLabel>Year</InputLabel>
           <Select
             label="Year"
@@ -131,10 +133,10 @@ const Student = () => {
             })}
           </Select>
         </FormControl>
-        <FormControl sx={{width:"90%",margin:"2%"}}>
+        <FormControl sx={{ width: "90%", margin: "2%" }}>
           <InputLabel>Department</InputLabel>
           <Select
-            label="Department"          
+            label="Department"
             name="department"
             onChange={(e) => {
               handleChange(e);
@@ -146,28 +148,24 @@ const Student = () => {
             })}
           </Select>
         </FormControl>
-        <FormControl sx={{width:"90%",margin:"2%"}}>
+        <FormControl sx={{ width: "90%", margin: "2%" }}>
           <InputLabel>Section</InputLabel>
-          <Select label="Section"  name="section" onChange={handleChange}>
+          <Select label="Section" name="section" onChange={handleChange}>
             {section.map((val) => {
               return <MenuItem value={val.id}>{val.section}</MenuItem>;
             })}
           </Select>
         </FormControl>
-        <Stack spacing={2} direction="row">
-        <Button variant="contained" onClick={viewTimeTable}>
-          View TimeTable
-        </Button>
-        <Button variant="contained" onClick={openArrangement}>
-          View Arrangement
-        </Button>
+        <Stack spacing={2} direction="row" sx={{margin:"2rem 0"}}>
+          <button className="button" onClick={viewTimeTable}>View TimeTable</button>
+          <button className="button" style={{color:"white",backgroundColor:"black"}} onClick={openArrangement}>View Arrangement</button>
         </Stack>
       </div>
 
-      <div className={viewTable?"studentTableBox":"hide"}>
-        <TableContainer sx={{ width: "90vw"}}>
+      <div className={viewTable ? "studentTableBox" : "hide"}>
+        <TableContainer sx={{ width: "90vw" }}>
           <Table size="small">
-            <TableHead sx={{backgroundColor:"rgba(128, 128, 128, 0.264)"}}>
+            <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
               <TableRow>
                 <TableCell size="small"></TableCell>
                 {period_time.map((val) => {
@@ -182,18 +180,18 @@ const Student = () => {
                   <TableRow>
                     <TableCell>{Object.keys(timetable)[daysInd]}</TableCell>
                     {val.map((item, timeInd) => {
-                      return(
-                        <TableCell sx={{width:"1rem"}}>
-                          <div style={{textAlign:"center"}}>
+                      return (
+                        <TableCell sx={{ width: "1rem" }}>
+                          <div style={{ textAlign: "center" }}>
                             <p>{item.subject_name}</p>
-                            <p style={{fontWeight:"bold"}}>{item.faculty_name}</p>
-                                                    <p style={{color:"red"}}>{item.type}</p>
+                            <p style={{ fontWeight: "bold" }}>
+                              {item.faculty_name}
+                            </p>
+                            <p style={{ color: "red" }}>{item.type}</p>
                           </div>
-                        {/* {console.log(item.id)} */}
-                        
-                      </TableCell>
-                      )
-                      
+                          {/* {console.log(item.id)} */}
+                        </TableCell>
+                      );
                     })}
                   </TableRow>
                 );
@@ -202,11 +200,9 @@ const Student = () => {
           </Table>
         </TableContainer>
       </div>
-      
-        {open ? <Makearrangemettable  id={formvalues.section}/> : null}
-     
-    </div>
 
+      {open ? <Makearrangemettable id={formvalues.section} /> : null}
+    </div>
   );
 };
 

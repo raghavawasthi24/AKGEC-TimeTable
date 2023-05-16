@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeacherTable from '../../../components/TeacherTable/TeacherTable';
-import { Container ,Box} from "@mui/system";
+import { Container } from "@mui/system";
 import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
 import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
 import AdminNav from "../../../components/AdminNav/AdminNav";
@@ -45,6 +45,7 @@ const AdminFacultyVIew = () => {
   }
   else
   navigate("/login")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const resultday = (e) => {

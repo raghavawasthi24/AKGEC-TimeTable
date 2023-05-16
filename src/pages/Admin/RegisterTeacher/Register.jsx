@@ -54,6 +54,7 @@ const Register = () => {
    if(!(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin"))){
     navigate("/login")
    }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
 
