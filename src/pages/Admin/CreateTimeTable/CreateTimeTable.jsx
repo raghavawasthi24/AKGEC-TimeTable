@@ -107,6 +107,16 @@ const CreateTimeTable = () => {
   };
 
   const create = () => {
+    axios
+      .get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/${formvalues.year}/${formvalues.departments}`)
+      .then((res) => {
+        console.log(res);
+        setSubjects(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     setSelectedSection(sectionUpdates);
     sectionUpdates.map((val) => initialteacherSelArray.push([]));
     console.log(initialteacherSelArray);
@@ -129,16 +139,6 @@ const CreateTimeTable = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/all_subject`)
-      .then((res) => {
-        console.log(res);
-        setSubjects(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
     axios
       .get(`${process.env.REACT_APP_URL}/departmentss/subject_with_teachers`)
       .then((res) => {
@@ -167,7 +167,7 @@ const CreateTimeTable = () => {
     console.log(no_of_lectures, type, teacher_id, class_id, subject_id);
     axios
       .post(
-        "https://time-table-production-f8a5.up.railway.app/departmentss/create_table/",
+        `${process.env.REACT_APP_URL}/departmentss/create_table/`,
         {
           teacher_id: teacher_id,
           subject_id: subject_id,

@@ -60,9 +60,11 @@ const Student = () => {
   const [open, setOpen] = useState(false);
 
   const handleYear = (e) => {
+    delete axios.defaults.headers.common["Authorization"];
     axios
       .get(
         `${process.env.REACT_APP_URL}/departmentss/all_departments/${e.target.value}`
+        
       )
       .then((res) => {
         console.log(res);

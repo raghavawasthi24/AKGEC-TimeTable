@@ -234,13 +234,7 @@ const Login = () => {
             size='small'
             onChange={adminHandler} />
 
-          <div className='remember'>
-            <div className='checkbox'>
-              <input type='checkbox' />
-              <label>Remember Me</label>
-            </div>
-            <p>Forgot Password?</p>
-          </div>
+          
 
           <input type='submit' className='submit' />
         </form>
