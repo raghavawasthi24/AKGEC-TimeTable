@@ -71,6 +71,7 @@ const CreateTimeTable = () => {
   };
 
   const handleDept = (e) => {
+    sectionUpdates=[];
     console.log(formvalues);
     axios
       .get(
@@ -275,7 +276,7 @@ const CreateTimeTable = () => {
                               }
                               name="teacherSel"
                             >
-                              {teachers[subIndex][key.subject].map((teacher) => {
+                              {Object.values(teachers[subIndex]).map((teacher) => {
                                 return (
                                   <MenuItem value={teacher.user_id}>
                                     {teacher.user}
