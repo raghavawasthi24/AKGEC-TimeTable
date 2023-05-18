@@ -88,7 +88,7 @@ const Register = () => {
       .post(`${process.env.REACT_APP_URL}/accounts/register/`, {
         full_name: formvalues.full_name,
         email: formvalues.email,
-        age: formvalues.age,
+        age: (formvalues.age),
         gender: formvalues.gender,
         password: "string",
         mobile_number: formvalues.mobile_number

@@ -42,7 +42,9 @@ const Teacher = () =>{
     <>
     {/* {studentview ? <Student/>: */}
     <Container>
+    
     <TeacherNav/>
+
     <Box className="teacherView">
       <Box className="teacherDay" >
       <select

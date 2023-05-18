@@ -59,11 +59,15 @@
     }
     .AdminNavbarMobile{
         display: block;
+    z-index: 99;
+
     }
     
 }
 @media screen and (max-width:429px) {
     .AdminNavbarMobile{
-        top:19%
+        top:19%;
+    z-index: 99;
+
     }
 }

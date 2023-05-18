@@ -116,12 +116,7 @@ const Student = () => {
       });
   };
   
-  useEffect(() => {
-    // delete axios.default.headers.common.Authorization
-  setInterval(()=>{
-  if((localStorage.getItem("accessToken")&&((localStorage.getItem("user")===("Admin"))||(localStorage.getItem("user")===("faculty"))))){
-   axios.post(`${process.env.REACT_APP_URL}/accounts/refresh-token/`).then((response)=>(console.log(response)))}},5000)
-  }, [])
+
 
   return (
     <>
@@ -135,7 +130,7 @@ const Student = () => {
     <div className="student">
       {
         // localStorage.getItem("user")?localStorage.getItem("user")=="admin"?<AdminNav/>:<
-        localStorage.getItem("user")==="admin"?<AdminNav/>:<div className="logIndiv">
+        localStorage.getItem("user")==="Admin"?<AdminNav/>:<div className="logIndiv">
         <LogInBtn/> </div>
       }
       
