@@ -40,7 +40,7 @@ const AdminFacultyVIew = () => {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="admin")){
+    if(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin")){
     fetchinfo2();
   }
   else

@@ -66,7 +66,7 @@ const Login = () => {
           if((resp.data[0].access) && (resp.data[1].Admin===true)){
             // console.log("logged in admin")
           localStorage.setItem("accessToken",resp.data[0].access);
-          localStorage.setItem("user","admin");
+          localStorage.setItem("user","Admin");
           console.log("logged in admin")
           navigate("/admin")
 
