@@ -68,11 +68,7 @@
 @media screen and (max-width:429px) {
     .AdminNavbarMobile{
         top:19%;
-<<<<<<< HEAD
     z-index: 99;
 
-=======
-        /* width:90vw; */
->>>>>>> 8df6fe43de3256e0a4abfdb869d8f78064b06a2e
     }
 }
