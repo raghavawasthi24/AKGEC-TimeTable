@@ -28,6 +28,7 @@
     left: 0;
     justify-content: flex-start;
     display: none;
+    z-index:99;
 }
 .AdminNavbarMobile button{
     width: 100%;
