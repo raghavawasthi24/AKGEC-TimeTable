@@ -119,10 +119,10 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "30%",
+          width: "50%",
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" style={{width:'12rem'}}>
           Register Teacher
         </Typography>
           <Box component="form"  sx={{ mt: 3 ,width:"100%" }}>

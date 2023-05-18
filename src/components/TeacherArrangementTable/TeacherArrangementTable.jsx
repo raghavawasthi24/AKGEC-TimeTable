@@ -1,4 +1,5 @@
 // import { ConnectingAirportsOutlined } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 
@@ -19,7 +20,8 @@ const TeacherArrangemetTable = (props) => {
 
   return (
     <>
-     <div className='popmain' style={{margin:"2rem 28.5rem"}}>Arrangement Table</div>    
+     <Typography className='popmain' style={{fontSize:"2rem",textAlign:"center",marginTop:"2rem"}}>Arrangement Table</Typography>   
+     <Box style={{overflowX:"auto"}}>
       <table>
         <thead>
             <tr>
@@ -43,6 +45,7 @@ const TeacherArrangemetTable = (props) => {
             ))}
         </thead>
      </table>
+     </Box> 
     </>
   )
 }

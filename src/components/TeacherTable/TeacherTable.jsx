@@ -152,7 +152,7 @@ const TeacherTable = (props) => {
 
       {Object.keys(data).length && props.finday ? (
         props.finday === "Entire Week" ? (
-          <Box sx={{ margin: "0rem -5.8vw" ,marginBottom:"2rem" }}>
+          <Box sx={{ margin: "0rem -5.8vw" ,marginBottom:"2rem" ,overflowX:"auto"}}>
             <table className="EntireWeek">
               <thead>
                 <tr className="EntireWeekRow">

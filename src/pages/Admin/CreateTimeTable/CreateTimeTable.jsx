@@ -138,8 +138,17 @@ const CreateTimeTable = () => {
     typeOfLecSel[subIndex] = e.target.value;
     console.log(typeOfLecSel);
   };
+   
+  useEffect(() => {
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [])
 
   useEffect(() => {
+    if(!(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin"))){
+      navigate("/login")
+     }
+    else{
     axios
       .get(`${process.env.REACT_APP_URL}/departmentss/subject_with_teachers`)
       .then((res) => {
@@ -148,7 +157,7 @@ const CreateTimeTable = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      });}
   }, []);
 
   const createTimeTable = () => {

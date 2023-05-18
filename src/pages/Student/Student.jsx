@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Student.css";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -115,6 +115,13 @@ const Student = () => {
         console.log(timetable);
       });
   };
+  
+  useEffect(() => {
+    // delete axios.default.headers.common.Authorization
+  setInterval(()=>{
+  if((localStorage.getItem("accessToken")&&((localStorage.getItem("user")===("Admin"))||(localStorage.getItem("user")===("faculty"))))){
+   axios.post(`${process.env.REACT_APP_URL}/accounts/refresh-token/`).then((response)=>(console.log(response)))}},5000)
+  }, [])
 
   return (
     <>

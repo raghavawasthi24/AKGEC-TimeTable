@@ -43,14 +43,13 @@ const Teacher = () =>{
     {/* {studentview ? <Student/>: */}
     <Container>
     <TeacherNav/>
-      <Box >
+    <Box className="teacherView">
+      <Box className="teacherDay" >
       <select
-        id="day"
         onChange={resultday}
         placeholder="Select Day"
         defaultValue="Select Day"
         className="SelectDay"
-        style={{marginLeft:"21rem",marginTop:"6rem"}}
       >
         <option value="Select Day" disabled>
           Select Day
@@ -63,11 +62,14 @@ const Teacher = () =>{
         <option value="Saturday">Saturday</option>
         <option value="Entire Week">Entire Week</option>
       </select>
+      </Box>
+      <Box style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
       <button className="View" onClick={finalday}>View Schedule</button>
-      <button className="View" style={{width:"12rem"}} onClick={handleOpen}>
+      <button className="View" id="ViewArrange" onClick={handleOpen}>
           View Arrangement
         </button>
-        </Box>
+      </Box>
+      </Box>
       <TeacherTable id={teacherdata.user_id} finday={finday} />
       {open ? <TeacherArrangementTable id={teacherdata.user_id}/> :null }
     </Container>
