@@ -18,34 +18,52 @@
     display: none;
     margin: 2%;
 }
+.AdminNavbarMobile{
+    width: 70vw;
+    height: 100%;
+    background-color: #252525;
+    flex-direction: column;
+    position: fixed;
+    top:22%;
+    left: 0;
+    justify-content: flex-start;
+    display: none;
+}
+.AdminNavbarMobile button{
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    text-align: left;
+    /* border: 1px solid white; */
+    box-shadow: 1px 0px 1px white;
+    border-radius: 0;
+    margin: 0 ;
+    border: none;
+    padding: 1rem;
+}
+.AdminNavbarMobile button:hover{
+    background-color: red;
+}
+.hide{
+    display: none;
+}
 @media screen and (max-width:963px) {
     .menubar{
         display: block;
     }
+   
     .AdminNavbar{
-        width: 70vw;
-        height: 100%;
-        background-color: #252525;
-        flex-direction: column;
-        position: fixed;
-        top:4.4rem;
-        left: 0;
-        justify-content: flex-start;
+        
         display: none;
         
     }
-    .AdminNavbar button{
-        width: 100%;
-        background-color: transparent;
-        color: white;
-        text-align: left;
-        /* border: 1px solid white; */
-        box-shadow: 1px 0px 1px white;
-        border-radius: 0;
-        margin: 0 ;
-        padding: 1rem;
+    .AdminNavbarMobile{
+        display: block;
     }
-    .AdminNavbar button:hover{
-        background-color: red;
+    
+}
+@media screen and (max-width:429px) {
+    .AdminNavbarMobile{
+        top:19%
     }
 }

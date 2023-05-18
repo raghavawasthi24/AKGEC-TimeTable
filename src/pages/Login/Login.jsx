@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Login.css";
 // import Cookies from "universal-cookie";
 // import jwt from "jwt-decode";
@@ -26,12 +26,12 @@ const Login = () => {
   const [errors, setErrors] = useState("");
   const [verified, setVerified] = useState(false)
   const [facultyturn, setFacultyturn] = useState(false);
-  const [adminturn, setAdminturn] = useState(false);
-  const [pos, setPos] = useState(false);
+  // const [adminturn, setAdminturn] = useState(false);
+  // const [pos, setPos] = useState(false);
   // const [user, setUser] = useState("");
 
 
-  const boldline = useRef();
+  // const boldline = useRef();
 
   const facultyHandler = (e) => {
     const { name, value } = e.target;
@@ -63,13 +63,22 @@ const Login = () => {
           // console.log(resp.data.access);
           
           
-          if((resp.data[0].access) && (resp.data[1].Admin===false)){
+          if((resp.data[0].access) && (resp.data[1].Admin===true)){
+            // console.log("logged in admin")
           localStorage.setItem("accessToken",resp.data[0].access);
-          localStorage.setItem("user","faculty");
-
-          navigate("/teacher")
+          localStorage.setItem("user","admin");
+          console.log("logged in admin")
+          navigate("/admin")
 
           }
+          
+          else if((resp.data[0].access) && (resp.data[1].Admin===false)){
+            localStorage.setItem("accessToken",resp.data[0].access);
+            localStorage.setItem("user","faculty");
+  
+            navigate("/Teacher")
+  
+            }
 
           else{
             toast.error("Try Logging as Admin")
@@ -83,50 +92,57 @@ const Login = () => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facultyturn])
 
-  const adminHandler = (e) => {
-    const { name, value } = e.target;
-    setFormvalues({ ...formvalues, [name]: value });
-  }
+  // const adminHandler = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormvalues({ ...formvalues, [name]: value });
+  // }
 
   // FUNCTION ON SUBMITTING
-  const adminvalidateForm = (e) => {
-    e.preventDefault();
-    formerror();
-    if (adminturn === false)
-      setAdminturn(true)
-    else
-      setAdminturn(false)
-  }
+  // const adminvalidateForm = (e) => {
+  //   e.preventDefault();
+  //   formerror();
+  //   if (adminturn === false)
+  //     setAdminturn(true)
+  //   else
+  //     setAdminturn(false)
+  // }
 
-  useEffect(() => {
-    if (verified === true) {
-      if (error === true) {
+//   useEffect(() => {
+//     if (verified === true) {
+//       if (error === true) {
         
-        axios.post(`${process.env.REACT_APP_URL}/accounts/login/`,{
+//         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`,{
       
-          email: formvalues.email,
-          password: formvalues.password
-        },
+//           email: formvalues.email,
+//           password: formvalues.password
+//         },
         
-        ).then((resp) => {
+//         ).then((resp) => {
           
-          if((resp.data[0].access) && (resp.data[1].Admin===true)){
-          localStorage.setItem("accessToken",resp.data[0].access);
-          localStorage.setItem("user","Admin");
+//           if((resp.data[0].access) && (resp.data[1].Admin===true)){
+//           localStorage.setItem("accessToken",resp.data[0].access);
+//           localStorage.setItem("user","Admin");
 
-          navigate("/admin")
+//           navigate("/admin")
 
-          }
-          else{
-            toast.error("Try Logging as Teacher")
-          }
-        }).catch((err) => {
-        toast.error("Invalid Details")
-        })
-      }
-    }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [adminturn])
+//           }
+//           else if((resp.data[0].access) && (resp.data[1].Admin===false)){
+//             localStorage.setItem("accessToken",resp.data[0].access);
+//             localStorage.setItem("user","Admin");
+  
+//             navigate("/Teacher")
+  
+//             }
+//           else{
+//             toast.error("Try Logging as Teacher")
+//           }
+//         }).catch((err) => {
+//         toast.error("Invalid Details")
+//         })
+//       }
+//     }
+// // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [adminturn])
 
   //  VALIDATION STARTED
   const formerror = () => {
@@ -150,18 +166,18 @@ const Login = () => {
   }
   // VALIDATION END
 
-  const switchFaculty = () => {
-    setPos(false)
-    setFormvalues(initialvalues)
-    boldline.current.style.left = "0";
-    boldline.current.style.removeProperty("right");
-  }
-  const switchAdmin = () => {
-    setPos(true)
-    setFormvalues(initialvalues)
-    boldline.current.style.removeProperty("left");
-    boldline.current.style.right = "0";
-  }
+  // const switchFaculty = () => {
+  //   setPos(false)
+  //   setFormvalues(initialvalues)
+  //   boldline.current.style.left = "0";
+  //   boldline.current.style.removeProperty("right");
+  // }
+  // const switchAdmin = () => {
+  //   setPos(true)
+  //   setFormvalues(initialvalues)
+  //   boldline.current.style.removeProperty("left");
+  //   boldline.current.style.right = "0";
+  // }
 
 
   return (
@@ -171,16 +187,16 @@ const Login = () => {
         <p style={{ color: 'red' }}>{errors}</p>
         <div className='form-header'>
           <div className='login-text'>
-            <button onClick={switchFaculty}>Login as Faculty</button>
-            <button onClick={switchAdmin}>Login as Admin</button>
+            <button>Login As Faculty</button>
+            {/* <button onClick={switchAdmin}>Login as Admin</button> */}
           </div>
           <hr className='line' />
-          <hr ref={boldline} className='boldline'></hr>
+          {/* <hr ref={boldline} className='boldline'></hr> */}
         </div>
 
         {/* FACULTY LOGIN FORM START */}
 
-        <form className='faculty-form' id={pos === false ? "" : "hide"} onSubmit={facultyvalidateForm}>
+        <form className='faculty-form' onSubmit={facultyvalidateForm}>
           <TextField
             label="Email Address"
             variant="filled"
@@ -200,21 +216,13 @@ const Login = () => {
             size='small'
             onChange={facultyHandler} />
 
-          {/* <div className='remember'>
-            <div className='checkbox'>
-              <input type='checkbox' />
-              <label>Remember Me</label>
-            </div>
-            <p>Forgot Password?</p>
-          </div> */}
-
           <input type='submit' className='submit' />
         </form>
 
         {/* FACULTY LOGIN FORM END */}
         {/* ADMIN LOGIN FORM START */}
 
-        <form className='admin-form' id={pos === true ? "" : "hide"} onSubmit={adminvalidateForm}>
+        {/* <form className='admin-form' id={pos === true ? "" : "hide"} onSubmit={adminvalidateForm}>
           <TextField
             label="Email Address"
             variant="filled"
@@ -237,7 +245,7 @@ const Login = () => {
           
 
           <input type='submit' className='submit' />
-        </form>
+        </form> */}
 
       </div>
     </div>

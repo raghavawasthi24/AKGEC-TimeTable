@@ -134,7 +134,8 @@ const Student = () => {
         </div>
     <div className="student">
       {
-        localStorage.getItem("user")?<AdminNav/>:<div className="logIndiv">
+        // localStorage.getItem("user")?localStorage.getItem("user")=="admin"?<AdminNav/>:<
+        localStorage.getItem("user")==="admin"?<AdminNav/>:<div className="logIndiv">
         <LogInBtn/> </div>
       }
       
