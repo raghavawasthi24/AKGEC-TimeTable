@@ -68,7 +68,11 @@ const Login = () => {
             // console.log("logged in admin")
           localStorage.setItem("accessToken",resp.data[0].access);
           localStorage.setItem("user","Admin");
-          // console.log("logged in admin")
+<<<<<<< HEAD
+    
+=======
+          console.log("logged in admin")
+>>>>>>> 8df6fe43de3256e0a4abfdb869d8f78064b06a2e
           navigate("/admin")
 
           }
