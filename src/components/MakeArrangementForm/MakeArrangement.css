@@ -1,0 +1,165 @@
+.popcontainer{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.popup{
+    position:absolute;
+    top:0rem;
+    /* right: -14rem; */
+    /* width: 40%; */
+    /* height: 50%; */
+    display: grid !important;
+    /* align-self: center !important; */
+    background-color: #fffffffe;
+    border:2px solid black;
+    border-radius: 20px;
+    /* margin: 0rem 40rem; */
+    padding:2rem 0rem;
+    opacity: 99%;
+    z-index:999;
+}
+#mask
+{ position: absolute;
+    background: #000;
+    position: fixed;
+    opacity: .7;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.closeButton{
+    /* margin-left: 32rem; */
+    rotate:135deg;
+     width: 2rem;
+    /* font-size:2rem; */
+    padding: 1rem 1rem 0rem 1rem;
+}
+.popmain{
+   
+    text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  /* margin:0rem 12.3rem */
+}
+
+.popHead{
+    /* margin-left: 1rem; */
+    font-size: 1rem;
+    font-weight: 600;
+    /* padding: 0.75rem 1rem; */
+}
+.popInput{
+    /* margin: 0rem 2rem 0rem 2rem; */
+    font-size: 1rem;
+    /* padding: 0.5rem; */
+}
+
+.updatepop{
+    border: none;
+    background-color: white;
+    box-shadow: 1rem;
+    min-width: 6rem;
+    padding: 0rem;
+    margin: 0rem;
+  }
+button.updatepop{
+    color: #000;
+}
+#arrangement{
+   /* margin-left: 34rem; */
+    width: 9rem;
+    margin: 0.5rem;
+
+
+}
+
+#MakeArr{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 10rem;
+}
+  
+
+
+#delete{
+    /* margin-left: 12rem; */
+    background-color: red;
+    margin: 0.5rem;
+}
+#time{
+    background-color: #E5E5E5;
+}
+
+@media only screen and (max-width: 600px){
+    .popup{
+        width: 90%;
+        padding: 1rem;
+        left: 1rem;
+
+    }
+    .Popbox{
+        display: grid !important;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .popInput{
+        margin: 1rem;
+        /* margin-left: 2vw; */
+        width: 14rem;
+        padding: 0.5rem;
+    }
+    .popHead{
+        margin: 0rem 1rem;
+    }
+    .closeButton{
+        width: 3rem;
+        font-size: 2rem;
+    }
+    #MakeArr{
+    margin: 0 13vw;
+
+    }
+    .popbuttonflex{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+     }
+}
+@media only screen and (min-width: 600px){
+    .popup{
+        top:4rem;
+        margin: 0 20vw;
+        /* width: 32%; */
+        padding: 1rem;
+
+    }
+    .Popbox{
+        display: grid !important;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .popInput{
+        margin: 1rem;
+        /* margin-left: 2vw; */
+        width: 25rem;
+        padding: 1rem;
+    }
+    .popHead{
+        margin: 0rem 1rem;
+    }
+    .closeButton{
+        width: 3rem;
+        font-size: 2rem;
+    }
+    #MakeArr{
+    margin: 0 8vw;
+
+    }
+}

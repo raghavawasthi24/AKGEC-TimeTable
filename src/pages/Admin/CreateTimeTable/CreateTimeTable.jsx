@@ -151,10 +151,23 @@ const CreateTimeTable = () => {
     typeOfLecSel[subIndex] = e.target.value;
     console.log(typeOfLecSel);
   };
+   
+
 
   useEffect(() => {
-    if (localStorage.getItem("user") !== "Admin") navigate("/login");
-    // eslint-disable-next-line
+    if(!(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin"))){
+      navigate("/login")
+     }
+    else{
+    axios
+      .get(`${process.env.REACT_APP_URL}/departmentss/subject_with_teachers`)
+      .then((res) => {
+        console.log(res.data);
+        setTeachers(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });}
   }, []);
 
   const createTimeTable = () => {

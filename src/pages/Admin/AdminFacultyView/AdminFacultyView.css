@@ -1,0 +1,50 @@
+.menu{
+  align-items: center;
+}
+.menubtn{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px){
+    .menu{
+        display: grid;
+        justify-content: center;
+    }
+     #teacher,#day,#subject{
+        /* flex-wrap: wrap; */
+        width: 10rem;
+        margin: 0.5rem;
+     }
+     #ViewSchedule,#MakeArrangement,#ViewArrangement{
+      font-size: 0.7rem;
+      width: 8rem;
+      margin: 0.2rem;
+      margin-bottom: 1rem;
+      padding: 1rem 0.3rem;
+  }
+     
+}
+
+@media only screen and (min-width: 600px) {
+  .menu{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+
+  }
+  #teacher,#day,#subject{
+    /* flex-wrap: wrap; */
+    width: 10rem;
+    margin: 1rem;
+ }
+ #ViewSchedule,#MakeArrangement,#ViewArrangement{
+    width: 10rem;
+    margin: 1rem;
+    margin-bottom: 1rem;
+ }
+
+}

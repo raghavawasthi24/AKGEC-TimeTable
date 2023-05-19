@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 const Login = () => {
   const navigate = useNavigate()
 
@@ -67,7 +68,8 @@ const Login = () => {
             // console.log("logged in admin")
           localStorage.setItem("accessToken",resp.data[0].access);
           localStorage.setItem("user","Admin");
-          console.log("logged in admin")
+    
+          // console.log("logged in admin")
           navigate("/admin")
 
           }
@@ -80,9 +82,9 @@ const Login = () => {
   
             }
 
-          else{
-            toast.error("Try Logging as Admin")
-          }
+          // else{
+          //   toast.error("Try Logging as Admin")
+          // }
         }).catch((err) => {
           toast.error("Invalid Details")
         })
@@ -176,7 +178,7 @@ const Login = () => {
   //   setPos(true)
   //   setFormvalues(initialvalues)
   //   boldline.current.style.removeProperty("left");
-  //   boldline.current.style.right = "0";
+    // boldline.current.style.right = "0";
   // }
 
 
@@ -187,7 +189,7 @@ const Login = () => {
         <p style={{ color: 'red' }}>{errors}</p>
         <div className='form-header'>
           <div className='login-text'>
-            <button>Login As Faculty</button>
+            <button>Login</button>
             {/* <button onClick={switchAdmin}>Login as Admin</button> */}
           </div>
           <hr className='line' />

@@ -10,7 +10,7 @@ const LogInBtn = () => {
   };
   return (
     <button className="loginBtn" onClick={logIn}>
-      Login As Admin
+      Login
     </button>
   );
 };

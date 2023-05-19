@@ -72,7 +72,7 @@ const ProfileUpdate = (props) => {
 
   return (
     <>
-      {departmentData.length > 0 ? (
+      {/* {departmentData.length > 0 ? ( */}
         <Box>
           <Container
             sx={{
@@ -80,10 +80,10 @@ const ProfileUpdate = (props) => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              width: "50%",
+              width: "70%",
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" className="updatehead" style={{width:"16rem"}}>
               Teacher Profile Update
             </Typography>
             <Grid>
@@ -114,7 +114,7 @@ const ProfileUpdate = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <MultiSelect
-                  style={{ margin: "1rem 0rem", width: "30rem" }}
+                  style={{ margin: "1rem 0rem",width:"30vw",minWidth:"15rem"}}
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.value)}
                   options={subjectdata}
@@ -142,7 +142,7 @@ const ProfileUpdate = (props) => {
           </Container>
           <ToastContainer />
         </Box>
-      ) : null}
+      {/* ) : null} */}
     </>
   );
 };

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TeacherTable from '../../../components/TeacherTable/TeacherTable';
-import { Container } from "@mui/system";
+import { Container ,Box} from "@mui/system";
 import MakeArrangementForm from '../../../components/MakeArrangementForm/MakeArrangementForm';
 import TeacherArrangementTable from '../../../components/TeacherArrangementTable/TeacherArrangementTable';
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import { useNavigate } from "react-router-dom";
+import "./AdminFacultyView.css"
 
 const AdminFacultyVIew = () => {
   const navigate =useNavigate()
@@ -89,15 +90,15 @@ const AdminFacultyVIew = () => {
       {openarrangement ? (
         <div className="popcontainer" >
           <div id="mask"></div>
-          <div className="popup" style={{height:"100%",top:"1rem"}}>
-            <div className="closeButton" onClick={control2} style={{marginLeft:"32rem"}}>
+          <div className="popup" >
+            <div className="closeButton" onClick={control2}>
               +
             </div>
             <MakeArrangementForm />
           </div>
         </div>
       ) : null}
-      <div style={{ display: "flex", marginLeft: "-10rem" ,marginTop:"-3rem" }}>
+      <div className="menu">
         <select
           id="subject"
           placeholder="Select Subject"
@@ -105,7 +106,6 @@ const AdminFacultyVIew = () => {
           className="SelectDay"
           onChange={getteacherdata}
           value={subject}
-          style={{ marginLeft: "29rem", marginRight: "-29rem" }}
         >
           <option disabled>Select Subject</option>
           {subjectdata.map((subjectName, i) => (
@@ -118,6 +118,7 @@ const AdminFacultyVIew = () => {
           id="teacher"
           onChange={finalteacher}
           placeholder="Select Teacher"
+        
           defaultValue="Select Teacher"
           className="SelectDay"
           value={teacher}
@@ -134,7 +135,6 @@ const AdminFacultyVIew = () => {
           defaultValue="Select Day"
           className="SelectDay"
           value={day}
-          style={{ marginLeft: "33rem" }}
         >
           <option value="Select Day" disabled>
             Select Day
@@ -149,18 +149,18 @@ const AdminFacultyVIew = () => {
         </select>
       </div>
       
-      <Container sx={{marginLeft:"-7vw"}}>
+      <Container className="menubtn">
         <button
           className="View"
-          style={{ marginLeft: "26rem" }}
           onClick={finalday}
+          id="ViewSchedule"
         >
           View Schedule
         </button>
-        <button className="View" onClick={control} style={{ width: "10rem" }}>
+        <button className="View" onClick={control} id="MakeArrangement">
           Make Arrangement
         </button>
-        <button className="View" onClick={handleOpen} style={{ width: "10rem" }}>
+        <button className="View" onClick={handleOpen} id="ViewArrangement">
           View Arrangement
         </button>
         </Container>
