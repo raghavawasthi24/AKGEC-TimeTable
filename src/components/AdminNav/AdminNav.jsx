@@ -25,6 +25,7 @@ const AdminNav = () => {
       </div>
       <div className="AdminNavbar">
         {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
+        <button onClick={() => navigate("/myprofile")}>My Profile</button>
         <button onClick={() => navigate("/register")}>Register Teacher</button>
         <button onClick={() => navigate("/")}>View Student TimeTable</button>
         <button onClick={() => navigate("/admin")}>
@@ -40,6 +41,7 @@ const AdminNav = () => {
           <CloseIcon sx={{color:"white"}}/>
         </div>
         {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
+        <button onClick={() => navigate("/myprofile")}>My Profile</button>
         <button onClick={() => navigate("/register")}>Register Teacher</button>
         <button onClick={() => navigate("/")}>View Student TimeTable</button>
         <button onClick={() => navigate("/admin")}>

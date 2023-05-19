@@ -119,7 +119,7 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "50%",
+          width: "60%",
         }}
       >
         <Typography component="h1" variant="h5" style={{width:'12rem'}}>

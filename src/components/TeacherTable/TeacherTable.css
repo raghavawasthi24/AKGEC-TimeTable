@@ -1,0 +1,6 @@
+@media screen and (max-width:963px) {
+    .tableContainer{
+        margin: 0rem -3.8vw !important 
+}}
+.tableContainer{
+    margin: 0rem -5.8vw ; margin-bottom: 2rem;overflow-x: auto;}

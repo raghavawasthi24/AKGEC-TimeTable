@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TeacherTable.css";
 import { Container ,Box} from "@mui/system";
+import "./TeacherTable.css"
 
 
 const TeacherTable = (props) => {
@@ -152,7 +153,7 @@ const TeacherTable = (props) => {
 
       {Object.keys(data).length && props.finday ? (
         props.finday === "Entire Week" ? (
-          <Box sx={{ margin: "0rem -5.8vw" ,marginBottom:"2rem" ,overflowX:"auto"}}>
+          <Box className="tableContainer">
             <table className="EntireWeek">
               <thead>
                 <tr className="EntireWeekRow">
