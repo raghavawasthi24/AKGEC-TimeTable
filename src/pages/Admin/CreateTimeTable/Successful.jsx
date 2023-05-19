@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const styles={
     successfulCont:{
@@ -14,6 +15,13 @@ const styles={
 }
 
 const Successful = () => {
+const navigate = useNavigate()
+useEffect(() => {
+  if(!(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin"))){
+   navigate("/login")
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, [])
   return (
     <div style={styles.successfulCont}>
         <div style={styles.successDiv}>

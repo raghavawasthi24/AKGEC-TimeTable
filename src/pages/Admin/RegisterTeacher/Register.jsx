@@ -88,7 +88,7 @@ const Register = () => {
       .post(`${process.env.REACT_APP_URL}/accounts/register/`, {
         full_name: formvalues.full_name,
         email: formvalues.email,
-        age: formvalues.age,
+        age: (formvalues.age),
         gender: formvalues.gender,
         password: "string",
         mobile_number: formvalues.mobile_number
@@ -119,10 +119,10 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "30%",
+          width: "50%",
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" style={{width:'12rem'}}>
           Register Teacher
         </Typography>
           <Box component="form"  sx={{ mt: 3 ,width:"100%" }}>

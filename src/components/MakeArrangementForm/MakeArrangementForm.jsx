@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container } from "@mui/system";
+import { Container , Box} from "@mui/system";
+import "./MakeArrangement.css"
 
 
 const MakeArrangementForm = () => {
@@ -96,10 +97,10 @@ const MakeArrangementForm = () => {
   });
 
   return (
-    <Container>
-        <Container sx={{ display: "grid" }}>
+    // <Container>
+        <Container className='Popbox' >
           
-              <div className="popmain" style={{margin:"0rem 7.8rem 1rem 7.8rem"}}>Make Arrangement</div>
+              <div className="popmain" >Make Arrangement</div>
                 <label className="popHead">Select Period</label>
                 <select
                   defaultValue="Select Period"
@@ -191,11 +192,11 @@ const MakeArrangementForm = () => {
                 </select>
                 <label className="popHead">Arrangement Date</label>
                 <input type="date" className="popInput"  onChange={(e)=>setdate(e.target.value)} />
-              <button className="View" onClick={create} style={{width:"10rem",marginLeft:"10rem"}}>
+              <button className="View" onClick={create} id="MakeArr">
                 Make Arrangement
               </button>
         </Container>
-    </Container>
+    // </Container>
   );
 };
 
