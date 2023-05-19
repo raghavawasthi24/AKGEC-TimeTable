@@ -24,7 +24,7 @@
     background-color: #252525;
     flex-direction: column;
     position: fixed;
-    top:12%;
+    /* top:12%; */
     left: 0;
     justify-content: flex-start;
     display: none;
@@ -67,7 +67,7 @@
 }
 @media screen and (max-width:429px) {
     .AdminNavbarMobile{
-        top:19%;
+        /* top:19%; */
     z-index: 99;
 
     }
