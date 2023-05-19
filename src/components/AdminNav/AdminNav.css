@@ -1,8 +1,8 @@
 .AdminNavbar{
     /* margin-left: -3vw; */
-    width:100vw;
+    width:100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
 }
 .AdminNavbar button{
     width:10rem;
@@ -24,7 +24,7 @@
     background-color: #252525;
     flex-direction: column;
     position: fixed;
-    top:22%;
+    top:12%;
     left: 0;
     justify-content: flex-start;
     display: none;
