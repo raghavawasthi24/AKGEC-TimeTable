@@ -1,7 +1,11 @@
-
+.popcontainer{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
 .popup{
     position:absolute;
-    /* top:12rem; */
+    top:0rem;
     /* right: -14rem; */
     /* width: 40%; */
     /* height: 50%; */
@@ -34,6 +38,7 @@
     padding: 1rem 1rem 0rem 1rem;
 }
 .popmain{
+   
     text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
@@ -92,7 +97,7 @@ button.updatepop{
 
 @media only screen and (max-width: 600px){
     .popup{
-        width: 92%;
+        width: 90%;
         padding: 1rem;
         left: 1rem;
 
@@ -106,7 +111,7 @@ button.updatepop{
     .popInput{
         margin: 1rem;
         /* margin-left: 2vw; */
-        width: 17rem;
+        width: 14rem;
         padding: 0.5rem;
     }
     .popHead{
@@ -117,7 +122,7 @@ button.updatepop{
         font-size: 2rem;
     }
     #MakeArr{
-    margin: 0 18vw;
+    margin: 0 13vw;
 
     }
     .popbuttonflex{

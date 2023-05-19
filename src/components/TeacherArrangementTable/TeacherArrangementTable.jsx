@@ -20,7 +20,7 @@ const TeacherArrangemetTable = (props) => {
 
   return (
     <>
-    {arrangementdata.length > 0 ?
+    {arrangementdata.length >= 0 ?
     <Container style={{marginBottom:'3rem'}}>
      <Typography className='popmain' style={{fontSize:"2rem",textAlign:"center",marginTop:"2rem"}}>Arrangement Table</Typography>   
      <Box style={{overflowX:"auto"}}>
