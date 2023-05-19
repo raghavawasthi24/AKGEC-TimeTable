@@ -2,13 +2,14 @@
 
 @media only screen and (min-width: 600px){
     .subjectBox{
-        margin:1rem;
+        margin:0rem;
         
 
     }
     .details{
         font-size: 1.5rem !important;
         font-weight: 500 !important;
+        margin: 1rem !important;
     }
     .profilehead{
         margin:1rem !important;
@@ -19,17 +20,18 @@
 }
 @media only screen and (max-width: 600px){
     .subjectBox{
-        margin:1rem;
+        margin:0.5rem;
         
     }
     .details{
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
         font-weight: 500 !important;
+        margin: 0.5rem !important;
     }
     .profilehead{
-        margin:1rem !important;
+        margin:0.5rem !important;
         width: 10rem;
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
         font-weight: 500 !important;
     }
 }
