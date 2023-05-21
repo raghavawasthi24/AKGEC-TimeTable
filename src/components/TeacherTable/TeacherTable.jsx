@@ -193,6 +193,7 @@ const TeacherTable = (props) => {
             </table>
           </Box>
         ) : (
+          <Box className="tableContainer">
           <table>
             <thead>
               <tr>
@@ -211,6 +212,7 @@ const TeacherTable = (props) => {
               ))}
             </tbody>
           </table>
+          </Box>
         )
       ) : (
         <Container className="empty">No TimeTable Selected</Container>

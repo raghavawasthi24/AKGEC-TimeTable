@@ -35,41 +35,41 @@ const TeacherProfile = () => {
     <Typography component="h1" variant="h4" style={{display: 'flex',alignItems: 'center',justifyContent: 'center'}} >My Profile</Typography>
     <Grid container spacing={2} style={{justifyContent:"center",display:"grid"}}>
     <Grid item xs={12}  >
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Full Name : </Typography>
     <Typography component="h1" varient="h4" className="details" >{teacherdata.user_fullname}</Typography>
     </Box>
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Joined At : </Typography>
     <Typography component="h1" varient="h4" className="details"> {teacherdata.joined_at}</Typography>
     </Box>
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Mobile Number : </Typography>
     <Typography component="h1" varient="h4" className="details"> {teacherdata.mobile_number}</Typography>
     </Box>
 
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Email :  </Typography>
     <Typography component="h1" varient="h4"  className="details">{teacherdata.email}</Typography>
     </Box>
 
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Gender :  </Typography>
     <Typography component="h1" varient="h4"  className="details">{teacherdata.gender}</Typography>
     </Box>
 
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Age :</Typography>
     <Typography component="h1" varient="h4"  className="details"> {teacherdata.age}</Typography>
     </Box>
 
 
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography className="profilehead">Department : </Typography>
     <Typography component="h1" varient="h4" className="details"> {teacherdata.department}</Typography>
     </Box>
 
-    <Box style={{display:'flex',flexWrap:"wrap"}}>
+    <Box style={{display:'flex'}}>
     <Typography component="h1" varient="h4" className="profilehead" >Subjects : </Typography>
     <Grid className='subjectBox'>
 

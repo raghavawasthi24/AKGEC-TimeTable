@@ -24,14 +24,16 @@
         
     }
     .details{
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
         font-weight: 500 !important;
         margin: 0.5rem !important;
     }
     .profilehead{
-        margin:0.5rem !important;
-        width: 100%;
-        font-size: 1.1rem !important;
+        min-width: 4rem;
+        margin: 0.5rem !important;
+        width: 40%;
+        font-size: 1rem !important;
         font-weight: 500 !important;
+        margin-left: 1rem !important;
     }
 }
