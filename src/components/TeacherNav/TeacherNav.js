@@ -37,7 +37,7 @@ const TeacherNav = () => {
         </div>
         {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
         <button style={{padding:"0.8rem 1rem"}} onClick={()=>navigate("/myprofile" )} >My Profile</button>
-          <button style={{padding:"0.5rem 1rem"}} onClick={()=>navigate("/teacher")}>View TimeTgit able</button>
+          <button style={{padding:"0.5rem 1rem"}} onClick={()=>navigate("/teacher")}>View TimeTable</button>
           <LogoutBtn/>
       </div>
     </>

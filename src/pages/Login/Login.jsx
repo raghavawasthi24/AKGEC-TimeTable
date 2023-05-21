@@ -48,13 +48,16 @@ const Login = () => {
     else
       setFacultyturn(false)
   }
+  
+  
 
   useEffect(() => {
     delete axios.defaults.headers.common.Authorization
-    
+   
+  
     if (verified === true) {
       if (error === true) {
-        // console.log(formvalues)
+        // console.log(formvalues) 
         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`, {
           email: formvalues.email,
           password: formvalues.password
@@ -68,6 +71,8 @@ const Login = () => {
             // console.log("logged in admin")
           localStorage.setItem("accessToken",resp.data[0].access);
           localStorage.setItem("user","Admin");
+          localStorage.setItem("refreshToken",resp.data[0].refresh);
+          
     
           // console.log("logged in admin")
           navigate("/admin")
