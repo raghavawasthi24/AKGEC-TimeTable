@@ -28,6 +28,7 @@ const ProfileUpdate = (props) => {
   const [subjectdata, setSubjectData] = useState([]);
   const [dept, setdept] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const[year,setyear]=useState()
   const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
   axios.defaults.headers.common['Authorization'] = AuthStr;
 
@@ -43,17 +44,17 @@ const ProfileUpdate = (props) => {
   }, []);
 
   useEffect(() => {
-    if (dept)
+    if (dept && year)
       axios
-        .get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/2/${dept}`)
+        .get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/${year}/${dept}`)
         .then((response) => {
           const arr = response.data.map((sub) => ({
             name: sub.subject,
-            value: sub.sub_id,
+            value: sub.id,
           }))
           setSubjectData(arr);
         });
-  }, [dept]);
+  }, [dept,year]);
 
   const handleSubmit = () => {
     if (selectedSubject == null) {
@@ -64,11 +65,11 @@ const ProfileUpdate = (props) => {
           `${process.env.REACT_APP_URL}/departmentss/Profileupdate/${props.profile_id}`,
           { department: dept, subject: selectedSubject }
         )
-        .then(() => toast.success("Profile Updated and Verify Email"));
+        .then(() => toast.success("Profile Updated and Verification mail sent"));
     }
   };
 
-  // console.log(dept,selectedSubject)
+  console.log(dept,selectedSubject,year)
 
   return (
     <>
@@ -88,6 +89,35 @@ const ProfileUpdate = (props) => {
             </Typography>
             <Grid>
               <Grid item xs={12}>
+              <FormControl
+                  variant="outlined"
+                  style={{ marginTop: "1rem", width: "100%" }}
+                >
+                  <InputLabel id="demo-simple-select-label">
+                    Year
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Year"
+                    onChange={(e) => {
+                      setyear(e.target.value);
+                      setdept(null); 
+                      setSelectedSubject(null)
+                    }}
+                    defaultValue={""}
+                    fullWidth
+                   
+                  >
+               
+                      <MenuItem value={1}>1</MenuItem>
+                      <MenuItem value={2}>2</MenuItem>
+                      <MenuItem value={3}>3</MenuItem>
+                      <MenuItem value={4}>4</MenuItem>
+
+                  
+                  </Select>
+                </FormControl>
                 <FormControl
                   variant="outlined"
                   style={{ marginTop: "1rem", width: "100%" }}
@@ -100,7 +130,8 @@ const ProfileUpdate = (props) => {
                     id="demo-simple-select"
                     label="Department"
                     onChange={(e) => {
-                      setdept(e.target.value); setSelectedSubject(null)
+                      setdept(e.target.value); 
+                      setSelectedSubject(null)
                     }}
                     defaultValue={""}
                     fullWidth
@@ -114,7 +145,7 @@ const ProfileUpdate = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <MultiSelect
-                  style={{ margin: "1rem 0rem",width:"30vw",minWidth:"15rem"}}
+                  style={{ margin: "1rem 0rem",width:"39vw",minWidth:"15rem"̀}}
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.value)}
                   options={subjectdata}
