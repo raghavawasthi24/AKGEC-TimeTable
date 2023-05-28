@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Typography,Container } from '@mui/material';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 
@@ -17,9 +17,10 @@ const Makearrangemettable = (props) => {
       
   return (
     <>
-    <div style={{width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
+    <Container>
+    {/* <div style={{width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}> */}
      <Typography className='popmain' sx={{margin:"2% 0",fontWeight:"bold", fontSize:{sm:"2rem"}}}>Arrangement Table For Student</Typography>    
-      <div style={{width:"100%",overflowX:"scroll",border:"1px solid grey"}}>
+      <div style={{width:"100%",overflowX:"scroll"}}>
         <table>
           <thead>
               <tr>
@@ -43,8 +44,10 @@ const Makearrangemettable = (props) => {
           </thead>
              </table>
       </div>
-    </div>
+    {/* </div> */}
+    </Container>
     </>
+
   )
 }
 
