@@ -145,7 +145,7 @@ const ProfileUpdate = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <MultiSelect
-                  style={{ margin: "1rem 0rem",width:"39vw",minWidth:"15rem"̀}}
+                  style={{ margin: "1rem 0rem",width:"39vw",minWidth:"15rem"}}
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.value)}
                   options={subjectdata}
