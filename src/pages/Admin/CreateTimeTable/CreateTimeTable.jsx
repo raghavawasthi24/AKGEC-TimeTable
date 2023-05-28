@@ -151,23 +151,10 @@ const CreateTimeTable = () => {
     typeOfLecSel[subIndex] = e.target.value;
     console.log(typeOfLecSel);
   };
-   
-
 
   useEffect(() => {
-    if(!(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin"))){
-      navigate("/login")
-     }
-    else{
-    axios
-      .get(`${process.env.REACT_APP_URL}/departmentss/subject_with_teachers`)
-      .then((res) => {
-        console.log(res.data);
-        setTeachers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });}
+    if (localStorage.getItem("user") !== "Admin") navigate("/login");
+    // eslint-disable-next-line
   }, []);
 
   const createTimeTable = () => {
@@ -272,7 +259,7 @@ const CreateTimeTable = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Subjets</TableCell>
+                  <TableCell>Subjects</TableCell>
                   {sectionUpdates.map((val) => {
                     return <TableCell>{val}</TableCell>;
                   })}
@@ -301,21 +288,19 @@ const CreateTimeTable = () => {
                                   handleTeacher(e, secIndex, subIndex)
                                 }
                                 name="teacherSel"
+                         
                               >
+                              
                                 {Object.values(teachers[subIndex]).map(
-                                  (teacher) => {
-                                    return (
-                                      <div>
-                                        {teacher.map((subTeacher) => {
-                                          return (
-                                            <MenuItem>
-                                              {subTeacher.user}
+                                  (teacher) => (
+                               
+                                      teacher.map((subTeacher) => (
+                                            <MenuItem value={subTeacher.user_id}>
+                                              {subTeacher.user} ({subTeacher.total_lectures})
                                             </MenuItem>
-                                          );
-                                        })}
-                                      </div>
-                                    );
-                                  }
+                                        ))
+                                      
+                                  )
                                 )}
                               </Select>
                             </FormControl>

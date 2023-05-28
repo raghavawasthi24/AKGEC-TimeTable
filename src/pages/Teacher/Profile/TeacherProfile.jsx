@@ -13,7 +13,10 @@ const TeacherProfile = () => {
   useEffect(() => {
     if(localStorage.getItem("accessToken")&&(((localStorage.getItem("user")==="faculty"))||(localStorage.getItem("user")==="Admin"))){
      axios.get(`${process.env.REACT_APP_URL}/departmentss/my_profile`
-      ).then((response)=>setteacherdata(response.data))}
+      ).then((response)=>{
+        console.log(response.data.subject)
+        setteacherdata(response.data)
+      })}
      else
      navigate("/login")
 // eslint-disable-next-line react-hooks/exhaustive-deps

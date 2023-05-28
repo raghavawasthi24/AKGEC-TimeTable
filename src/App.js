@@ -11,6 +11,7 @@ import Register from "./pages/Admin/RegisterTeacher/Register"
 import TeacherProfile from '../src/pages/Teacher/Profile/TeacherProfile';
 
 import Successful from './pages/Admin/CreateTimeTable/Successful';
+import AllTeacherData from './pages/Admin/AllTeacherData/AllTeacherData';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
       <Route path="/myprofile" element={<TeacherProfile/>}/>
       <Route path="/*" element={<Student/>}/>
       <Route path="/created" element={<Successful/>} />
+      <Route path="/allteacher" element={<AllTeacherData/>}/>
       </Routes>
     
     </>
