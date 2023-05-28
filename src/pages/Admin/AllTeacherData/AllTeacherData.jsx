@@ -102,7 +102,7 @@ const navigate = useNavigate()
                       </Box>
                     ))}
                   </TableCell>
-                  <TableCell align="center">{data.joined_at}</TableCell>
+                  <TableCell align="center">{data.joined_at.split("-").reverse().join("-")}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
