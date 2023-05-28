@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
 
  const navigate = useNavigate()
- 
+
   useEffect(() => {
       setInterval(() => {
         if(localStorage.getItem('refreshToken')){
@@ -24,7 +24,7 @@ const Header = () => {
         }
           )
         }
-      }, 280000);
+      }, 200000);
   }, [])
   
 

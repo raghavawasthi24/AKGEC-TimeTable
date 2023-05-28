@@ -4,28 +4,26 @@ import LogoutBtn from "../Logout/LogoutBtn";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { Drawer } from "@mui/material";
 // import { Menu } from '@mui/icons-material';
 
 const AdminNav = () => {
-  const [openNav, setOpenNav] = useState(true);
+  const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
 
   const openMenu = () => {
-    setOpenNav(false);
-  };
-
-  const closeMenu = () => {
     setOpenNav(true);
   };
 
+
   return (
     <>
-      <div className={openNav ? "menubar" : "hide"} onClick={openMenu}>
-        <MenuIcon />
-      </div>
-      <div className="AdminNavbar">
+      <MenuIcon className="icon" onClick={openMenu} />
+      <Drawer anchor="left" className="AdminNavbar" open={openNav} onClose={()=>setOpenNav(false)}>
         {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
         <button onClick={() => navigate("/myprofile")}>My Profile</button>
+        <button onClick={() => navigate("/allteacher")}>Teachers Data</button>
+
         <button onClick={() => navigate("/register")}>Register Teacher</button>
         <button onClick={() => navigate("/")}>View Student TimeTable</button>
         <button onClick={() => navigate("/admin")}>
@@ -35,13 +33,15 @@ const AdminNav = () => {
           Create TimeTable
         </button>
         <LogoutBtn />
-      </div>
-      <div className={openNav ? "hide" : "AdminNavbarMobile"}>
+      </Drawer>
+      {/* <div className={openNav ? "hide" : "AdminNavbarMobile"}>
         <div className={openNav ? "hide" : "menubar"} onClick={closeMenu}>
           <CloseIcon sx={{color:"white"}}/>
         </div>
-        {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
+        {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null}
         <button onClick={() => navigate("/myprofile")}>My Profile</button>
+        <button onClick={() => navigate("/allteacher")}>Teachers Data</button>
+
         <button onClick={() => navigate("/register")}>Register Teacher</button>
         <button onClick={() => navigate("/")}>View Student TimeTable</button>
         <button onClick={() => navigate("/admin")}>
@@ -51,7 +51,7 @@ const AdminNav = () => {
           Create TimeTable
         </button>
         <LogoutBtn />
-      </div>
+      </div> */}
     </>
   );
 };

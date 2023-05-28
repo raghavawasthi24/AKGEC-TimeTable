@@ -6,12 +6,12 @@
 }
 .AdminNavbar button{
     width:10rem;
-    margin:1rem;
-    padding: 0.2rem 1rem;
+    /* margin:1rem 0rem; */
+    padding: 1rem 1rem;
     font-weight:600;
-    background-color: #FBBB00;
-    border: none;
-    border-radius: 20px;
+    /* background-color: #FBBB00; */
+    border: 1px 0px 0px 0px solid black;
+    /* border-radius: 20px; */
     font-size: 0.8rem;
 }
 .menubar{
@@ -48,27 +48,37 @@
 .hide{
     display: none;
 }
+.icon{
+    color: white;
+    position: absolute;
+    top: 0.8rem;
+    font-size: 2.5rem !important;
+    margin-left: 0.4rem;
+}
 @media screen and (max-width:963px) {
     .menubar{
+        position: absolute;
         display: block;
+        top: 0.2rem;
+        color: white;
     }
    
-    .AdminNavbar{
+    /* .AdminNavbar{
         
         display: none;
         
-    }
-    .AdminNavbarMobile{
+    } */
+    /* .AdminNavbarMobile{
         display: block;
     z-index: 99;
 
     }
-    
+     */
 }
-@media screen and (max-width:429px) {
+/* @media screen and (max-width:429px) {
     .AdminNavbarMobile{
-        /* top:19%; */
+
     z-index: 99;
 
     }
-}
+} */

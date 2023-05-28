@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AdminNav from '../../../components/AdminNav/AdminNav'
 
 const styles={
     successfulCont:{
@@ -23,11 +24,15 @@ useEffect(() => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [])
   return (
+    <>
+    <AdminNav/>
+
     <div style={styles.successfulCont}>
         <div style={styles.successDiv}>
            <p style={{fontSize:"2rem"}}>The TimeTable is successfuly created.</p>
         </div>
     </div>
+    </>
   )
 }
 
