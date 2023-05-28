@@ -161,16 +161,16 @@ const CreateTimeTable = () => {
     teacher_id = initialteacherSelArray;
 
     subjects.map((val) => {
-      return subArr.push(val.sub_id);
+      return subArr.push(val.id);
     });
-
-    selectedSection.map((val) => {
-      return (
+    console.log(subArr)
+    selectedSection.map((val) => (
+ 
         no_of_lectures.push(noOfLecSel),
         type.push(typeOfLecSel),
         subject_id.push(subArr)
-      );
-    });
+
+    ));
     console.log(no_of_lectures, type, teacher_id, class_id, subject_id);
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/create_table/`, {

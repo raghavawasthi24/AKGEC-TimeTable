@@ -7,6 +7,7 @@ import TeacherArrangementTable from '../../../components/TeacherArrangementTable
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import { useNavigate } from "react-router-dom";
 import "./AdminFacultyView.css"
+import LogoutBtn from "../../../components/Logout/LogoutBtn";
 
 const AdminFacultyVIew = () => {
   const navigate =useNavigate()
@@ -85,7 +86,7 @@ const AdminFacultyVIew = () => {
   return (
     <>
     <AdminNav />
-
+  
     <Container>
       {openarrangement ? (
         <div className="popcontainer" >

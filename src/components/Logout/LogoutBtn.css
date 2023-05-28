@@ -2,7 +2,7 @@
     padding: 0.8rem 1rem;
     width: 10rem;
     /* font-weight: 600; */
-    background-color: #FBBB00;
+    background-color: #FBBB00 !important;
     border: none;
     border-radius: 20px;
     font-size: 0.8rem;

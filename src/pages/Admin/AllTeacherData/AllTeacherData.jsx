@@ -15,19 +15,24 @@ import {
   FormControl,
 } from "@mui/material";
 import axios from "axios";
+import AdminNav from "../../../components/AdminNav/AdminNav";
+import { useNavigate } from "react-router-dom";
 
 const AllTeacherData = () => {
+const navigate = useNavigate()
   const [AllTeacher, setAllTeacher] = useState([]);
   const [deptData, setDeptData] = useState([]);
   const[dept,setDept]=useState()
 
   useEffect(() => {
+    if(localStorage.getItem("accessToken")&&(localStorage.getItem("user")==="Admin")){
     axios
       .get(`${process.env.REACT_APP_URL}/departmentss/all_teachers_data`)
       .then((response) => setAllTeacher(response.data));
     axios
       .get(`${process.env.REACT_APP_URL}/departmentss/departments`)
-      .then((response) => setDeptData(response.data));
+      .then((response) => setDeptData(response.data));}
+      else{navigate("/login")}
   }, []);
    
   const filterData = AllTeacher.filter(function (value) {
@@ -37,6 +42,7 @@ const AllTeacherData = () => {
 
   return (
     <>
+    <AdminNav/>
       <Container>
         <Typography variant="h4" sx={{ padding: "1rem" }} align="center">
           Teachers Data
