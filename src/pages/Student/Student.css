@@ -28,6 +28,8 @@
     /* display: none; */
 }
 .logIndiv{
+    margin-top: 1rem;
+    margin-left: -0.5rem;
     width: 100%;
     padding:1%;
     display: flex;
