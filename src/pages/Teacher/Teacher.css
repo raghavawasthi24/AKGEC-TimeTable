@@ -53,7 +53,7 @@ tr,td,th,table{
         justify-content: center;
      }
     .View{
-        margin: 1rem 0.8rem;
+        margin: 1rem 0.2rem;
     }
     .teacherView{
         margin: 1rem;
@@ -68,6 +68,6 @@ tr,td,th,table{
         justify-content: center;
     }
     .View{
-        margin: 1rem 0.8rem;
+        margin: 1rem;
     }
 }

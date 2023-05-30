@@ -144,7 +144,8 @@ const CreateTimeTable = () => {
   const teacherarray = teachers.filter((elem)=>{
     return(selectedSubject.some((ele)=>{
     
-      return  ele.name === Object.keys(elem).toString()
+     return(Object.values(ele).reverse().join().toString()===Object.keys(elem).toString())
+      
     }))
   })
   console.log(teacherarray)
@@ -189,11 +190,13 @@ const CreateTimeTable = () => {
     // eslint-disable-next-line
   }, []);
 
+ 
+
   const createTimeTable = () => {
     teacher_id = initialteacherSelArray;
 
-    selectedSubject.map((val) => {
-      return subArr.push(val.id);
+    teacherarray.map((val) => {
+      return subArr.push(Object.keys(val).toString().split(",")[0]);
     });
     console.log(subArr)
     selectedSection.map((val) => (
@@ -218,6 +221,7 @@ const CreateTimeTable = () => {
       })
       .catch((err) => {
         console.log(err);
+        
       });
   };
 
@@ -313,12 +317,11 @@ const CreateTimeTable = () => {
               <TableBody>
                {/* eslint-disable-next-line */}
                
-                {selectedSubject.map((key, subIndex) => {
-                if(subIndex!==subjects.length-1){
+                {teacherarray.map((key, subIndex) => {
                   return (
                     <TableRow>
-                      <TableCell>{key.name}</TableCell>
-                      {Object.keys(teacherarray).map((val, secIndex) => {
+                      <TableCell>{Object.keys(key).toString().split(',')[1]}</TableCell>
+                      {sectionUpdates.map((val, secIndex) => {
                         return (
                           <TableCell>
                             <FormControl fullWidth>
@@ -338,6 +341,7 @@ const CreateTimeTable = () => {
                                 {Object.values(teacherarray[subIndex]).map(
                                   (teacher) => (
                                
+                                    
                                       teacher.map((subTeacher) => (
                                             <MenuItem value={subTeacher.user_id}>
                                               {subTeacher.user} ({subTeacher.total_lectures})
@@ -375,7 +379,7 @@ const CreateTimeTable = () => {
                       </TableCell>
                     </TableRow>
                   );
-                }})}
+                })}
               </TableBody>
             </Table>
           </TableContainer>
