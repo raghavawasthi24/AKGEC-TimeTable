@@ -1,47 +1,42 @@
 
 import React, { useState } from "react";
-
+import "../AdminNav/AdminNav.css";
 import LogoutBtn from "../Logout/LogoutBtn";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-// import { Menu } from '@mui/icons-material';
-import "./TeacherNav.css"
+
+import { Drawer,Box } from "@mui/material";
+
+
 const TeacherNav = () => {
-  const [openNav, setOpenNav] = useState(true);
+  const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
 
   const openMenu = () => {
-    setOpenNav(false);
-  };
-
-  const closeMenu = () => {
     setOpenNav(true);
   };
 
+
   return (
     <>
-      <div className={openNav ? "menubar" : "hide"} onClick={openMenu}>
-        <MenuIcon />
-      </div>
-      <div className="AdminNavbar" id="teachernav">
+      <MenuIcon className="icon" onClick={openMenu} />
+      <Drawer anchor="left" className="AdminNavbar" open={openNav} onClose={()=>setOpenNav(false)} >
         {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
+        <Box className="buttonBox">
         <button style={{padding:"0.8rem 1rem"}} onClick={()=>navigate("/myprofile" )} >My Profile</button>
           <button style={{padding:"0.5rem 1rem"}} onClick={()=>navigate("/teacher")}>View TimeTable</button>
-          <LogoutBtn/>
-       
-      </div>
-      <div className={openNav ? "hide" : "AdminNavbarMobile"}>
-        <div className={openNav ? "hide" : "menubar"} onClick={closeMenu}>
-          <CloseIcon sx={{color:"white"}}/>
-        </div>
-        {/* {openNav?<CloseIcon sx={{margin:"3%",color:"white"}} onClick={closeMenu}/>:null} */}
-        <button style={{padding:"0.8rem 1rem"}} onClick={()=>navigate("/myprofile" )} >My Profile</button>
-          <button style={{padding:"0.5rem 1rem"}} onClick={()=>navigate("/teacher")}>View TimeTable</button>
-          <LogoutBtn/>
-      </div>
+        
+        <Box className="logoutBtnSide">
+        <LogoutBtn  />
+        </Box>
+        
+        </Box>
+      </Drawer>
+      
     </>
   );
 };
 
 export default TeacherNav;
+
+
