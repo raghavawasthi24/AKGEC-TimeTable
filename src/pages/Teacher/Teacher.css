@@ -56,11 +56,13 @@ tr,td,th,table{
         margin: 1rem 0.8rem;
     }
     .teacherView{
+        margin: 1rem;
         display: grid;
     }
 }
 @media only screen and (min-width: 600px){
     .teacherView{
+        margin: 1rem;
         align-items: center;
         display: flex;
         justify-content: center;

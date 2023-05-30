@@ -17,11 +17,13 @@ const MakeArrangementForm = () => {
   const [section, setsection] = useState();
   const [dept,setdept] = useState(0);
   const [date,setdate]=useState()
+  const [year,setyear]=useState();
   const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
   axios.defaults.headers.common['Authorization'] = AuthStr;
 
   const today = new Date(date);
   let sysday = today.getDay();
+  console.log(today,sysday)
   const fetchinfo = () => {
     axios
       .get(
@@ -30,18 +32,21 @@ const MakeArrangementForm = () => {
       .then((response) => setSubjectData(response.data));
   };
   const fetchinfo2 = () => {
+    
+    if(sysday){
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/arrangement_teachers`
+        `${process.env.REACT_APP_URL}/departmentss/arrangement_teachers/${sysday}`
       )
-      .then((response) => setfreeteacherdata(response.data));
+      .then((response) => setfreeteacherdata(response.data));}
   };
-  const fetchinfo3 = (dept) => {
+  const fetchinfo3 = (year,dept) => {
+    if(year && dept ){
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/2/${dept}`
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${year}/${dept}`
       )
-      .then((response) => setsectiondata(response.data));
+      .then((response) => setsectiondata(response.data));}
   };
   const fetchinfo4 = () => {
     axios
@@ -50,27 +55,42 @@ const MakeArrangementForm = () => {
       )
       .then((response) => setperioddata(response.data));
   };
-  const fetchinfo5 = () => {
+  const fetchinfo5 = (year) => {
+    if(year)
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/departments`
+        `${process.env.REACT_APP_URL}/departmentss/all_departments/${year}`
       )
       .then((response) => setdepdata(response.data));
   };
   const department = (e) =>{
     setdept(e.target.value) ;
+    fetchinfo3()
   }
-  useEffect(() => {
-    fetchinfo3(dept)
-  }, [dept])
+  // useEffect(() => {
+  //   fetchinfo3(dept,year)
+  // }, [dept,year])
   
   
   useEffect(() => {
+    if(date){
     fetchinfo();
-    fetchinfo2();
     fetchinfo4();
-    fetchinfo5()
-  }, []);
+    fetchinfo2()
+  }
+  }, [date]);
+
+  useEffect(() => {
+    if(year){
+    fetchinfo5(year)
+  }
+  }, [year]);
+
+  useEffect(() => {
+    if(year && dept){
+    fetchinfo3(year,dept)
+  }
+  }, [year,dept]);
 
   const create = () => {
     axios.post(
@@ -101,10 +121,12 @@ const MakeArrangementForm = () => {
         <Container className='Popbox' >
           
               <div className="popmain" >Make Arrangement</div>
+              <label className="popHead">Arrangement Date</label>
+                <input type="date" className="popInput"  min= {new Date().toISOString().split('T')[0]}  onChange={(e)=>(setdate(e.target.value),setfreeteacher())} />
                 <label className="popHead">Select Period</label>
                 <select
                   defaultValue="Select Period"
-                  onChange={(e) => settime(e.target.value)}
+                  onChange={(e) =>(settime(e.target.value))}
                   className="popInput"
                 >
                   <option disabled value="Select Period">
@@ -149,6 +171,7 @@ const MakeArrangementForm = () => {
                     
                   )}
                 </select>
+                
                 <label className="popHead">Type of Lecture</label>
                 <select
                   defaultValue="Select Type"
@@ -162,6 +185,22 @@ const MakeArrangementForm = () => {
                   <option value="LAB">Lab</option>
                   <option value="THEORY">Theory</option>
                   <option value="OTHERS">Others</option>
+                </select>
+                <label className="popHead">Year</label>
+                <select
+                  defaultValue="Select Year"
+                  onChange={(e) => (setyear(e.target.value),setdepdata([]),setsectiondata([]),dept(),section())}
+                  className="popInput"
+
+                >
+                  <option disabled  value="Select Year">
+                    Select Year
+                  </option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+
                 </select>
                 <label className="popHead">Select Department</label>
                 <select
@@ -190,11 +229,11 @@ const MakeArrangementForm = () => {
                     <option value={section.id}>{section.section}</option>
                   ))}
                 </select>
-                <label className="popHead">Arrangement Date</label>
-                <input type="date" className="popInput"  onChange={(e)=>setdate(e.target.value)} />
+                <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
               <button className="View" onClick={create} id="MakeArr">
                 Make Arrangement
               </button>
+              </div>
         </Container>
     // </Container>
   );

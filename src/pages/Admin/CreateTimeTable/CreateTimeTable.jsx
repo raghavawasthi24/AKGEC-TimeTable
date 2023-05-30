@@ -13,6 +13,7 @@ import axios from "axios";
 import { FormGroup, TextField } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { MultiSelect } from "primereact/multiselect";
 import "./CreateTimeTable.css";
 // import CreateIcon from '@mui/icons-material/Create';
 import { useNavigate } from "react-router-dom";
@@ -49,6 +50,9 @@ const CreateTimeTable = () => {
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState([]);
   const [show, setShow] = useState(true);
+  const [selectedSubject, setSelectedSubject] = useState([]);
+  const [subjectdata, setSubjectData] = useState([]);
+
   // const [disabled,setDisabled]=useState(false)
   const navigate = useNavigate();
 
@@ -91,6 +95,7 @@ const CreateTimeTable = () => {
       .then((res) => {
         console.log(res.data);
         setTeachers(res.data);
+       
       })
       .catch((err) => {
         console.log(err);
@@ -118,18 +123,44 @@ const CreateTimeTable = () => {
     console.log(sectionUpdates, class_id);
   };
 
-  const create = () => {
+  useEffect(() => {
+    if(formvalues.year && formvalues.departments)
     axios
       .get(
         `${process.env.REACT_APP_URL}/departmentss/all_subjects/${formvalues.year}/${formvalues.departments}`
       )
       .then((res) => {
-        console.log(res);
-        setSubjects(res.data);
+        const arr = res.data.map((sub) => ({
+          name: sub.subject,id:sub.id
+         
+        }))
+        setSubjectData(arr);
+       
       })
-      .catch((err) => {
-        console.log(err);
-      });
+  }, [formvalues.year,formvalues.departments])
+  
+  console.log(selectedSubject)
+
+  const teacherarray = teachers.filter((elem)=>{
+    return(selectedSubject.some((ele)=>{
+    
+      return  ele.name === Object.keys(elem).toString()
+    }))
+  })
+  console.log(teacherarray)
+  const create = () => {
+    // axios
+    //   .get(
+    //     `${process.env.REACT_APP_URL}/departmentss/all_subjects/${formvalues.year}/${formvalues.departments}`
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //     setSubjects(res.data);
+       
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     setSelectedSection(sectionUpdates);
     sectionUpdates.map((val) => initialteacherSelArray.push([]));
@@ -152,6 +183,7 @@ const CreateTimeTable = () => {
     console.log(typeOfLecSel);
   };
 
+
   useEffect(() => {
     if (localStorage.getItem("user") !== "Admin") navigate("/login");
     // eslint-disable-next-line
@@ -160,7 +192,7 @@ const CreateTimeTable = () => {
   const createTimeTable = () => {
     teacher_id = initialteacherSelArray;
 
-    subjects.map((val) => {
+    selectedSubject.map((val) => {
       return subArr.push(val.id);
     });
     console.log(subArr)
@@ -226,6 +258,7 @@ const CreateTimeTable = () => {
               })}
             </Select>
           </FormControl>
+         
           <FormGroup sx={{ width: "100%" }}>
             {/* <Typography>Select Sections</Typography> */}
             {sections.map((val) => {
@@ -242,6 +275,16 @@ const CreateTimeTable = () => {
               );
             })}
           </FormGroup>
+          <MultiSelect
+                  style={{ margin: "1rem 0rem",width:"66vw",minWidth:"20rem"}}
+                  value={selectedSubject}
+                  onChange={(e) => setSelectedSubject(e.value)}
+                  options={subjectdata}
+                  optionLabel="name"
+                  placeholder="Select Subjects"
+                  display="chip"
+                  className="w-full md:w-20rem"
+                />
           {/* <Button
          onClick={create}
           variant="contained"
@@ -269,12 +312,13 @@ const CreateTimeTable = () => {
               </TableHead>
               <TableBody>
                {/* eslint-disable-next-line */}
-                {subjects.map((key, subIndex) => {
+               
+                {selectedSubject.map((key, subIndex) => {
                 if(subIndex!==subjects.length-1){
                   return (
                     <TableRow>
-                      <TableCell>{key.subject}</TableCell>
-                      {selectedSection.map((val, secIndex) => {
+                      <TableCell>{key.name}</TableCell>
+                      {Object.keys(teacherarray).map((val, secIndex) => {
                         return (
                           <TableCell>
                             <FormControl fullWidth>
@@ -291,7 +335,7 @@ const CreateTimeTable = () => {
                          
                               >
                               
-                                {Object.values(teachers[subIndex]).map(
+                                {Object.values(teacherarray[subIndex]).map(
                                   (teacher) => (
                                
                                       teacher.map((subTeacher) => (
