@@ -20,9 +20,10 @@ import axios from "axios";
 import { MultiSelect } from "primereact/multiselect";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const ProfileUpdate = (props) => {
-
+  const navigate = useNavigate()
   // const [profileData, setProfileData] = useState([]);
   const [departmentData, setDepartmentData] = useState([]);
   const [subjectdata, setSubjectData] = useState([]);
@@ -65,7 +66,14 @@ const ProfileUpdate = (props) => {
           `${process.env.REACT_APP_URL}/departmentss/Profileupdate/${props.profile_id}`,
           { department: dept, subject: selectedSubject }
         )
-        .then(() => toast.success("Profile Updated and Verification mail sent"));
+        .then(() => (
+        toast.success("Profile Updated and Mail sent with Credentials"),
+        setTimeout(() => {
+          navigate("/admin");
+        }, 5000)
+      
+
+        ))
     }
   };
 

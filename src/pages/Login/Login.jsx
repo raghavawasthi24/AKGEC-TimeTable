@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BeatLoader from "react-spinners/BeatLoader";
+
 
 
 
@@ -30,6 +32,8 @@ const Login = () => {
   // const [adminturn, setAdminturn] = useState(false);
   // const [pos, setPos] = useState(false);
   // const [user, setUser] = useState("");
+  let [loading, setLoading] = useState(false);
+
 
 
   // const boldline = useRef();
@@ -54,10 +58,10 @@ const Login = () => {
   useEffect(() => {
     delete axios.defaults.headers.common.Authorization
    
-  
     if (verified === true) {
       if (error === true) {
         // console.log(formvalues) 
+  setLoading(true)
         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`, {
           email: formvalues.email,
           password: formvalues.password
@@ -66,13 +70,12 @@ const Login = () => {
           // setUser(resp.data.access);
           // console.log(resp.data.access);
           
-          
           if((resp.data[0].access) && (resp.data[1].Admin===true)){
             // console.log("logged in admin")
           localStorage.setItem("accessToken",resp.data[0].access);
           localStorage.setItem("user","Admin");
           localStorage.setItem("refreshToken",resp.data[0].refresh);
-          
+          setLoading(false)
     
           // console.log("logged in admin")
           navigate("/admin")
@@ -92,6 +95,8 @@ const Login = () => {
           // }
         }).catch((err) => {
           toast.error("Invalid Details")
+          setLoading(false)
+
         })
       }
   
@@ -188,7 +193,16 @@ const Login = () => {
 
 
   return (
+    <>
+    <div className={loading ? "loading" : "hide"}>
+          <BeatLoader
+            color={'black'}
+            loading={loading}
+            size={15}
+          />
+        </div>
     <Container>
+   
     <div className='login'>
       <div className='login-form'>
         <p style={{ color: 'red' }}>{errors}</p>
@@ -259,6 +273,7 @@ const Login = () => {
     <ToastContainer/>
 
     </Container>
+  </>
   )
 }
 
