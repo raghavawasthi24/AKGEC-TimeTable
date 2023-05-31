@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import CreateDepartment from "./CreateDepartment";
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../../../components/AdminNav/AdminNav";
 
 const Create = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Create = () => {
 
   return (
     <>
+    <AdminNav/>
       <Container>
         <Box sx={{display:"flex",justifyContent:"center",margin:"2rem 0rem 1rem 0rem"}}>
           <FormControl>
