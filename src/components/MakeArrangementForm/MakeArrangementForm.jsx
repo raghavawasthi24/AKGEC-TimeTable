@@ -1,10 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container , Box} from "@mui/system";
+import { Container } from "@mui/system";
 import "./MakeArrangement.css"
+import { toast,ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 
 
 const MakeArrangementForm = () => {
+  const navigate = useNavigate()
   const [Subjectdata, setSubjectData] = useState([]);
   const [freeteacherdata, setfreeteacherdata] = useState([]);
   const [sectiondata, setsectiondata] = useState([]);
@@ -104,7 +109,13 @@ const MakeArrangementForm = () => {
         subject: parseInt(subject),
         created_at: date
       }
-    );
+    ).then((res)=>{
+      
+      if(res.status===201){
+      navigate("/admin")
+
+      toast.success("Arrangment Made Successfully");
+    }});
   };
 
   // const periodteacher =(Object.values(freeteacherdata).map((data)=>((Object.keys(data))==="8:30-9:20")))
@@ -234,6 +245,7 @@ const MakeArrangementForm = () => {
                 Make Arrangement
               </button>
               </div>
+              <ToastContainer/>
         </Container>
     // </Container>
   );

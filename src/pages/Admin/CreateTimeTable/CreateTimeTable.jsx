@@ -18,6 +18,8 @@ import "./CreateTimeTable.css";
 // import CreateIcon from '@mui/icons-material/Create';
 import { useNavigate } from "react-router-dom";
 import AdminNav from "../../../components/AdminNav/AdminNav";
+import BeatLoader from "react-spinners/BeatLoader";
+
 
 let initialteacherSelArray = [];
 let subArr = [];
@@ -45,13 +47,14 @@ const CreateTimeTable = () => {
 
   const [formvalues, setFormvalues] = useState(initialvalues);
   const [department, setDepartment] = useState([]);
-  const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState([]);
   const [show, setShow] = useState(true);
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [subjectdata, setSubjectData] = useState([]);
+  let [loading, setLoading] = useState(false);
+
 
   // const [disabled,setDisabled]=useState(false)
   const navigate = useNavigate();
@@ -193,6 +196,7 @@ const CreateTimeTable = () => {
  
 
   const createTimeTable = () => {
+    setLoading(true)
     teacher_id = initialteacherSelArray;
 
     teacherarray.map((val) => {
@@ -217,16 +221,33 @@ const CreateTimeTable = () => {
       })
       .then((res) => {
         console.log(res);
+        noOfLecSel.length = 0
+        typeOfLecSel.length = 0
+        teacher_id.length = 0
+        subArr.length = 0
+        subject_id.length = 0
+        class_id.length = 0
+        no_of_lectures.length = 0
+        type.length = 0
+        setLoading(false)
         navigate("/created");
+        
       })
       .catch((err) => {
         console.log(err);
-        
+        setLoading(false)
       });
   };
 
   return (
     <>
+       <div className={loading ? "loading" : "hide"}>
+          <BeatLoader
+            color={'black'}
+            loading={loading}
+            size={15}
+          />
+        </div>
       <AdminNav />
       <div className="createTimeTable">
         <div className={show ? "createTimeTableControls" : "hide"}>
