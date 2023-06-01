@@ -11,6 +11,9 @@ import React, { useEffect, useState } from "react";
 import CreateDepartment from "./CreateDepartment";
 import { useNavigate } from "react-router-dom";
 import AdminNav from "../../../components/AdminNav/AdminNav";
+import CreateBranch from "./CreateBranch";
+import CreateSubject from "./CreateSubject";
+import CreateClass from "./CreateClass";
 
 const Create = () => {
   const navigate = useNavigate();
@@ -62,6 +65,11 @@ const Create = () => {
         </Box>
 
         {option === "Department" ? <CreateDepartment /> : null}
+        {option === "Branch" ? <CreateBranch /> : null}
+        {option === "Subject" ? <CreateSubject/> : null}
+        {option === "Class" ? <CreateClass /> : null}
+
+
       </Container>
     </>
   );

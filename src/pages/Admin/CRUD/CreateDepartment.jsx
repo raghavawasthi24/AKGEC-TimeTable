@@ -21,6 +21,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CreateDepartment = () => {
   const [newDept, setNewDept] = useState();
+  const [newDeptid, setNewDeptid] = useState();
+
   const [department, setDepartment] = useState([]);
   const [updateDept, setUpdateDept] = useState([]);
   const [updatedDept, setUpdatedDept] = useState({});
@@ -53,7 +55,7 @@ const CreateDepartment = () => {
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/departmentCreate`, {
         dept: newDept,
-        deptid: 21153111,
+        deptid: newDeptid,
       })
       .then((res) => toast.success("Department Added Successfully"),setOption(),setNewDept(),setUpdateDept([]),setUpdatedDept({}));
   };
@@ -80,11 +82,10 @@ const CreateDepartment = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "60%",
         }}
       >
         <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label">
+          <FormLabel id="demo-radio-buttons-group-label" sx={{textAlign:"center"}}>
             Select Option
           </FormLabel>
           <RadioGroup
@@ -103,7 +104,7 @@ const CreateDepartment = () => {
           </RadioGroup>
         </FormControl>
         {option === "ADD" ? (
-          <Box>
+          <Box >
             <Typography
               component="h1"
               variant="h5"
@@ -113,11 +114,20 @@ const CreateDepartment = () => {
             </Typography>
             <Box >
             <TextField
-              sx={{width:"35vw"}}
+              sx={{margin:"1rem 0rem"}}
+              fullWidth
               id="outlined-basic"
               label="Department"
               variant="outlined"
               onChange={(e) => setNewDept(e.target.value)}
+            />
+              <TextField
+              fullWidth
+              sx={{ margin:"1rem 0rem"}}
+              id="outlined-basic"
+              label="Department Id"
+              variant="outlined"
+              onChange={(e) => setNewDeptid(e.target.value)}
             />
             </Box>
             <Box sx={{ display: "flex",justifyContent:"center" }}>
@@ -162,6 +172,7 @@ const CreateDepartment = () => {
                   setUpdateDept([]);
                   setUpdatedDept({});
                 }}
+                
               >
                 {department.map((val) => {
                   return <MenuItem value={val.id}>{val.dept}</MenuItem>;
