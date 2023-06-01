@@ -37,7 +37,7 @@ const [updateClass, setUpdateClass] = useState([]);
 const [updatedClass, setUpdatedClass] = useState({});
 
 const yearArray = [1,2,3,4]
-const Luncharray =[{lunch:"12:40-1:30",id:'0'},{lunch:"1:30-2:20",id:'1'}]
+const Luncharray =[{lunch:"12:40-1:30",id:'6'},{lunch:"1:30-2:20",id:'7'}]
 
 
 const inputhandler = (e) =>{
