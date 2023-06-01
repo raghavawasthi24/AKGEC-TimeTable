@@ -93,14 +93,14 @@ useEffect(() => {
     // console.log(updatedClass)
     axios
       .patch(
-        `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${section}`,updatedClass
+        `${process.env.REACT_APP_URL}/departmentss/Classupdate/${section}`,updatedClass
       )
       .then((res) => setOption(),setUpdateClass([]),setUpdatedClass({}),toast.success("Updated Successfully"));
   };
   const handleDelete = () => {
     axios
       .delete(
-        `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${section}`
+        `${process.env.REACT_APP_URL}/departmentss/Classupdate/${section}`
       )
       .then((res) => setOption(),setUpdateClass([]),setUpdatedClass({}),toast.success("Deleted Successfully"));
   };
@@ -229,7 +229,7 @@ useEffect(() => {
           onClick={handleSubmit}
           // disabled={!submitbtn}
         >
-          Add Subject
+          Add Class
         </Button>
         </Box>
         </Box>
@@ -402,7 +402,7 @@ useEffect(() => {
                 onClick={handleUpdate}
                 // disabled={!submitbtn}
               >
-                Update Branch
+                Update Class
               </Button>
               <Button
                 type="submit"
@@ -416,7 +416,7 @@ useEffect(() => {
                 onClick={handleDelete}
                 // disabled={!submitbtn}
               >
-                Delete Branch
+                Delete Class
               </Button>
             </Box>
           </Box>
