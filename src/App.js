@@ -16,6 +16,7 @@ import Create from './pages/Admin/CRUD/Create';
 import PdpLecture from './pages/Admin/PDPLectures/ViewOELectures/OELecture';
 import CreatePDPLec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
 import EditPDPLec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
+import ViewPDPLec from './pages/Admin/PDPLectures/ViewPDPLectures/ViewPDPLec';
 
 
 
@@ -37,10 +38,11 @@ const App = () => {
       <Route path="/*" element={<Student/>}/>
       <Route path="/created" element={<Successful/>} />
       <Route path="/allteacher" element={<AllTeacherData/>}/>
-      <Route path='/pdp-oe-lectures' element={<PdpLecture/>}/>
-      <Route path='/createPDP' element={<CreatePDPLec/>}/>
+      <Route path='/viewOElectures' element={<PdpLecture/>}/>
+      <Route path='/createOE' element={<CreatePDPLec/>}/>
       <Route path="/create" element={<Create/>}/>
-      <Route path="/editPDPLectures" element={<EditPDPLec/>}/>
+      <Route path="/editOELectures" element={<EditPDPLec/>}/>
+      <Route path='/viewPDPlectures' element={<ViewPDPLec/>}/>
       </Routes>
     
     </>

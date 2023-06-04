@@ -8,17 +8,46 @@ import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const navigate=useNavigate();
+
   const PDPArr=["View PDP Schedule","Create PDP Lecture","Update/Delete PDP Lecture"];
+  const OEArr=["View OE Schedule","Create OE Lecture","Update/Delete OE Lecture"];
+
+  const handleOELec=(e)=>{
+    if(e.target.value==="Create OE Lecture")
+    navigate("/createOE")
+    if(e.target.value==="View OE Schedule")
+    navigate("/viewOElectures")
+    if(e.target.value==="Update/Delete OE Lecture")
+    navigate("/editOELectures")
+  }
+
   const handlePdpLec=(e)=>{
     if(e.target.value==="Create PDP Lecture")
     navigate("/createPDP")
     if(e.target.value==="View PDP Schedule")
-    navigate("/pdp-oe-lectures")
+    navigate("/viewPDPlectures")
     if(e.target.value==="Update/Delete PDP Lecture")
     navigate("/editPDPLectures")
   }
   return (
     <div className="nav-pdp">
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">OE Lecture</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          // value={age}
+          label="OE Lecture"
+          onChange={handleOELec}
+        >
+          {
+            OEArr.map((item)=>{
+              return(<MenuItem value={item}>{item}</MenuItem>)
+            })
+          }
+        </Select>
+      </FormControl>
+
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">PDP Lecture</InputLabel>
         <Select
