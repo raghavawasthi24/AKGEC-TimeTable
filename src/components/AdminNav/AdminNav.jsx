@@ -33,6 +33,9 @@ const AdminNav = () => {
         <button onClick={() => navigate("/create-time-table")}>
           Create TimeTable
         </button>
+        <button onClick={() => navigate("/pdp-oe-lectures")}>
+          PDP/OE Lectures
+        </button>
         <button onClick={() => navigate("/create")}>
           Add or Update
         </button>

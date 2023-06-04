@@ -13,6 +13,10 @@ import TeacherProfile from '../src/pages/Teacher/Profile/TeacherProfile';
 import Successful from './pages/Admin/CreateTimeTable/Successful';
 import AllTeacherData from './pages/Admin/AllTeacherData/AllTeacherData';
 import Create from './pages/Admin/CRUD/Create';
+import PdpLecture from './pages/Admin/PDPLectures/ViewPdpLectures/PdpLecture';
+import CreatePDPLec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
+import EditPDPLec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
+
 
 
 const App = () => {
@@ -33,8 +37,10 @@ const App = () => {
       <Route path="/*" element={<Student/>}/>
       <Route path="/created" element={<Successful/>} />
       <Route path="/allteacher" element={<AllTeacherData/>}/>
-      {/* <Route path='/CreateDepartment' element={<CreateDepartment/>} /> */}
+      <Route path='/pdp-oe-lectures' element={<PdpLecture/>}/>
+      <Route path='/createPDP' element={<CreatePDPLec/>}/>
       <Route path="/create" element={<Create/>}/>
+      <Route path="/editPDPLectures" element={<EditPDPLec/>}/>
       </Routes>
     
     </>
