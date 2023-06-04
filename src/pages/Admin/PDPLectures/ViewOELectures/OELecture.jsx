@@ -33,9 +33,12 @@ const OELecture = () => {
 
     }
 
-    // const delOELec=()=>{
-        
-    // }
+    const delOELec=(id)=>{
+        axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${id}`)
+        .then((res)=>{
+            console.log(res);
+        })
+    }
     
   return (
     <div className='pdpLec'>
@@ -64,7 +67,7 @@ const OELecture = () => {
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
                             <TableCell>
                                 <button className='button' onClick={e=>editOELec(item.id)}>Edit</button>
-                                <button className='button'>Delete</button>
+                                <button className='button' onClick={e=>delOELec(item.id)}>Delete</button>
                             </TableCell>
                         </TableRow>
                     )
