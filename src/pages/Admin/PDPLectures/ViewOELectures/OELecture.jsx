@@ -7,11 +7,14 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import "./PdpLecture.css";
+import "./OELecture.css";
 import Nav from '../components/Nav/Nav';
+import { useNavigate } from 'react-router-dom';
 
-const PdpLecture = () => {
+export let lecId=""
 
+const OELecture = () => {
+    const navigate = useNavigate();
     const tableheader=["S.No","Department","Sections","Period Time"];
 
     const [pdpdata,setPdpdata]=useState([]);
@@ -22,6 +25,17 @@ const PdpLecture = () => {
             setPdpdata(res.data)
         })
     },[])
+
+    const editOELec=(id)=>{
+    //   console.log(id); 
+    lecId=id;
+     navigate("/editPDPLectures")
+
+    }
+
+    // const delOELec=()=>{
+        
+    // }
     
   return (
     <div className='pdpLec'>
@@ -48,6 +62,10 @@ const PdpLecture = () => {
                                 })
                             }
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
+                            <TableCell>
+                                <button className='button' onClick={e=>editOELec(item.id)}>Edit</button>
+                                <button className='button'>Delete</button>
+                            </TableCell>
                         </TableRow>
                     )
                 })
@@ -59,4 +77,4 @@ const PdpLecture = () => {
   )
 }
 
-export default PdpLecture
+export default OELecture

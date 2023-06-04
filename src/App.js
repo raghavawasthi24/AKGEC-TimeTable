@@ -13,7 +13,7 @@ import TeacherProfile from '../src/pages/Teacher/Profile/TeacherProfile';
 import Successful from './pages/Admin/CreateTimeTable/Successful';
 import AllTeacherData from './pages/Admin/AllTeacherData/AllTeacherData';
 import Create from './pages/Admin/CRUD/Create';
-import PdpLecture from './pages/Admin/PDPLectures/ViewPdpLectures/PdpLecture';
+import PdpLecture from './pages/Admin/PDPLectures/ViewOELectures/OELecture';
 import CreatePDPLec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
 import EditPDPLec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
 

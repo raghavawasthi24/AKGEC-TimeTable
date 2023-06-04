@@ -5,6 +5,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MultiSelect } from "primereact/multiselect";
+import { lecId } from "../ViewOELectures/OELecture";
 // import { FormGroup, TextField } from "@mui/material";
 
 let sectionData = [];
@@ -63,9 +64,10 @@ const EditOELec = () => {
   };
 
   const createClasses=()=>{
+    console.log(lecId)
     let sectionArr=[];
     selSections.map((item)=>sectionArr.push(item.id));
-    axios.post("https://time-table-production-9807.up.railway.app/departmentss/oe_lecture_create",{
+    axios.put(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${lecId}`,{
       year:formvalues.year,
       period:formvalues.period,
       department:formvalues.departments,
