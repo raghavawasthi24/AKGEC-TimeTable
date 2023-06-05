@@ -35,6 +35,7 @@ const Teacher = () =>{
    ).then((response)=>setteacherdata(response.data))}
    else
     navigate("/login")
+    // eslint-disable-next-line
   }, [])
   
 
