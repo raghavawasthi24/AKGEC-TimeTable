@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Nav = () => {
   const navigate=useNavigate();
 
-  const PDPArr=["View PDP Schedule","Create PDP Lecture","Update/Delete PDP Lecture"];
+  const PDPArr=["View PDP Schedule","Create PDP Lecture"];
   const OEArr=["View OE Schedule","Create OE Lecture","Update/Delete OE Lecture"];
 
   const handleOELec=(e)=>{

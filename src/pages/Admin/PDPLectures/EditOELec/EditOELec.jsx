@@ -6,6 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MultiSelect } from "primereact/multiselect";
 import { lecId } from "../ViewOELectures/OELecture";
+import Nav from '../components/Nav/Nav';
 // import { FormGroup, TextField } from "@mui/material";
 
 let sectionData = [];
@@ -78,6 +79,7 @@ const EditOELec = () => {
 
   return (
     <div className="createPDP">
+       <Nav/>
       <FormControl fullWidth sx={{ margin: "1rem" }}>
         <InputLabel>Year</InputLabel>
         <Select
