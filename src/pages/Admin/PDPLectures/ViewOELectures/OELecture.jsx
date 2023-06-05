@@ -1,12 +1,7 @@
 // import { TableCell, TableContainer, TableHead } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect,useState } from 'react';
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from "@mui/material";
 import "./OELecture.css";
 import Nav from '../components/Nav/Nav';
 import { useNavigate } from 'react-router-dom';
@@ -59,15 +54,17 @@ const OELecture = () => {
                         <TableRow>
                             <TableCell style={{textAlign:"center"}}>{key+1}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.department_name}</TableCell>
-                            {
-                                item.sections.map((val)=>{
-                                   return(<p style={{padding:"0.2rem"}}>{val.section}</p>)
-                                })
-                            }
+                            <TableCell sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",border:"none"}}>
+                                {
+                                    item.sections.map((val)=>{
+                                       return(<p style={{padding:"0.2rem"}}>{val.section}</p>)
+                                    })
+                                }
+                            </TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
-                            <TableCell>
-                                <button className='button' onClick={e=>editOELec(item.id)}>Edit</button>
-                                <button className='button' onClick={e=>delOELec(item.id)}>Delete</button>
+                            <TableCell sx={{width:"10%"}}>
+                                <button className='button' onClick={e=>editOELec(item.id)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
                             </TableCell>
                         </TableRow>
                     )

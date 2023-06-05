@@ -6,7 +6,6 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MultiSelect } from "primereact/multiselect";
 import Nav from '../components/Nav/Nav';
-// import { FormGroup, TextField } from "@mui/material";
 
 let sectionData = [];
 const CreateOELec = () => {
@@ -76,9 +75,10 @@ const CreateOELec = () => {
   }
 
   return (
-    <div className="createPDP">
-       <Nav/>
-      <FormControl fullWidth sx={{ margin: "1rem" }}>
+    <>
+    <Nav/>
+    <div className="createPDP" style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <FormControl sx={{ margin: "1rem",width:"60%" }}>
         <InputLabel>Year</InputLabel>
         <Select
           label="Year"
@@ -94,7 +94,7 @@ const CreateOELec = () => {
           })}
         </Select>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl sx={{ margin: "1rem",width:"60%" }}>
         <InputLabel id="demo-simple-select-label">Department</InputLabel>
         <Select
           label="Department"
@@ -111,7 +111,7 @@ const CreateOELec = () => {
         </Select>
       </FormControl>
       <MultiSelect
-        style={{ margin: "1rem 0rem", width: "66vw", minWidth: "20rem" }}
+         style={{ margin: "1rem",width:"60%" }}
         value={selSections}
         onChange={(e) => setSelSections(e.value)}
         options={sections}
@@ -121,7 +121,7 @@ const CreateOELec = () => {
         className="w-full md:w-20rem"
       />
 
-      <FormControl fullWidth>
+      <FormControl sx={{ margin: "1rem",width:"60%" }}>
         <InputLabel id="demo-simple-select-label">Select Period</InputLabel>
         <Select
           label="Select Period"
@@ -139,6 +139,7 @@ const CreateOELec = () => {
 
       <button className="button" onClick={createClasses}>Create Classes</button>
     </div>
+    </>
   );
 };
 

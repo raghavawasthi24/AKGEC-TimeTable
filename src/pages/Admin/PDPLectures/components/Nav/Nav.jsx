@@ -1,4 +1,5 @@
 import React from "react";
+import "./Nav.css";
 // import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,7 +11,7 @@ const Nav = () => {
   const navigate=useNavigate();
 
   const PDPArr=["View PDP Schedule","Create PDP Lecture"];
-  const OEArr=["View OE Schedule","Create OE Lecture","Update/Delete OE Lecture"];
+  const OEArr=["View OE Schedule","Create OE Lecture"];
 
   const handleOELec=(e)=>{
     if(e.target.value==="Create OE Lecture")
@@ -31,7 +32,7 @@ const Nav = () => {
   }
   return (
     <div className="nav-pdp">
-      <FormControl fullWidth>
+      <FormControl sx={{width:"10rem",margin:"0.5rem"}}>
         <InputLabel id="demo-simple-select-label">OE Lecture</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -48,7 +49,7 @@ const Nav = () => {
         </Select>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl sx={{width:"10rem",margin:"0.5rem"}}>
         <InputLabel id="demo-simple-select-label">PDP Lecture</InputLabel>
         <Select
           labelId="demo-simple-select-label"
