@@ -24,7 +24,7 @@ const OELecture = () => {
     const editOELec=(id)=>{
     //   console.log(id); 
     lecId=id;
-     navigate("/editPDPLectures")
+     navigate("/editOELectures")
 
     }
 
