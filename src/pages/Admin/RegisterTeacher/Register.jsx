@@ -30,9 +30,7 @@ const Register = () => {
     gender: "",
   };
   
-  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
-  axios.defaults.headers.common['Authorization'] = AuthStr;
-
+ 
   const navigate = useNavigate();
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formerror, setformerror] = useState({});
@@ -82,7 +80,9 @@ const Register = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-  
+    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+    axios.defaults.headers.common['Authorization'] = AuthStr;
+
     if(Object.values(formerror).every((x) => x === "" )&&Object.values(formvalues).every((x) => x !== "")){
     axios
       .post(`${process.env.REACT_APP_URL}/accounts/register/`, {

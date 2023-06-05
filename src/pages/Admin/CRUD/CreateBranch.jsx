@@ -33,6 +33,7 @@ const CreateBranch = () => {
     const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
     axios.defaults.headers.common["Authorization"] = AuthStr;
 
+
     useEffect(() => {
         if(option)
         axios
@@ -59,15 +60,19 @@ const CreateBranch = () => {
       }, [newBranch,option]);
     
       const handleSubmit = () => {
+        const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+        axios.defaults.headers.common["Authorization"] = AuthStr;
         axios
           .post(`${process.env.REACT_APP_URL}/departmentss/BranchCreate`, {
             branch: newBranch,
             branchcode:newBranchCode,
             department:dept
           })
-          .then((res) => toast.success("Department Added Successfully"),setOption(),setNewBranch(),setNewBranchCode(),setDept());
+          .then((res) => toast.success("Branch Added Successfully"),setOption(),setNewBranch(),setNewBranchCode(),setDept());
       };
       const handleUpdate = () => {
+        const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+        axios.defaults.headers.common["Authorization"] = AuthStr;
         axios
           .patch(
             `${process.env.REACT_APP_URL}/departmentss/Branchupdate/${newBranch}`,updatedBranch
@@ -75,6 +80,8 @@ const CreateBranch = () => {
           .then((res) => toast.success("Updated Successfully"),setOption(),setUpdateBranch([]),setUpdatedBranch({}));
       };
       const handleDelete = () => {
+        const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+        axios.defaults.headers.common["Authorization"] = AuthStr;
         axios
           .delete(
             `${process.env.REACT_APP_URL}/departmentss/Branchupdate/${newBranch}`
