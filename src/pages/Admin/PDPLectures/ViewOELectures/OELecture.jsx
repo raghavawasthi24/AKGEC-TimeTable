@@ -6,7 +6,12 @@ import "./OELecture.css";
 import Nav from '../components/Nav/Nav';
 import { useNavigate } from 'react-router-dom';
 
-export let lecId=""
+export let lecObj={
+    lecId:"",
+    year:"",
+    dept:"",
+    period:""
+}
 
 const OELecture = () => {
     const navigate = useNavigate();
@@ -21,10 +26,13 @@ const OELecture = () => {
         })
     },[])
 
-    const editOELec=(id)=>{
+    const editOELec=(id,year,dept,period)=>{
     //   console.log(id); 
-    lecId=id;
-     navigate("/editPDPLectures")
+    lecObj.lecId=id;
+    lecObj.year=year;
+    lecObj.dept=dept;
+    lecObj.period=period;
+     navigate("/editOELectures")
 
     }
 
@@ -63,7 +71,7 @@ const OELecture = () => {
                             </TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editOELec(item.id)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department_name,item.period)} style={{margin:"0.2rem"}}>Edit</button>
                                 <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
                             </TableCell>
                         </TableRow>
@@ -77,4 +85,4 @@ const OELecture = () => {
   )
 }
 
-export default OELecture
+export default OELecture;

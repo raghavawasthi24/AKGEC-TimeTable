@@ -1,9 +1,12 @@
 import React from 'react'
 
 const CreatePDPLec = () => {
+
   return (
-    <div>CreatePDPLec</div>
+    <div className='createPDPLec'>
+      
+    </div>
   )
 }
 
-export default CreatePDPLec
+export default CreatePDPLec;

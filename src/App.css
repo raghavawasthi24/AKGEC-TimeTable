@@ -30,11 +30,16 @@ input[type=number] {
   }
 }
 .loading{
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   /* overflow: hidden; */
   /* background-color: black; */
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  position: absolute;
+  top:0;
+  background-color: white;
+  z-index: 999;
 }
