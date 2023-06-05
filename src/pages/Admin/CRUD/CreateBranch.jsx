@@ -195,7 +195,7 @@ const CreateBranch = () => {
         </Typography> 
    
 
-        <FormControl fullWidth>
+        <FormControl fullWidth     sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Department</InputLabel>
           <Select
             label="Department"
@@ -211,7 +211,7 @@ const CreateBranch = () => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth     sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Branch</InputLabel>
           <Select
             label="Branch"
@@ -219,6 +219,8 @@ const CreateBranch = () => {
           
             onChange={(e) => {
               setNewBranch(e.target.value);
+              setUpdateBranch([]);setUpdatedBranch({})
+
             }}
           >
             {allBranch.map((val) => {
