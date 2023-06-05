@@ -2,6 +2,9 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { MultiSelect } from "primereact/multiselect";
+import "primereact/resources/primereact.min.css";
+
 import 'react-toastify/dist/ReactToastify.css';
 import {
     Container,
@@ -19,6 +22,7 @@ import {
     Radio,
   } from "@mui/material";
 
+
 const CreateSubject = () => {
 
     const [newSubject, setNewSubject] = useState();
@@ -29,18 +33,22 @@ const CreateSubject = () => {
     const [updateSub, setUpdateSub] = useState([]);
     const [updatedSub, setUpdatedSub] = useState({});
     const[allSubject,setAllSubject]=useState([])
-
+    const[filtered2,setfiltered]=useState()
 
     const yearArray = [1,2,3,4]
 
     const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
-
+  axios.defaults.headers.common["Authorization"] = AuthStr;
     useEffect(() => {
         if(option && year)
         axios
           .get(`${process.env.REACT_APP_URL}/departmentss/all_departments/${year}`)
-          .then((res) => setDepartment(res.data));
+          .then((res) => {
+          const arr = res.data.map((sub) => ({
+            name: sub.dept,
+            id: sub.deptid,
+          }))
+          setDepartment(arr);})
       }, [option,year]);
 
       useEffect(() => {
@@ -60,16 +68,23 @@ const CreateSubject = () => {
       }, [newSubject,option]);
     
       const handleSubmit = () => {
+        const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+        axios.defaults.headers.common["Authorization"] = AuthStr;
+        const finaldept = []
+        dept.map((dep)=>(finaldept.push(dep.id)))
+        
         axios
           .post(`${process.env.REACT_APP_URL}/departmentss/SubjectCreate`, {
             subject: newSubject,
             year:year,
-            department:[dept]
+            department:finaldept
           })
-          .then((res) => toast.success("Subject Added Successfully"),setOption(),setNewSubject(),setYear(),setDept());
+          .then((res) => toast.success("Subject Added Successfully"),setOption(),setNewSubject(),setYear(),setDept(),finaldept.length=0);
       };
       const handleUpdate = () => {
         // console.log(updatedSub)
+        const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+        axios.defaults.headers.common["Authorization"] = AuthStr;
         axios
           .patch(
             `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${newSubject}`,updatedSub
@@ -77,13 +92,65 @@ const CreateSubject = () => {
           .then((res) => setOption(),setUpdateSub([]),setUpdatedSub({}),toast.success("Updated Successfully"));
       };
       const handleDelete = () => {
+        const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+        axios.defaults.headers.common["Authorization"] = AuthStr;
         axios
           .delete(
             `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${newSubject}`
           )
           .then((res) => setOption(),setUpdateSub([]),setUpdatedSub({}),toast.success("Deleted Successfully"));
       };
+     
+    // if(updateSub.department){
+    //   const filterData = department.filter(function (value) {
+     
+    //       updateSub.department.map((i)=>{
+    //       if(value.id===i)
+    //       return(value)})
+ 
+    //   })
+    
+    //     }
+
+     const intial = () =>{
+        var filtered = department.filter(function(item) {
+          if(updateSub.department)
+          return updateSub.department.indexOf(item.id) !== -1 ;
+        
+        }
+
+    )
+    console.log(2)
+    console.log(filtered2,filtered)
+    setfiltered(filtered)
+  }
+
+    //   const updatestate = () =>{
+    //   var filtered3 = department.filter(function(item) {
+    //     if(updatedSub.department)
+    //    return updatedSub.department.indexOf(item.id) !== -1 ; 
+    //   })
+    //   setfiltered(filtered3)
+    // }
+    
+
       
+    
+    // let obj = Object.assign({},updateSub.department)
+    //   console.log(Object.values(obj))
+    // useEffect(() => {
+
+    //   department.map((dep)=>{
+    //     updateSub.department.map((i)=>{        
+    //    return dep.id === i}
+    //     )
+      
+    //   })
+    
+    
+    // }, [department,updateSub])
+    
+
 
   return (
     <>
@@ -153,21 +220,17 @@ const CreateSubject = () => {
         </FormControl>
           
           <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Department</InputLabel>
-          <Select
-            label="Department"
-            name="departments"
-            defaultValue="Department"
-            onChange={(e) => {
-              setDept(e.target.value);
-             
-            }}
-            
-          >
-            {department.map((val) => {
-              return <MenuItem value={val.id}>{val.dept}</MenuItem>;
-            })}
-          </Select>
+      
+          <MultiSelect
+                 style={{maxWidth:'40rem',margin:"1rem 0rem"}}
+                  value={dept}
+                  onChange={(e) => setDept(e.value)}
+                  options={department}
+                  optionLabel="name"
+                  placeholder="Select Department"
+                  display="chip"
+                  className="w-full md:w-20rem"
+                />
         </FormControl>
         </Box>
         <Box sx={{ display: "flex",justifyContent:"center" }}>
@@ -201,7 +264,7 @@ const CreateSubject = () => {
         </Typography> 
    
 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Year</InputLabel>
           <Select
             label="Year"
@@ -221,7 +284,7 @@ const CreateSubject = () => {
           </Select>
         </FormControl>
           
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Department</InputLabel>
           <Select
             label="Department"
@@ -235,11 +298,12 @@ const CreateSubject = () => {
             
           >
             {department.map((val) => {
-              return <MenuItem value={val.id}>{val.dept}</MenuItem>;
+              return <MenuItem value={val.id}>{val.name}</MenuItem>;
             })}
           </Select>
+       
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Subject</InputLabel>
           <Select
             label="Subject"
@@ -248,7 +312,8 @@ const CreateSubject = () => {
             onChange={(e) => {
               setNewSubject(e.target.value);
               setUpdateSub([]);
-              setUpdatedSub({})
+              setUpdatedSub({});
+              intial()
             }}
             
           >
@@ -278,8 +343,10 @@ const CreateSubject = () => {
             label="Year"
             name="Year"
             defaultValue={updateSub.year}
-            onChange={(e) =>
+            onChange={(e) =>{
                       setUpdatedSub({ ...updatedSub, year: e.target.value })
+                      
+                      }
                     }
                     value={updatedSub.year}
             
@@ -290,24 +357,26 @@ const CreateSubject = () => {
           </Select>
         </FormControl>
          
+         
+         
+         
           <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Department</InputLabel>
-          <Select
-            label="Department"
-            name="departments"
-            defaultValue={updateSub.department}
-            onChange={(e) =>
-                      setUpdatedSub({ ...updatedSub, department: [e.target.value] })
-                    }
-                    value={updatedSub.department}
-            
-          >
-            {department.map((val) => {
-              return <MenuItem value={val.id}>{val.dept}</MenuItem>;
-            })}
-          </Select>
+      
+          <MultiSelect
+                 style={{maxWidth:'60rem',margin:"1rem 0rem"}}
+                
+                 
+                  options={department}
+                  optionLabel="name"
+                  placeholder="Select Department"
+                  display="chip"
+                  className="w-full md:w-20rem"
+                  onChange={(e) => setfiltered(e.value)}
+                  value={filtered2}
+                />
         </FormControl>
-            
+  
+           
             <Box sx={{ display: "flex",justifyContent:"center" }}>
               <Button
                 type="submit"
