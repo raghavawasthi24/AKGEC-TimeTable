@@ -37,7 +37,7 @@ const [updateClass, setUpdateClass] = useState([]);
 const [updatedClass, setUpdatedClass] = useState({});
 
 const yearArray = [1,2,3,4]
-const Luncharray =[{lunch:"12:40-1:30",id:'0'},{lunch:"1:30-2:20",id:'1'}]
+const Luncharray =[{lunch:"12:40-1:30",id:'6'},{lunch:"1:30-2:20",id:'7'}]
 
 const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
 axios.defaults.headers.common["Authorization"] = AuthStr;
@@ -99,7 +99,7 @@ useEffect(() => {
     axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .patch(
-        `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${section}`,updatedClass
+        `${process.env.REACT_APP_URL}/departmentss/Classupdate/${section}`,updatedClass
       )
       .then((res) => setOption(),setUpdateClass([]),setUpdatedClass({}),toast.success("Updated Successfully"));
   };
@@ -108,7 +108,7 @@ useEffect(() => {
     axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .delete(
-        `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${section}`
+        `${process.env.REACT_APP_URL}/departmentss/Classupdate/${section}`
       )
       .then((res) => setOption(),setUpdateClass([]),setUpdatedClass({}),toast.success("Deleted Successfully"));
   };
@@ -237,7 +237,7 @@ useEffect(() => {
           onClick={handleSubmit}
           // disabled={!submitbtn}
         >
-          Add Subject
+          Add Class
         </Button>
         </Box>
         </Box>
@@ -410,7 +410,7 @@ useEffect(() => {
                 onClick={handleUpdate}
                 // disabled={!submitbtn}
               >
-                Update Branch
+                Update Class
               </Button>
               <Button
                 type="submit"
@@ -424,7 +424,7 @@ useEffect(() => {
                 onClick={handleDelete}
                 // disabled={!submitbtn}
               >
-                Delete Branch
+                Delete Class
               </Button>
             </Box>
           </Box>

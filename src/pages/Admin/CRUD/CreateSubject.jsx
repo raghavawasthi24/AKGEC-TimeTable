@@ -21,7 +21,7 @@ import {
     FormControlLabel,
     Radio,
   } from "@mui/material";
-import { Filter } from '@mui/icons-material';
+
 
 const CreateSubject = () => {
 
@@ -391,7 +391,7 @@ const CreateSubject = () => {
                 onClick={handleUpdate}
                 // disabled={!submitbtn}
               >
-                Update Branch
+                Update Subject
               </Button>
               <Button
                 type="submit"
@@ -405,7 +405,7 @@ const CreateSubject = () => {
                 onClick={handleDelete}
                 // disabled={!submitbtn}
               >
-                Delete Branch
+                Delete Subject
               </Button>
             </Box>
           </Box>

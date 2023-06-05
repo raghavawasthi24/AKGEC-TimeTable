@@ -138,8 +138,10 @@ const CreateTimeTable = () => {
          
         }))
         setSubjectData(arr);
+        console.log("datasub",subjectdata)
        
       })
+      // eslint-disable-next-line
   }, [formvalues.year,formvalues.departments])
   
   console.log(selectedSubject)
@@ -204,7 +206,6 @@ const CreateTimeTable = () => {
     });
     console.log(subArr)
     selectedSection.map((val) => (
- 
         no_of_lectures.push(noOfLecSel),
         type.push(typeOfLecSel),
         subject_id.push(subArr)
