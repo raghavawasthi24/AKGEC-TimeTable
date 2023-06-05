@@ -15,7 +15,7 @@ export let lecId=""
 
 const ViewPDPLec = () => {
     const navigate = useNavigate();
-    const tableheader=["S.No","Department","Sections","Period Time"];
+    const tableheader=["S.No","Branch","Day","Period Time"];
 
     const [pdpdata,setPdpdata]=useState([]);
     useEffect(()=>{
@@ -58,17 +58,15 @@ const ViewPDPLec = () => {
                     return(
                         <TableRow>
                             <TableCell style={{textAlign:"center"}}>{key+1}</TableCell>
-                            <TableCell style={{textAlign:"center"}}>{item.department_name}</TableCell>
-                            {
+                            <TableCell style={{textAlign:"center"}}>{item.branch}</TableCell>
+                            {/* {
                                 item.sections.map((val)=>{
                                    return(<p style={{padding:"0.2rem"}}>{val.section}</p>)
                                 })
-                            }
+                            } */}
+                            <TableCell style={{textAlign:"center"}}>{item.day}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
-                            <TableCell>
-                                <button className='button' onClick={e=>editOELec(item.id)}>Edit</button>
-                                <button className='button' onClick={e=>delOELec(item.id)}>Delete</button>
-                            </TableCell>
+                            
                         </TableRow>
                     )
                 })
