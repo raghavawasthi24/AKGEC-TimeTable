@@ -28,9 +28,9 @@ const CreateDepartment = () => {
   const [updatedDept, setUpdatedDept] = useState({});
   const [option, setOption] = useState();
 
+
   const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
   axios.defaults.headers.common["Authorization"] = AuthStr;
-
   useEffect(() => {
     if(option === "UPDATE")
     axios
@@ -52,6 +52,8 @@ const CreateDepartment = () => {
   }, [newDept,option]);
 
   const handleSubmit = () => {
+    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+    axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/departmentCreate`, {
         dept: newDept,
@@ -60,6 +62,8 @@ const CreateDepartment = () => {
       .then((res) => toast.success("Department Added Successfully"),setOption(),setNewDept(),setUpdateDept([]),setUpdatedDept({}));
   };
   const handleUpdate = () => {
+    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+    axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .patch(
         `${process.env.REACT_APP_URL}/departmentss/departmentupdate/${newDept}`,
@@ -68,6 +72,8 @@ const CreateDepartment = () => {
       .then((res) => toast.success("Updated Successfully"),setOption());
   };
   const handleDelete = () => {
+    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+    axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .delete(
         `${process.env.REACT_APP_URL}/departmentss/departmentupdate/${newDept}`

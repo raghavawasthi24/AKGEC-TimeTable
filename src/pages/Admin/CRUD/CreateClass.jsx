@@ -39,6 +39,8 @@ const [updatedClass, setUpdatedClass] = useState({});
 const yearArray = [1,2,3,4]
 const Luncharray =[{lunch:"12:40-1:30",id:'0'},{lunch:"1:30-2:20",id:'1'}]
 
+const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+axios.defaults.headers.common["Authorization"] = AuthStr;
 
 const inputhandler = (e) =>{
     const{name,value}=e.target;
@@ -77,7 +79,9 @@ useEffect(() => {
   
   
   const handleSubmit = () => {
-    console.log(formValues)
+    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+    axios.defaults.headers.common["Authorization"] = AuthStr;
+  
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/ClassCreate`,{
         year: formValues.Year,
@@ -87,10 +91,12 @@ useEffect(() => {
         section:formValues.Section
         
       })
-      .then((res) => toast.success("Subject Added Successfully"),setOption());
+      .then((res) => toast.success("Section Added Successfully"),setOption());
   };
   const handleUpdate = () => {
     // console.log(updatedClass)
+    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+    axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .patch(
         `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${section}`,updatedClass
@@ -98,6 +104,8 @@ useEffect(() => {
       .then((res) => setOption(),setUpdateClass([]),setUpdatedClass({}),toast.success("Updated Successfully"));
   };
   const handleDelete = () => {
+    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
+    axios.defaults.headers.common["Authorization"] = AuthStr;
     axios
       .delete(
         `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${section}`
@@ -144,7 +152,7 @@ useEffect(() => {
           Add Class
         </Typography>
         <Box >
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Year</InputLabel>
           <Select
             label="Year"
@@ -160,7 +168,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Department</InputLabel>
           <Select
             label="Department"
@@ -175,7 +183,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Branch</InputLabel>
           <Select
             label="Branch"
@@ -188,7 +196,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Lunch</InputLabel>
           <Select
             label="Lunch"
@@ -245,7 +253,7 @@ useEffect(() => {
         >
           Update Section
         </Typography> 
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Year</InputLabel>
           <Select
             label="Year"
@@ -261,7 +269,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Department</InputLabel>
           <Select
             label="Department"
@@ -276,7 +284,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Section</InputLabel>
           <Select
             label="Section"
@@ -294,7 +302,7 @@ useEffect(() => {
    
         {Object.keys(updateClass).length > 0 ? (
           <Box>
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Year</InputLabel>
           <Select
             label="Year"
@@ -315,7 +323,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Department</InputLabel>
           <Select
             label="Department"
@@ -335,7 +343,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}}>
           <InputLabel id="demo-simple-select-label">Branch</InputLabel>
           <Select
             label="Branch"
@@ -353,7 +361,7 @@ useEffect(() => {
             })}
           </Select>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin:"1rem 0rem"}} >
           <InputLabel id="demo-simple-select-label">Lunch</InputLabel>
           <Select
             label="Lunch"
