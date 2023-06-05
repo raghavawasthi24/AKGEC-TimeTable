@@ -14,9 +14,10 @@ import Successful from './pages/Admin/CreateTimeTable/Successful';
 import AllTeacherData from './pages/Admin/AllTeacherData/AllTeacherData';
 import Create from './pages/Admin/CRUD/Create';
 import PdpLecture from './pages/Admin/PDPLectures/ViewOELectures/OELecture';
-import CreatePDPLec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
+import CreateOELec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
 import EditPDPLec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
 import ViewPDPLec from './pages/Admin/PDPLectures/ViewPDPLectures/ViewPDPLec';
+import CreatePDPLec from './pages/Admin/PDPLectures/CreatePDPLec/CreatePDPLec';
 
 
 
@@ -39,10 +40,11 @@ const App = () => {
       <Route path="/created" element={<Successful/>} />
       <Route path="/allteacher" element={<AllTeacherData/>}/>
       <Route path='/viewOElectures' element={<PdpLecture/>}/>
-      <Route path='/createOE' element={<CreatePDPLec/>}/>
+      <Route path='/createOE' element={<CreateOELec/>}/>
       <Route path="/create" element={<Create/>}/>
       <Route path="/editOELectures" element={<EditPDPLec/>}/>
       <Route path='/viewPDPlectures' element={<ViewPDPLec/>}/>
+      <Route path='/createPDP' element={<CreatePDPLec/>}/>
       </Routes>
     
     </>
