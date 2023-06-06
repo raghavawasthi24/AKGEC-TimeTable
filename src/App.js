@@ -15,9 +15,10 @@ import AllTeacherData from './pages/Admin/AllTeacherData/AllTeacherData';
 import Create from './pages/Admin/CRUD/Create';
 import PdpLecture from './pages/Admin/PDPLectures/ViewOELectures/OELecture';
 import CreateOELec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
-import EditPDPLec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
+import EditOELec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
 import ViewPDPLec from './pages/Admin/PDPLectures/ViewPDPLectures/ViewPDPLec';
 import CreatePDPLec from './pages/Admin/PDPLectures/CreatePDPLec/CreatePDPLec';
+import EditPDPLec from './pages/Admin/PDPLectures/EditPDPLec/EditPDPLec';
 
 
 
@@ -42,9 +43,11 @@ const App = () => {
       <Route path='/viewOElectures' element={<PdpLecture/>}/>
       <Route path='/createOE' element={<CreateOELec/>}/>
       <Route path="/create" element={<Create/>}/>
-      <Route path="/editOELectures" element={<EditPDPLec/>}/>
+      <Route path="/editOELectures" element={<EditOELec/>}/>
       <Route path='/viewPDPlectures' element={<ViewPDPLec/>}/>
       <Route path='/createPDP' element={<CreatePDPLec/>}/>
+      <Route path='/editPDPLectures' element={<EditPDPLec/>}/>
+      
       </Routes>
     
     </>

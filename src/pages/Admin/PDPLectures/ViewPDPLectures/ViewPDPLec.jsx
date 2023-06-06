@@ -20,14 +20,14 @@ const ViewPDPLec = () => {
         })
     },[])
 
-    const editOELec=(id)=>{
+    const editPDPLec=(id)=>{
     //   console.log(id); 
     lecId=id;
      navigate("/editPDPLectures")
 
     }
 
-    const delOELec=(id)=>{
+    const delPDPLec=(id)=>{
         axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${id}`)
         .then((res)=>{
             console.log(res);
@@ -54,7 +54,11 @@ const ViewPDPLec = () => {
                             <TableCell style={{textAlign:"center"}}>{key+1}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.branch}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.day}</TableCell>
-                            <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>                          
+                            <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
+                            <TableCell sx={{width:"10%"}}>
+                                <button className='button' onClick={e=>editPDPLec(item.id,item.year,item.department_name,item.period)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
+                            </TableCell>                         
                         </TableRow>
                     )
                 })
