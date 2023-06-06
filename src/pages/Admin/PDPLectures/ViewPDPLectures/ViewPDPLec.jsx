@@ -35,7 +35,7 @@ const ViewPDPLec = () => {
     }
 
     const delPDPLec=(id)=>{
-        axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${id}`)
+        axios.delete(`${process.env.REACT_APP_URL}/departmentss/pdp_lectureRUD/${id}`)
         .then((res)=>{
             console.log(res);
         })

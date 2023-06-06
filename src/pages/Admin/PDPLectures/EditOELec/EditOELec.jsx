@@ -15,7 +15,7 @@ const EditOELec = () => {
   let initialvalues = {
     year: lecObj.year,
     departments: lecObj.dept,
-    period:"1",
+    period:lecObj.period
   };
 
   const periodsArr=[{period:"8:30-9:20",id:"1"},{period:"9:20-10:10",id:"2"},{period:"10:10-11:00",id:"3"},{period:"11:00-11:50",id:"4"},{period:"11:50-12:40",id:"5"},{period:"12:40-1:30",id:"6"},{period:"1:30-2:20",id:"7"},{period:"2:20-3:10",id:"8"},{period:"3:10-4:00",id:"9"},];
@@ -30,7 +30,7 @@ const EditOELec = () => {
   const [department, setDepartment] = useState([]);
   const [formvalues, setFormvalues] = useState(initialvalues);
   const [sections, setSections] = useState([]);
-  const [selSections, setSelSections] = useState([]);
+  const [selSections, setSelSections] = useState(lecObj.sections);
   const yearHandler = (e) => {
     axios
       .get(
@@ -90,7 +90,24 @@ const EditOELec = () => {
       console.log(err);
     });
 
-  })
+
+    axios
+      .get(
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${formvalues.year}/${formvalues.departments}`
+      )
+      .then((res) => {
+        console.log("jkfbjhfhkuejfh", res.data);
+        setSections(res.data);
+        res.data.map((item) =>
+          sectionData.push({ name: item.section, id: item.id })
+        );
+        console.log(sectionData);
+        setSections(sectionData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[])
 
   return (
     <>

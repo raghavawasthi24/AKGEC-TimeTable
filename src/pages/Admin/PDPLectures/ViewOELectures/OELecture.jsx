@@ -10,6 +10,7 @@ export let lecObj={
     lecId:"",
     year:"",
     dept:"",
+    sections:"",
     period:""
 }
 
@@ -26,11 +27,12 @@ const OELecture = () => {
         })
     },[])
 
-    const editOELec=(id,year,dept,period)=>{
+    const editOELec=(id,year,dept,sections,period)=>{
     //   console.log(id); 
     lecObj.lecId=id;
     lecObj.year=year;
     lecObj.dept=dept;
+    lecObj.sections=sections;
     lecObj.period=period;
      navigate("/editOELectures")
 
@@ -71,7 +73,7 @@ const OELecture = () => {
                             </TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department_name,item.period)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department,item.sections,item.period_no)} style={{margin:"0.2rem"}}>Edit</button>
                                 <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
                             </TableCell>
                         </TableRow>
