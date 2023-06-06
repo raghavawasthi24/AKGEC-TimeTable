@@ -38,6 +38,7 @@ const CreateOELec = () => {
         console.log(resp.data);
         setDepartment(resp.data);
         // console.log(department)
+        setSelSections([]);
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +117,7 @@ const CreateOELec = () => {
         onChange={(e) => setSelSections(e.value)}
         options={sections}
         optionLabel="name"
-        placeholder="Select Subjects"
+        placeholder="Select Sections"
         display="chip"
         className="w-full md:w-20rem"
       />

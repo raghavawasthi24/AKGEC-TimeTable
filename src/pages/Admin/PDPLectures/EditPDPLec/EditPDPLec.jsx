@@ -5,11 +5,12 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Nav from '../components/Nav/Nav';
+import { lecId } from '../ViewPDPLectures/ViewPDPLec';
 
 const EditPDPLec = () => {
     let initialvalues={
         department:"",
-        branch:"",
+        branch:lecId.branch_id,
         period:"",
         day:"",
       }
@@ -71,6 +72,7 @@ const EditPDPLec = () => {
        <>
     <Nav/>
     <div className='createPDPLec' style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+
        <FormControl sx={{ margin: "1rem",width:"60%" }}>
         <InputLabel>Department</InputLabel>
         <Select

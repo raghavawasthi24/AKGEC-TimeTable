@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export let lecId={
     id:"",
     dept:"",
-    branch:"",
+    branch_id:"",
     period:"",
     day:""
 }
@@ -63,7 +63,7 @@ const ViewPDPLec = () => {
                             <TableCell style={{textAlign:"center"}}>{days[item.day]}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editPDPLec(item.id,item.department_name,item.branch,item.period,item.day)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editPDPLec(item.id,item.branch_id,item.period,item.day)} style={{margin:"0.2rem"}}>Edit</button>
                                 <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
                             </TableCell>                         
                         </TableRow>
