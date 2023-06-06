@@ -5,11 +5,18 @@ import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from "@mui/
 import Nav from '../components/Nav/Nav';
 import { useNavigate } from 'react-router-dom';
 
-export let lecId=""
+export let lecId={
+    id:"",
+    dept:"",
+    branch:"",
+    period:"",
+    day:""
+}
 
 const ViewPDPLec = () => {
     const navigate = useNavigate();
     const tableheader=["S.No","Branch","Day","Period Time"];
+    const days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
     const [pdpdata,setPdpdata]=useState([]);
     useEffect(()=>{
@@ -53,10 +60,10 @@ const ViewPDPLec = () => {
                         <TableRow>
                             <TableCell style={{textAlign:"center"}}>{key+1}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.branch}</TableCell>
-                            <TableCell style={{textAlign:"center"}}>{item.day}</TableCell>
+                            <TableCell style={{textAlign:"center"}}>{days[item.day]}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editPDPLec(item.id,item.year,item.department_name,item.period)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editPDPLec(item.id,item.department_name,item.branch,item.period,item.day)} style={{margin:"0.2rem"}}>Edit</button>
                                 <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
                             </TableCell>                         
                         </TableRow>
