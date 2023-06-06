@@ -38,13 +38,15 @@ const CreateOELec = () => {
         console.log(resp.data);
         setDepartment(resp.data);
         // console.log(department)
-        setSelSections([]);
+        // setSelSections([]);
       })
       .catch((err) => {
         console.log(err);
       });
   };
   const handleDept = (e) => {
+    setSelSections([]);
+    sectionData=[];
     axios
       .get(
         `${process.env.REACT_APP_URL}/departmentss/department_wise_sections/${formvalues.year}/${e.target.value}`
@@ -57,6 +59,7 @@ const CreateOELec = () => {
         );
         console.log(sectionData);
         setSections(sectionData);
+        // setSelSections([]);
       })
       .catch((err) => {
         console.log(err);
