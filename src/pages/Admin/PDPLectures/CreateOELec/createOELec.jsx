@@ -6,6 +6,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MultiSelect } from "primereact/multiselect";
 import Nav from '../components/Nav/Nav';
+import AdminNav from "../../../../components/AdminNav/AdminNav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let sectionData = [];
 const CreateOELec = () => {
@@ -74,12 +77,13 @@ const CreateOELec = () => {
       period:formvalues.period,
       department:formvalues.departments,
       sections:sectionArr
-    }).then((res)=>{console.log(res)})
-    .catch((err)=>{console.log(err)})
+    }).then((res)=>{console.log(res);toast.success("Classes created Successfully")})
+    .catch((err)=>{console.log(err);toast.error("Invalid Details")})
   }
 
   return (
     <>
+    <AdminNav/>
     <Nav/>
     <div className="createPDP" style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
       <FormControl sx={{ margin: "1rem",width:"60%" }}>
@@ -143,6 +147,7 @@ const CreateOELec = () => {
 
       <button className="button" onClick={createClasses}>Create Classes</button>
     </div>
+    <ToastContainer/>
     </>
   );
 };

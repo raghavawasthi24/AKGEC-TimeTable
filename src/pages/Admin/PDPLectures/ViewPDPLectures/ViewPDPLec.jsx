@@ -3,7 +3,10 @@ import axios from 'axios'
 import React, { useEffect,useState } from 'react';
 import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from "@mui/material";
 import Nav from '../components/Nav/Nav';
+import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export let lecId={
     id:"",
@@ -38,13 +41,17 @@ const ViewPDPLec = () => {
         axios.delete(`${process.env.REACT_APP_URL}/departmentss/pdp_lectureRUD/${id}`)
         .then((res)=>{
             console.log(res);
+            toast.success("Classes deleted Successfully")
+        }).catch((err)=>{
+            toast.error("Invalid Details")
         })
     }
     
   return (
-    <div className='pdpLec'>
+    <>
+        <AdminNav/>
         <Nav/>
-       <TableContainer>
+       <TableContainer sx={{width:"80%",margin:" 1rem auto"}}>
         <Table>
             <TableHead>
                 {
@@ -64,7 +71,7 @@ const ViewPDPLec = () => {
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
                             <TableCell sx={{width:"10%"}}>
                                 <button className='button' onClick={e=>editPDPLec(item.id,item.branch_id,item.period,item.day)} style={{margin:"0.2rem"}}>Edit</button>
-                                <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
+                                <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"black",color:"white"}}>Delete</button>
                             </TableCell>                         
                         </TableRow>
                     )
@@ -73,7 +80,8 @@ const ViewPDPLec = () => {
             </TableBody>
         </Table>
        </TableContainer>
-    </div>
+       <ToastContainer/>
+    </>
   )
 }
 

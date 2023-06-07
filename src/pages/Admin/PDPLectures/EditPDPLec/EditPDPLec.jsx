@@ -6,6 +6,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Nav from '../components/Nav/Nav';
 import { lecId } from '../ViewPDPLectures/ViewPDPLec';
+import AdminNav from "../../../../components/AdminNav/AdminNav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditPDPLec = () => {
     let initialvalues={
@@ -63,13 +66,16 @@ const EditPDPLec = () => {
           period:formvalues.period,
           branch:formvalues.branch
         }).then((res)=>{
-          console.log(res);
+          console.log(res);toast.success("Classes Updated suceessfully")
+        }).catch((err)=>{
+          toast.error("Invalid Details")
         })
         
       }
   return (
-    <div className='editPDPLec'>
+    <>
        <>
+       <AdminNav/>
     <Nav/>
     <div className='createPDPLec' style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
 
@@ -148,7 +154,8 @@ const EditPDPLec = () => {
       <button className='button' onClick={createPDPTimetable}>Create</button>
     </div>
     </>
-    </div>
+    <ToastContainer/>
+    </>
   )
 }
 

@@ -5,6 +5,9 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Nav from '../components/Nav/Nav';
+import AdminNav from "../../../../components/AdminNav/AdminNav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let sectionData=[];
 const CreatePDPLec = () => {
@@ -63,14 +66,15 @@ const CreatePDPLec = () => {
       period:formvalues.period,
       branch:formvalues.branch
     }).then((res)=>{
-      console.log(res);
-    })
+      console.log(res);toast.success("Classes created Successfully")
+    }).catch((err)=>{toast.error("Invalid Details")})
     
   }
   
 
   return (
     <>
+    <AdminNav/>
     <Nav/>
     <div className='createPDPLec' style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
        <FormControl sx={{ margin: "1rem",width:"60%" }}>
@@ -147,6 +151,7 @@ const CreatePDPLec = () => {
 
       <button className='button' onClick={createPDPTimetable}>Create</button>
     </div>
+    <ToastContainer/>
     </>
   )
 }

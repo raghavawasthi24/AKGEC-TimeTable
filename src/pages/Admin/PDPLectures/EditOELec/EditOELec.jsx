@@ -7,6 +7,9 @@ import FormControl from "@mui/material/FormControl";
 import { MultiSelect } from "primereact/multiselect";
 import { lecObj } from "../ViewOELectures/OELecture";
 import Nav from '../components/Nav/Nav';
+import AdminNav from "../../../../components/AdminNav/AdminNav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import { FormGroup, TextField } from "@mui/material";
 
 let sectionData = [];
@@ -72,8 +75,8 @@ const EditOELec = () => {
       period:formvalues.period,
       department:formvalues.departments,
       sections:sectionArr
-    }).then((res)=>{console.log(res)})
-    .catch((err)=>{console.log(err)})
+    }).then((res)=>{console.log(res);toast.success("Classes updated Successfully")})
+    .catch((err)=>{console.log(err);toast.error("Invalid Details")})
   }
 
   useEffect(()=>{
@@ -111,6 +114,7 @@ const EditOELec = () => {
 
   return (
     <>
+    <AdminNav/>
     <Nav/>
     <div className="createPDP" style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
       
@@ -178,6 +182,7 @@ const EditOELec = () => {
 
       <button className="button" onClick={createClasses}>Update</button>
     </div>
+    <ToastContainer/>
     </>
   );
 };
