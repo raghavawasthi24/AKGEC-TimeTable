@@ -77,7 +77,7 @@ const CreateOELec = () => {
       period:formvalues.period,
       department:formvalues.departments,
       sections:sectionArr
-    }).then((res)=>{console.log(res);toast.success("Classes created Successfully")})
+    }).then((res)=>{console.log(res);toast.success("Classes created Successfully");setFormvalues(initialvalues);setSelSections([])})
     .catch((err)=>{console.log(err);toast.error("Invalid Details")})
   }
 
