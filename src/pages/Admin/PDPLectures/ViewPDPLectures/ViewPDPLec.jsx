@@ -70,7 +70,7 @@ const ViewPDPLec = () => {
                         <TableRow>
                             <TableCell style={{textAlign:"center"}}>{key+1}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.branch}</TableCell>
-                            <TableCell style={{textAlign:"center"}}>{days[item.day]}</TableCell>
+                            <TableCell style={{textAlign:"center"}}>{days[item.day-1]}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
                             <TableCell sx={{width:"10%"}}>
                                 <button className='button' onClick={e=>editPDPLec(item.id,item.branch,item.branch_id,item.period_no,item.day)} style={{margin:"0.2rem"}}>Edit</button>
