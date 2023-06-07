@@ -5,11 +5,15 @@ import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from "@mui/
 import "./OELecture.css";
 import Nav from '../components/Nav/Nav';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AdminNav from "../../../../components/AdminNav/AdminNav";
 
 export let lecObj={
     lecId:"",
     year:"",
     dept:"",
+    sections:"",
     period:""
 }
 
@@ -26,11 +30,12 @@ const OELecture = () => {
         })
     },[])
 
-    const editOELec=(id,year,dept,period)=>{
+    const editOELec=(id,year,dept,sections,period)=>{
     //   console.log(id); 
     lecObj.lecId=id;
     lecObj.year=year;
     lecObj.dept=dept;
+    lecObj.sections=sections;
     lecObj.period=period;
      navigate("/editOELectures")
 
@@ -40,13 +45,15 @@ const OELecture = () => {
         axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${id}`)
         .then((res)=>{
             console.log(res);
-        })
+            toast.success("Classes deleted successfully")
+        }).catch((err)=>{toast.error("Invalid Details")})
     }
     
   return (
-    <div className='pdpLec'>
+    <>
+        <AdminNav/>
         <Nav/>
-       <TableContainer>
+       <TableContainer sx={{width:"80%",margin:" 1rem auto"}}>
         <Table>
             <TableHead>
                 {
@@ -71,8 +78,8 @@ const OELecture = () => {
                             </TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department_name,item.period)} style={{margin:"0.2rem"}}>Edit</button>
-                                <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"red",color:"white"}}>Delete</button>
+                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department,item.sections,item.period_no)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"black",color:"white"}}>Delete</button>
                             </TableCell>
                         </TableRow>
                     )
@@ -81,7 +88,7 @@ const OELecture = () => {
             </TableBody>
         </Table>
        </TableContainer>
-    </div>
+    </>
   )
 }
 
