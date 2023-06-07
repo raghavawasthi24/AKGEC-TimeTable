@@ -9,13 +9,14 @@ import { lecId } from '../ViewPDPLectures/ViewPDPLec';
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TextField from '@mui/material/TextField';
 
 const EditPDPLec = () => {
     let initialvalues={
-        department:"",
-        branch:lecId.branch_id,
-        period:"",
-        day:"",
+        // department:"",
+        branch:lecId.branch,
+        period:lecId.period,
+        day:lecId.day,
       }
       const periodsArr=[{period:"8:30-9:20",id:"1"},{period:"9:20-10:10",id:"2"},{period:"10:10-11:00",id:"3"},{period:"11:00-11:50",id:"4"},{period:"11:50-12:40",id:"5"},{period:"12:40-1:30",id:"6"},{period:"1:30-2:20",id:"7"},{period:"2:20-3:10",id:"8"},{period:"3:10-4:00",id:"9"},];
     
@@ -61,10 +62,10 @@ const EditPDPLec = () => {
       },[])
     
       const createPDPTimetable=()=>{
-        axios.post(`${process.env.REACT_APP_URL}/departmentss/pdp_lecture_create`,{
+        axios.put(`${process.env.REACT_APP_URL}/departmentss/pdp_lectureRUD/${lecId.id}`,{
           day:formvalues.day,
           period:formvalues.period,
-          branch:formvalues.branch
+          branch:lecId.branch_id
         }).then((res)=>{
           console.log(res);toast.success("Classes Updated suceessfully")
         }).catch((err)=>{
@@ -79,7 +80,7 @@ const EditPDPLec = () => {
     <Nav/>
     <div className='createPDPLec' style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
 
-       <FormControl sx={{ margin: "1rem",width:"60%" }}>
+       {/* <FormControl sx={{ margin: "1rem",width:"60%" }}>
         <InputLabel>Department</InputLabel>
         <Select
           label="Department"
@@ -94,9 +95,9 @@ const EditPDPLec = () => {
             return <MenuItem value={val.id} key={key}>{val.dept}</MenuItem>;
           })}
         </Select>
-      </FormControl>
+      </FormControl> */}
 
-      <FormControl sx={{ margin: "1rem",width:"60%" }}>
+      {/* <FormControl sx={{ margin: "1rem",width:"60%" }}>
         <InputLabel>Branch</InputLabel>
         <Select
           label="Branch"
@@ -111,7 +112,9 @@ const EditPDPLec = () => {
             return <MenuItem value={val.branchcode} key={key}>{val.branch}</MenuItem>;
           })}
         </Select>
-      </FormControl>
+      </FormControl> */}
+
+<TextField id="outlined-basic" label="Branch" variant="outlined" value={lecId.branch}/>
 
 
 

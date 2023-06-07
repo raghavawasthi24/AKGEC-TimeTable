@@ -30,11 +30,14 @@ const ViewPDPLec = () => {
         })
     },[])
 
-    const editPDPLec=(id)=>{
+    const editPDPLec=(id,branch,branch_id,period,day)=>{
     //   console.log(id); 
-    lecId=id;
+    lecId.id=id;
+    lecId.branch_id=branch_id;
+    lecId.branch=branch;
+    lecId.period=period;
+    lecId.day=day;
      navigate("/editPDPLectures")
-
     }
 
     const delPDPLec=(id)=>{
@@ -70,7 +73,7 @@ const ViewPDPLec = () => {
                             <TableCell style={{textAlign:"center"}}>{days[item.day]}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editPDPLec(item.id,item.branch_id,item.period,item.day)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editPDPLec(item.id,item.branch,item.branch_id,item.period_no,item.day)} style={{margin:"0.2rem"}}>Edit</button>
                                 <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"black",color:"white"}}>Delete</button>
                             </TableCell>                         
                         </TableRow>
