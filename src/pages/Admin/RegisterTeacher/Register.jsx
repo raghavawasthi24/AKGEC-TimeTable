@@ -80,8 +80,7 @@ const Register = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-    const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
-    axios.defaults.headers.common['Authorization'] = AuthStr;
+   
 
     if(Object.values(formerror).every((x) => x === "" )&&Object.values(formvalues).every((x) => x !== "")){
     axios
