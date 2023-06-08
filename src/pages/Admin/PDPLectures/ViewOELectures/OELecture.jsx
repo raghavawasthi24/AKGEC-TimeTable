@@ -13,7 +13,7 @@ export let lecObj={
     lecId:"",
     year:"",
     dept:"",
-    sections:"",
+    sections:[],
     period:""
 }
 
@@ -23,7 +23,7 @@ const OELecture = () => {
 
     const [pdpdata,setPdpdata]=useState([]);
     useEffect(()=>{
-        axios.get("https://time-table-production-9807.up.railway.app/departmentss/oe_lecture_view")
+        axios.get(`${process.env.REACT_APP_URL}/departmentss/oe_lecture_view`)
         .then((res)=>{
             console.log(res.data)
             setPdpdata(res.data)
@@ -45,8 +45,16 @@ const OELecture = () => {
         axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${id}`)
         .then((res)=>{
             console.log(res);
-            toast.success("Classes deleted successfully")
+            toast.success("Classes deleted successfully");
+            // window.location.reload();
+            axios.get(`${process.env.REACT_APP_URL}/departmentss/oe_lecture_view`)
+            .then((res)=>{
+                console.log(res.data)
+                setPdpdata(res.data)
+            })
         }).catch((err)=>{toast.error("Invalid Details")})
+
+       
     }
     
   return (
@@ -78,7 +86,7 @@ const OELecture = () => {
                             </TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department,item.sections,item.period_no)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department,item.sections,item.period_no)} style={{margin:"0.2rem",backgroundColor:"white",border:"1px solid black"}}>Edit</button>
                                 <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"black",color:"white"}}>Delete</button>
                             </TableCell>
                         </TableRow>
@@ -88,6 +96,7 @@ const OELecture = () => {
             </TableBody>
         </Table>
        </TableContainer>
+       <ToastContainer/>
     </>
   )
 }

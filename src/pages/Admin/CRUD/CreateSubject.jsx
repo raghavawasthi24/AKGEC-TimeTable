@@ -75,6 +75,7 @@ const CreateSubject = () => {
           )
         );
     }
+    // eslint-disable-next-line
   }, [newSubject, option]);
 
   const handleSubmit = () => {
@@ -145,7 +146,7 @@ const CreateSubject = () => {
     var filtered = department.filter(function (item) {
       return value?.indexOf(item.id) !== -1;
     });
-    setfiltered(filtered);
+    setfiltered(filtered); 
   };
 
   return (
