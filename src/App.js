@@ -18,6 +18,7 @@ import CreateOELec from './pages/Admin/PDPLectures/CreateOELec/createOELec';
 import EditOELec from './pages/Admin/PDPLectures/EditOELec/EditOELec';
 import ViewPDPLec from './pages/Admin/PDPLectures/ViewPDPLectures/ViewPDPLec';
 import CreatePDPLec from './pages/Admin/PDPLectures/CreatePDPLec/CreatePDPLec';
+import "./components/CustomAxios/CustomAxios"
 import EditPDPLec from './pages/Admin/PDPLectures/EditPDPLec/EditPDPLec';
 
 

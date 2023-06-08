@@ -14,8 +14,7 @@ const TeacherTable = (props) => {
   const [subject, setsubject] = useState();
   const [classid, setclassid] = useState();
 
-  const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
-  axios.defaults.headers.common['Authorization'] = AuthStr;
+
 
   const deletelecture = (id) => {
     axios
