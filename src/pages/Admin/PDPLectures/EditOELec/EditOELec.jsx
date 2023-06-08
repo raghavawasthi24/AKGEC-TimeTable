@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { FormGroup, TextField } from "@mui/material";
 
 let sectionData = [];
+let prevSec=[];
 const EditOELec = () => {
   const year = ["1", "2", "3", "4"];
   let initialvalues = {
@@ -32,8 +33,8 @@ const EditOELec = () => {
 
   const [department, setDepartment] = useState([]);
   const [formvalues, setFormvalues] = useState(initialvalues);
-  const [sections, setSections] = useState([]);
-  const [selSections, setSelSections] = useState(lecObj.sections);
+  const [sections, setSections] = useState();
+  const [selSections, setSelSections] = useState([]);
   const yearHandler = (e) => {
     axios
       .get(
@@ -80,6 +81,12 @@ const EditOELec = () => {
   }
 
   useEffect(()=>{
+    sectionData=[];
+    console.log(lecObj,lecObj.sections);
+    prevSec=[];
+    lecObj.sections.map((item)=>{return(prevSec.push({id:item.id,name:item.section}))})
+    console.log(prevSec)
+    setSelSections(prevSec);
     axios
     .get(
       `${process.env.REACT_APP_URL}/departmentss/all_departments/${formvalues.year}`
@@ -88,6 +95,7 @@ const EditOELec = () => {
       console.log(resp.data);
       setDepartment(resp.data);
       console.log(lecObj)
+    
     })
     .catch((err) => {
       console.log(err);

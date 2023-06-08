@@ -13,7 +13,7 @@ export let lecObj={
     lecId:"",
     year:"",
     dept:"",
-    sections:"",
+    sections:[],
     period:""
 }
 
