@@ -23,7 +23,7 @@ const ViewPDPLec = () => {
 
     const [pdpdata,setPdpdata]=useState([]);
     useEffect(()=>{
-        axios.get("https://time-table-production-9807.up.railway.app/departmentss/pdp_lecture_view")
+        axios.get(`${process.env.REACT_APP_URL}/departmentss/pdp_lecture_view`)
         .then((res)=>{
             console.log(res.data)
             setPdpdata(res.data)
@@ -44,7 +44,12 @@ const ViewPDPLec = () => {
         axios.delete(`${process.env.REACT_APP_URL}/departmentss/pdp_lectureRUD/${id}`)
         .then((res)=>{
             console.log(res);
-            toast.success("Classes deleted Successfully")
+            toast.success("Classes deleted Successfully");
+            axios.get(`${process.env.REACT_APP_URL}/departmentss/pdp_lecture_view`)
+        .then((res)=>{
+            console.log(res.data)
+            setPdpdata(res.data)
+        })
         }).catch((err)=>{
             toast.error("Invalid Details")
         })
@@ -73,7 +78,7 @@ const ViewPDPLec = () => {
                             <TableCell style={{textAlign:"center"}}>{days[item.day-1]}</TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell> 
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editPDPLec(item.id,item.branch,item.branch_id,item.period_no,item.day)} style={{margin:"0.2rem"}}>Edit</button>
+                                <button className='button' onClick={e=>editPDPLec(item.id,item.branch,item.branch_id,item.period_no,item.day)} style={{margin:"0.2rem",backgroundColor:"white",border:"1px solid black"}}>Edit</button>
                                 <button className='button' onClick={e=>delPDPLec(item.id)} style={{backgroundColor:"black",color:"white"}}>Delete</button>
                             </TableCell>                         
                         </TableRow>
