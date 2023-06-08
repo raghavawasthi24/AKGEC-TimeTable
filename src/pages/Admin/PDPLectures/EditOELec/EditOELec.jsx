@@ -33,7 +33,7 @@ const EditOELec = () => {
 
   const [department, setDepartment] = useState([]);
   const [formvalues, setFormvalues] = useState(initialvalues);
-  const [sections, setSections] = useState();
+  const [sections, setSections] = useState([]);
   const [selSections, setSelSections] = useState([]);
   const yearHandler = (e) => {
     axios
@@ -84,9 +84,7 @@ const EditOELec = () => {
     sectionData=[];
     console.log(lecObj,lecObj.sections);
     prevSec=[];
-    lecObj.sections.map((item)=>{return(prevSec.push({id:item.id,name:item.section}))})
-    console.log(prevSec)
-    setSelSections(prevSec);
+    
     axios
     .get(
       `${process.env.REACT_APP_URL}/departmentss/all_departments/${formvalues.year}`
@@ -114,10 +112,14 @@ const EditOELec = () => {
         );
         console.log(sectionData);
         setSections(sectionData);
+        lecObj.sections.map((item)=>{return(prevSec.push({id:item.id,name:item.section}))})
+    console.log(prevSec)
+    setSelSections(prevSec);
       })
       .catch((err) => {
         console.log(err);
       });
+      // eslint-disable-next-line
   },[])
 
   return (

@@ -75,6 +75,7 @@ const CreateSubject = () => {
           )
         );
     }
+    // eslint-disable-next-line
   }, [newSubject, option]);
 
   const handleSubmit = () => {

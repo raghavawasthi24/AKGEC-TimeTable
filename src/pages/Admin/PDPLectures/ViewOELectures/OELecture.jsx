@@ -88,6 +88,7 @@ const OELecture = () => {
             </TableBody>
         </Table>
        </TableContainer>
+       <ToastContainer/>
     </>
   )
 }

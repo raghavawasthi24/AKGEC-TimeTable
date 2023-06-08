@@ -55,7 +55,7 @@ const EditPDPLec = () => {
       )
       .then((res) => {
         console.log("jkfbjhfhkuejfh", res.data);
-        setBranch(res.data);
+        // setBranch(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +67,7 @@ const EditPDPLec = () => {
       .get(`${process.env.REACT_APP_URL}/departmentss/all_departments/2`)
       .then((resp) => {
         console.log(resp.data);
-        setDepartment(resp.data);
+        // setDepartment(resp.data);
         // console.log(department)
       })
       .catch((err) => {

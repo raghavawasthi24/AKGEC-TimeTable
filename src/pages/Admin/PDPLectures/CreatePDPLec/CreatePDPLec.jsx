@@ -9,7 +9,7 @@ import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let sectionData=[];
+// let sectionData=[];
 const CreatePDPLec = () => {
   let initialvalues={
     department:"",

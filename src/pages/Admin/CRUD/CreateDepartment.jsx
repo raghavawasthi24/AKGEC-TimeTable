@@ -49,6 +49,7 @@ const CreateDepartment = () => {
   useEffect(() => {
     if(option==="UPDATE")
     fetchinfo(newDept);
+    // eslint-disable-next-line
   }, [newDept,option]);
 
   const handleSubmit = () => {
