@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
- 
+
 axios.interceptors.request.use(
   
     req=>{
@@ -22,16 +22,15 @@ axios.interceptors.response.use(
     // console.log(originalReq)
     const status = err.response.status ? err.response.status : null;
     if(status === 401){
-        axios.post(`${process.env.REACT_APP_URL}/accounts/refresh-token`,{token: localStorage.getItem('refreshToken')})
+       return axios.post(`${process.env.REACT_APP_URL}/accounts/refresh-token`,{token: localStorage.getItem('refreshToken')})
         .then((response)=>{
           (localStorage.setItem("accessToken",response.data.access))
-            return (axios(originalReq))
-           
+            return  axios(originalReq)
            }
           ).catch(()=>(
             localStorage.clear(),
             window.location.replace('/')
-            
+          
           )
           )
     }
