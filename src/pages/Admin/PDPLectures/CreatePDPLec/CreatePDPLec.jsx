@@ -66,7 +66,7 @@ const CreatePDPLec = () => {
       period:formvalues.period,
       branch:formvalues.branch
     }).then((res)=>{
-      console.log(res);toast.success("Classes created Successfully")
+      console.log(res);toast.success("Classes created Successfully");setFormvalues(initialvalues)
     }).catch((err)=>{toast.error("Invalid Details")})
     
   }
@@ -106,7 +106,7 @@ const CreatePDPLec = () => {
           }}
         >
           {branch.map((val,key) => {
-            return <MenuItem value={val.branchcode} key={key}>{val.branch}</MenuItem>;
+            return <MenuItem value={val.id} key={key}>{val.branch}</MenuItem>;
           })}
         </Select>
       </FormControl>
