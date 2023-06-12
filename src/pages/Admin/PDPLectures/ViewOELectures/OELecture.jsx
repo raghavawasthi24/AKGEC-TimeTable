@@ -128,7 +128,7 @@ const OELecture = () => {
             <p style={{fontSize:"1.2rem",margin:"0.5rem"}}>Are you sure to delete this?</p>
             <div className='deleteBtn'>
                 <button className='button' style={{margin:"0.5rem",backgroundColor:"red",color:"white"}} onClick={confirmDelete}>Delete</button>
-                <button className='button' style={{margin:"0.5rem"}} onClick={()=>setShowpopup(false)}>Cancel</button>
+                <button className='button' style={{margin:"0.5rem",backgroundColor:"black",color:"white"}} onClick={()=>setShowpopup(false)}>Cancel</button>
             </div>
            </div>
        </div>
