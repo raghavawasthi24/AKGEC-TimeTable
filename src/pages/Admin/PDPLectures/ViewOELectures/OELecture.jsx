@@ -20,6 +20,8 @@ export let lecObj={
 const OELecture = () => {
     const navigate = useNavigate();
     const tableheader=["S.No","Department","Sections","Period Time"];
+    const [showpopup,setShowpopup]=useState(false)
+    const [delid,setdelId]=useState();
 
     const [pdpdata,setPdpdata]=useState([]);
     useEffect(()=>{
@@ -42,7 +44,32 @@ const OELecture = () => {
     }
 
     const delOELec=(id)=>{
-        axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${id}`)
+        setShowpopup(true);
+        setdelId(id);
+        
+    }
+    // useEffect(()=>{
+    //     console.log(delid);
+    //  if(showpopup==true)
+    //  {
+    //     axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${delid}`)
+    //     .then((res)=>{
+    //         console.log(res);
+    //         toast.success("Classes deleted successfully");
+    //         // window.location.reload();
+    //         axios.get(`${process.env.REACT_APP_URL}/departmentss/oe_lecture_view`)
+    //         .then((res)=>{
+    //             console.log(res.data)
+    //             setPdpdata(res.data)
+    //             setShowpopup(false);
+    //         })
+    //     }).catch((err)=>{toast.error("Invalid Details")})
+    //  }
+    // },[showpopup])
+
+    const confirmDelete=()=>{
+        console.log(delid);
+       axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${delid}`)
         .then((res)=>{
             console.log(res);
             toast.success("Classes deleted successfully");
@@ -51,10 +78,10 @@ const OELecture = () => {
             .then((res)=>{
                 console.log(res.data)
                 setPdpdata(res.data)
+                setShowpopup(false);
             })
         }).catch((err)=>{toast.error("Invalid Details")})
-
-       
+     
     }
     
   return (
@@ -86,7 +113,7 @@ const OELecture = () => {
                             </TableCell>
                             <TableCell style={{textAlign:"center"}}>{item.period}</TableCell>
                             <TableCell sx={{width:"10%"}}>
-                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department,item.sections,item.period_no)} style={{margin:"0.2rem",backgroundColor:"white",border:"1px solid black"}}>Edit</button>
+                                <button className='button' onClick={e=>editOELec(item.id,item.year,item.department,item.sections,item.period_no)} style={{margin:"0.5rem 0"}}>Edit</button>
                                 <button className='button' onClick={e=>delOELec(item.id)} style={{backgroundColor:"black",color:"white"}}>Delete</button>
                             </TableCell>
                         </TableRow>
@@ -96,6 +123,15 @@ const OELecture = () => {
             </TableBody>
         </Table>
        </TableContainer>
+       <div className={showpopup?'popupWindow':"hide"}>
+           <div className='delete-Popup'>
+            <p style={{fontSize:"1.2rem",margin:"0.5rem"}}>Are you sure to delete this?</p>
+            <div className='deleteBtn'>
+                <button className='button' style={{margin:"0.5rem",backgroundColor:"red",color:"white"}} onClick={confirmDelete}>Delete</button>
+                <button className='button' style={{margin:"0.5rem"}} onClick={()=>setShowpopup(false)}>Cancel</button>
+            </div>
+           </div>
+       </div>
        <ToastContainer/>
     </>
   )
