@@ -24,10 +24,9 @@ const TeacherProfile = () => {
       axios
         .get(`${process.env.REACT_APP_URL}/departmentss/my_profile`)
         .then((response) => {
-          console.log(response.data.subject);
           setteacherdata(response.data);
-    setLoading(false);
-
+          setLoading(false);
+ 
         });
     } else navigate("/login");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +37,7 @@ const TeacherProfile = () => {
       <div className={loading ? "loading" : "hide"}>
         <BeatLoader color={"black"} loading={loading} size={15} />
       </div>
-      {Object.keys(teacherdata).length ? (
+      {Object.keys(teacherdata)?.length ? (
         <>
           {/* <Box style={{display:"flex",justifyContent:"flex-end"}}> */}
           {localStorage.getItem("user") === "faculty" ? (
@@ -71,7 +70,7 @@ const TeacherProfile = () => {
                       Full Name :{" "}
                     </Typography>
                     <Typography component="h1" varient="h4" className="details">
-                      {teacherdata.user_fullname}
+                      {teacherdata?.user_fullname}
                     </Typography>
                   </Box>
                   <Box style={{ display: "flex" }}>
@@ -80,7 +79,7 @@ const TeacherProfile = () => {
                     </Typography>
                     <Typography component="h1" varient="h4" className="details">
                       {" "}
-                      {teacherdata.joined_at}
+                      {teacherdata?.joined_at}
                     </Typography>
                   </Box>
                   <Box style={{ display: "flex" }}>
@@ -89,21 +88,21 @@ const TeacherProfile = () => {
                     </Typography>
                     <Typography component="h1" varient="h4" className="details">
                       {" "}
-                      {teacherdata.mobile_number}
+                      {teacherdata?.mobile_number}
                     </Typography>
                   </Box>
 
                   <Box style={{ display: "flex" }}>
                     <Typography className="profilehead">Email : </Typography>
                     <Typography component="h1" varient="h4" className="details">
-                      {teacherdata.email}
+                      {teacherdata?.email}
                     </Typography>
                   </Box>
 
                   <Box style={{ display: "flex" }}>
                     <Typography className="profilehead">Gender : </Typography>
                     <Typography component="h1" varient="h4" className="details">
-                      {teacherdata.gender}
+                      {teacherdata?.gender}
                     </Typography>
                   </Box>
 
@@ -111,7 +110,7 @@ const TeacherProfile = () => {
                     <Typography className="profilehead">Age :</Typography>
                     <Typography component="h1" varient="h4" className="details">
                       {" "}
-                      {teacherdata.age}
+                      {teacherdata?.age}
                     </Typography>
                   </Box>
 
@@ -121,7 +120,7 @@ const TeacherProfile = () => {
                     </Typography>
                     <Typography component="h1" varient="h4" className="details">
                       {" "}
-                      {teacherdata.department}
+                      {teacherdata?.department}
                     </Typography>
                   </Box>
 
@@ -134,14 +133,14 @@ const TeacherProfile = () => {
                       Subjects :{" "}
                     </Typography>
                     <Grid className="subjectBox">
-                      {teacherdata.subject.map((sub, i) => (
+                      {teacherdata?.subject?.map((sub, i) => (
                         <Typography
                           component="h1"
                           varient="h4"
                           className="details"
                         >
                           {" "}
-                          - {sub.subject}
+                          - {sub?.subject}
                         </Typography>
                       ))}
                     </Grid>
