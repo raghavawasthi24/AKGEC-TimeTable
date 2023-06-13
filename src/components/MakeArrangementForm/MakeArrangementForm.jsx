@@ -27,7 +27,6 @@ const MakeArrangementForm = () => {
 
   const today = new Date(date);
   let sysday = today.getDay();
-  console.log(today,sysday)
   const fetchinfo = () => {
     axios
       .get(
@@ -71,9 +70,7 @@ const MakeArrangementForm = () => {
     setdept(e.target.value) ;
     fetchinfo3()
   }
-  // useEffect(() => {
-  //   fetchinfo3(dept,year)
-  // }, [dept,year])
+ 
   
   
   useEffect(() => {
@@ -100,7 +97,7 @@ const MakeArrangementForm = () => {
     axios.post(
       `${process.env.REACT_APP_URL}/departmentss/arrangement_lectures_create`,
       {
-        day: sysday,
+        day: sysday.toString(),
         period: parseInt(time),
         type: type,
         cid: parseInt(section),
@@ -132,7 +129,7 @@ const MakeArrangementForm = () => {
           
               <div className="popmain" >Make Arrangement</div>
               <label className="popHead">Arrangement Date</label>
-                <input type="date" className="popInput"  min= {new Date().toISOString().split('T')[0]}  onChange={(e)=>(setdate(e.target.value),setfreeteacher())} />
+                <input type="date" className="popInput"  min= {new Date().toISOString().split('T')[0]}  onChange={(e)=>{setdate(e.target.value);setfreeteacher()}} />
                 <label className="popHead">Select Period</label>
                 <select
                   defaultValue="Select Period"
@@ -199,7 +196,8 @@ const MakeArrangementForm = () => {
                 <label className="popHead">Year</label>
                 <select
                   defaultValue="Select Year"
-                  onChange={(e) => (setyear(e.target.value),setdepdata([]),setsectiondata([]),dept(),section())}
+                  onChange={(e) => 
+                  {setyear(e.target.value);setdepdata([]);setsectiondata([]);dept();section()}}
                   className="popInput"
 
                 >
