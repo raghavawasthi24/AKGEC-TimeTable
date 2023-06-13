@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+const noInterceptAxios = axios.create()
 
 axios.interceptors.request.use(
   
@@ -22,16 +22,18 @@ axios.interceptors.response.use(
     // console.log(originalReq)
     const status = err.response.status ? err.response.status : null;
     if(status === 401){
-       return axios.post(`${process.env.REACT_APP_URL}/accounts/refresh-token`,{token: localStorage.getItem('refreshToken')})
+      const AuthStr = 'Bearer '.concat(localStorage.getItem("accessToken"))
+      
+       return noInterceptAxios.post(`${process.env.REACT_APP_URL}/accounts/refresh-token`,{token: localStorage.getItem('refreshToken')},{headers:{Authorization:AuthStr}})
         .then((response)=>{
           (localStorage.setItem("accessToken",response.data.access))
             return  axios(originalReq)
            }
-          ).catch(()=>(
-            localStorage.clear(),
+          ).catch(()=>{
+            localStorage.clear();
             window.location.replace('/')
           
-          )
+          }
           )
     }
     return Promise.resolve(err);
