@@ -203,10 +203,15 @@ const Student = () => {
                       return (
                         <TableCell sx={{ width: "1rem" }}>
                           <div style={{ textAlign: "center" }}>
-                            <p>{item.subject_name}</p>
+                          {item.subject?.map((item)=>(
+                            <p>{item.subject}</p>
+
+                          ))}
                             <p style={{ fontWeight: "bold" }}>
                               {item.faculty_name}
                             </p>
+                            <p>{item.room}</p>
+
                             <p style={{ color: "red" }}>{item.type}</p>
                           </div>
                           {/* {console.log(item.id)} */}
