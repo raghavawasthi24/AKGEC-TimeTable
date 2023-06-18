@@ -16,7 +16,7 @@ import {
   TableRow,
   TableHead,
   TableBody,
-~
+
 } from "@mui/material";
 // import LogoutBtn from "../../components/Logout/LogoutBtn";
 import LogInBtn from "../../components/LogInBtn/LogInBtn";
