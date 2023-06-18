@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useState} from "react";
 import "./Student.css";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,6 +8,7 @@ import axios from "axios";
 import Makearrangemettable from "../../components/MakeArrangementTable/MakeArrangementTable";
 import Stack from "@mui/material/Stack";
 import BeatLoader from "react-spinners/BeatLoader";
+
 import {
   TableCell,
   TableContainer,
@@ -15,6 +16,7 @@ import {
   TableRow,
   TableHead,
   TableBody,
+~
 } from "@mui/material";
 // import LogoutBtn from "../../components/Logout/LogoutBtn";
 import LogInBtn from "../../components/LogInBtn/LogInBtn";
@@ -62,6 +64,9 @@ const Student = () => {
   let [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(0);
 
+
+
+
   const handleYear = (e) => {
     delete axios.defaults.headers.common["Authorization"];
     axios
@@ -103,9 +108,9 @@ const Student = () => {
         `${process.env.REACT_APP_URL}/departmentss/view-time-table/${formvalues.section}`
       )
       .then((res) => {
-        console.log(res);
-        // initialvalues.department=e.target.value;
-        setTimetable(res.data);
+
+      setTimetable(res.data[0])
+
         setOpen(1);
         setLoading(false);
         setViewTable(true);
@@ -117,7 +122,7 @@ const Student = () => {
   };
   
 
-
+ 
   return (
     <>
     <div className={loading ? "loading" : "hide"}>
@@ -181,9 +186,12 @@ const Student = () => {
             ()=>setOpen(2)}>View Arrangement</button>
         </Stack>
       </div>
+     
 
-      <div className={(open===1)&&viewTable ?"studentTableBox": "hide"}>
-        <TableContainer sx={{ width: "90vw" }}>
+      <div className={(open===1)&&viewTable ?"studentTableBox": "hide"}   >
+
+
+        <TableContainer sx={{ width: "90vw" }} >
           <Table size="small">
             <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
               <TableRow>
@@ -195,13 +203,26 @@ const Student = () => {
             </TableHead>
 
             <TableBody>
-              {Object.values(timetable).map((val, daysInd) => {
+              {Object.values(timetable)?.map((val, daysInd) => {
                 return (
                   <TableRow>
                     <TableCell sx={{textAlign:"center"}}>{Object.keys(timetable)[daysInd]}</TableCell>
                     {val.map((item, timeInd) => {
-                      return (
-                        <TableCell sx={{ width: "1rem" }}>
+                    
+                       return (item.type === "LAB" ?
+                       timeInd !== val.length -1 && val[timeInd+1].type === "LAB" ? "" :
+                        <TableCell sx={{ width: "1rem" }} colSpan={2}>
+                          <div style={{ textAlign: "center" }}>
+                          {item.subject?.map((item)=>(
+                            <p>{item.subject}</p>
+
+                          ))}
+                            <p style={{ color: "red" }}>{item.type}</p>
+                          </div>
+                    
+                        </TableCell> :
+                  
+                         <TableCell sx={{ width: "1rem" }}>
                           <div style={{ textAlign: "center" }}>
                           {item.subject?.map((item)=>(
                             <p>{item.subject}</p>
@@ -216,7 +237,8 @@ const Student = () => {
                           </div>
                           {/* {console.log(item.id)} */}
                         </TableCell>
-                      );
+                        )
+                        
                     })}
                   </TableRow>
                 );
