@@ -60,6 +60,8 @@ const Student = () => {
   const [section, setSection] = useState([]);
   const [timetable, setTimetable] = useState([]);
   const [viewTable, setViewTable] = useState(false);
+  const [viewLab, setLabTable] = useState(false);
+
   let [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(0);
 
@@ -102,10 +104,20 @@ const Student = () => {
       )
       .then((res) => {
         setTimetable(res.data[0]);
-        console.log(res.data[1]);
+    
         setOpen(1);
         setLoading(false);
         setViewTable(true);
+      });
+      axios
+      .get(
+        `${process.env.REACT_APP_URL}/departmentss/view-lab-lecture/${formvalues.section}`
+      )
+      .then((res) => {
+        setLabTable(res.data);
+        console.log(res.data)
+        console.log(res.data)
+
       });
   };
 
@@ -218,10 +230,13 @@ const Student = () => {
                             <TableCell sx={{ width: "1rem" }} colSpan={2}>
                               <div style={{ textAlign: "center" }}>
                                 {item.subject?.map((sub, i) => (
+                                  <div>
                                   <p>
                                     {sub.subject} ({val[timeInd - (1 - i)].room}
                                     )
                                   </p>
+                                  <p style={{ fontWeight: "bold" }}>{Object.values(viewLab[sub.subject])[0].faculty1} + {Object.values(viewLab[sub.subject])[0].faculty2}</p>
+                                  </div>
                                 ))}
 
                                 <p style={{ color: "red" }}>{item.type}</p>
