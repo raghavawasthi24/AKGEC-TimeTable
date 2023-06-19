@@ -174,7 +174,12 @@ const Student = () => {
             <button
               className="button"
               style={{ color: "white", backgroundColor: "black" }}
-              onClick={() => setOpen(2)}
+              onClick={() => {
+              if (open===1)
+              setOpen(2)
+              else if (open===2)
+              setOpen(1)
+              }}
             >
               View Arrangement
             </button>
