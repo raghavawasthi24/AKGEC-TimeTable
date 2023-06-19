@@ -1,4 +1,4 @@
-import React, {  useState} from "react";
+import React, { useState } from "react";
 import "./Student.css";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,7 +16,6 @@ import {
   TableRow,
   TableHead,
   TableBody,
-
 } from "@mui/material";
 // import LogoutBtn from "../../components/Logout/LogoutBtn";
 import LogInBtn from "../../components/LogInBtn/LogInBtn";
@@ -64,18 +63,13 @@ const Student = () => {
   let [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(0);
 
-
-
-
   const handleYear = (e) => {
     delete axios.defaults.headers.common["Authorization"];
     axios
       .get(
         `${process.env.REACT_APP_URL}/departmentss/all_departments/${e.target.value}`
-        
       )
       .then((res) => {
-        console.log(res);
         // initialvalues.year=e.target.value;
         setDepartment(res.data);
       });
@@ -101,155 +95,161 @@ const Student = () => {
 
   // }
   const viewTimeTable = () => {
-    console.log(formvalues);
     setLoading(true);
     axios
       .get(
         `${process.env.REACT_APP_URL}/departmentss/view-time-table/${formvalues.section}`
       )
       .then((res) => {
-
-      setTimetable(res.data[0])
-
+        setTimetable(res.data[0]);
+        console.log(res.data[1]);
         setOpen(1);
         setLoading(false);
         setViewTable(true);
-        console.log(timetable.Monday);
-        console.log(period_days[0]);
-
-        console.log(timetable);
       });
   };
-  
 
- 
   return (
     <>
-    <div className={loading ? "loading" : "hide"}>
-          <BeatLoader
-            color={'black'}
-            loading={loading}
-            size={15}
-          />
-        </div>
-    <div className="student">
-      {
-        // localStorage.getItem("user")?localStorage.getItem("user")=="admin"?<AdminNav/>:<
-        localStorage.getItem("user")==="Admin"?<AdminNav/>:<div className="logIndiv">
-        <LogInBtn/> </div>
-      }
-      
-      <div className="studentControls">
-        <div className="studentControlsSel">
-          <FormControl sx={{ width: "90%", margin: "2%" }}>
-            <InputLabel>Year</InputLabel>
-            <Select
-              label="Year"
-              name="year"
-              onChange={(e) => {
-                handleChange(e);
-                handleYear(e);
-              }}
-            >
-              {year.map((val) => {
-                return <MenuItem value={val}>{val}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ width: "90%", margin: "2%" }}>
-            <InputLabel>Department</InputLabel>
-            <Select
-              label="Department"
-              name="department"
-              onChange={(e) => {
-                handleChange(e);
-                handleDept(e);
-              }}
-            >
-              {department.map((val) => {
-                return <MenuItem value={val.id}>{val.dept}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ width: "90%", margin: "2%" }}>
-            <InputLabel>Section</InputLabel>
-            <Select label="Section" name="section" onChange={handleChange}>
-              {section.map((val) => {
-                return <MenuItem value={val.id}>{val.section}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-        </div>
-        <Stack spacing={2} direction="row" sx={{margin:"2rem 0"}}>
-          <button className="button" onClick={viewTimeTable}>View TimeTable</button>
-          <button className="button" style={{color:"white",backgroundColor:"black"}} onClick={
-            ()=>setOpen(2)}>View Arrangement</button>
-        </Stack>
+      <div className={loading ? "loading" : "hide"}>
+        <BeatLoader color={"black"} loading={loading} size={15} />
       </div>
-     
+      <div className="student">
+        {
+          // localStorage.getItem("user")?localStorage.getItem("user")=="admin"?<AdminNav/>:<
+          localStorage.getItem("user") === "Admin" ? (
+            <AdminNav />
+          ) : (
+            <div className="logIndiv">
+              <LogInBtn />{" "}
+            </div>
+          )
+        }
 
-      <div className={(open===1)&&viewTable ?"studentTableBox": "hide"}   >
-
-
-        <TableContainer sx={{ width: "90vw" }} >
-          <Table size="small">
-            <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
-              <TableRow>
-                <TableCell size="small"></TableCell>
-                {period_time.map((val) => {
-                  return <TableCell size="small" sx={{textAlign:"center"}}>{val}</TableCell>;
+        <div className="studentControls">
+          <div className="studentControlsSel">
+            <FormControl sx={{ width: "90%", margin: "2%" }}>
+              <InputLabel>Year</InputLabel>
+              <Select
+                label="Year"
+                name="year"
+                onChange={(e) => {
+                  handleChange(e);
+                  handleYear(e);
+                }}
+              >
+                {year.map((val) => {
+                  return <MenuItem value={val}>{val}</MenuItem>;
                 })}
-              </TableRow>
-            </TableHead>
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: "90%", margin: "2%" }}>
+              <InputLabel>Department</InputLabel>
+              <Select
+                label="Department"
+                name="department"
+                onChange={(e) => {
+                  handleChange(e);
+                  handleDept(e);
+                }}
+              >
+                {department.map((val) => {
+                  return <MenuItem value={val.id}>{val.dept}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: "90%", margin: "2%" }}>
+              <InputLabel>Section</InputLabel>
+              <Select label="Section" name="section" onChange={handleChange}>
+                {section.map((val) => {
+                  return <MenuItem value={val.id}>{val.section}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
+          </div>
+          <Stack spacing={2} direction="row" sx={{ margin: "2rem 0" }}>
+            <button className="button" onClick={viewTimeTable}>
+              View TimeTable
+            </button>
+            <button
+              className="button"
+              style={{ color: "white", backgroundColor: "black" }}
+              onClick={() => setOpen(2)}
+            >
+              View Arrangement
+            </button>
+          </Stack>
+        </div>
 
-            <TableBody>
-              {Object.values(timetable)?.map((val, daysInd) => {
-                return (
-                  <TableRow>
-                    <TableCell sx={{textAlign:"center"}}>{Object.keys(timetable)[daysInd]}</TableCell>
-                    {val.map((item, timeInd) => {
-                    
-                       return (item.type === "LAB" ?
-                       timeInd !== val.length -1 && val[timeInd+1].type === "LAB" ? "" :
-                        <TableCell sx={{ width: "1rem" }} colSpan={2}>
-                          <div style={{ textAlign: "center" }}>
-                          {item.subject?.map((item)=>(
-                            <p>{item.subject}</p>
+        <div className={open === 1 && viewTable ? "studentTableBox" : "hide"}>
+          <TableContainer sx={{ width: "90vw" }}>
+            <Table size="small">
+              <TableHead sx={{ backgroundColor: "rgba(128, 128, 128, 0.264)" }}>
+                <TableRow>
+                  <TableCell size="small"></TableCell>
+                  {period_time.map((val) => {
+                    return (
+                      <TableCell size="small" sx={{ textAlign: "center" }}>
+                        {val}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
 
-                          ))}
-                            <p style={{ color: "red" }}>{item.type}</p>
-                          </div>
-                    
-                        </TableCell> :
-                  
-                         <TableCell sx={{ width: "1rem" }}>
-                          <div style={{ textAlign: "center" }}>
-                          {item.subject?.map((item)=>(
-                            <p>{item.subject}</p>
+              <TableBody>
+                {Object.values(timetable)?.map((val, daysInd) => {
+                  return (
+                    <TableRow>
+                      <TableCell sx={{ textAlign: "center" }}>
+                        {Object.keys(timetable)[daysInd]}
+                      </TableCell>
+                      {val.map((item, timeInd) => {
+                        return item.type === "LAB" ? (
+                          timeInd !== val.length - 1 &&
+                          val[timeInd + 1].type === "LAB" ? (
+                            ""
+                          ) : (
+                            <TableCell sx={{ width: "1rem" }} colSpan={2}>
+                              <div style={{ textAlign: "center" }}>
+                                {item.subject?.map((sub, i) => (
+                                  <p>
+                                    {sub.subject} ({val[timeInd - (1 - i)].room}
+                                    )
+                                  </p>
+                                ))}
 
-                          ))}
-                            <p style={{ fontWeight: "bold" }}>
-                              {item.faculty_name}
-                            </p>
-                            <p>{item.room}</p>
+                                <p style={{ color: "red" }}>{item.type}</p>
+                              </div>
+                            </TableCell>
+                          )
+                        ) : (
+                          <TableCell sx={{ width: "1rem" }}>
+                            <div style={{ textAlign: "center" }}>
+                              {item.subject?.map((item) => (
+                                <p>{item.subject}</p>
+                              ))}
+                              <p style={{ fontWeight: "bold" }}>
+                                {item.faculty_name}
+                              </p>
+                              <p>{item.room}</p>
 
-                            <p style={{ color: "red" }}>{item.type}</p>
-                          </div>
-                          {/* {console.log(item.id)} */}
-                        </TableCell>
-                        )
-                        
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                              <p style={{ color: "red" }}>{item.type}</p>
+                            </div>
+                            {/* {console.log(item.id)} */}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+
+        {open === 2 ? <Makearrangemettable id={formvalues.section} /> : null}
       </div>
-
-      {open===2 ?<Makearrangemettable id={formvalues.section} />:null}
-    </div>
     </>
   );
 };
