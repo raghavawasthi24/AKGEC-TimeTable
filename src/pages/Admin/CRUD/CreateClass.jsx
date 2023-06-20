@@ -39,8 +39,7 @@ const [updatedClass, setUpdatedClass] = useState({});
 const yearArray = [1,2,3,4]
 const Luncharray =[{lunch:"12:40-1:30",id:'6'},{lunch:"1:30-2:20",id:'7'}]
 
-const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-axios.defaults.headers.common["Authorization"] = AuthStr;
+
 
 const inputhandler = (e) =>{
     const{name,value}=e.target;
@@ -79,8 +78,7 @@ useEffect(() => {
   
   
   const handleSubmit = () => {
-    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
+  
   
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/ClassCreate`,{
@@ -95,8 +93,7 @@ useEffect(() => {
   };
   const handleUpdate = () => {
     // console.log(updatedClass)
-    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
+
     axios
       .patch(
         `${process.env.REACT_APP_URL}/departmentss/Classupdate/${section}`,updatedClass
@@ -104,8 +101,7 @@ useEffect(() => {
       .then((res) => setOption(),setUpdateClass([]),setUpdatedClass({}),toast.success("Updated Successfully"));
   };
   const handleDelete = () => {
-    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
+
     axios
       .delete(
         `${process.env.REACT_APP_URL}/departmentss/Classupdate/${section}`

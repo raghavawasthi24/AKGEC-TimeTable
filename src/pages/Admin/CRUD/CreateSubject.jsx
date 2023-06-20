@@ -24,6 +24,8 @@ import {
 
 const CreateSubject = () => {
   const [newSubject, setNewSubject] = useState();
+  const [newSubjectType, setNewSubjectType] = useState();
+
   const [year, setYear] = useState();
   const [dept, setDept] = useState();
   const [option, setOption] = useState();
@@ -35,8 +37,7 @@ const CreateSubject = () => {
 
   const yearArray = [1, 2, 3, 4];
 
-  const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-  axios.defaults.headers.common["Authorization"] = AuthStr;
+
   useEffect(() => {
     if (option && year)
       axios
@@ -79,14 +80,14 @@ const CreateSubject = () => {
   }, [newSubject, option]);
 
   const handleSubmit = () => {
-    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
+  
     const finaldept = [];
     dept.map((dep) => finaldept.push(dep.id));
 
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/SubjectCreate`, {
         subject: newSubject,
+        type:newSubjectType,
         year: year,
         department: finaldept,
       })
@@ -103,11 +104,11 @@ const CreateSubject = () => {
     const finaldept = [];
     filtered2.map((dep) => finaldept.push(dep.id));
 
-    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
+
     const obj = {
       department: finaldept,
       year: updatedSub.year,
+      type:updatedSub.type,
       subject: updatedSub.subject,
       id: updatedSub.id,
     };
@@ -128,8 +129,7 @@ const CreateSubject = () => {
       );
   };
   const handleDelete = () => {
-    const AuthStr = "Bearer ".concat(localStorage.getItem("accessToken"));
-    axios.defaults.headers.common["Authorization"] = AuthStr;
+ 
     axios
       .delete(
         `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${newSubject}`
@@ -199,7 +199,23 @@ const CreateSubject = () => {
                 variant="outlined"
                 onChange={(e) => setNewSubject(e.target.value)}
               />
+                <FormControl fullWidth sx={{ margin: "1rem 0rem" }} >
+                <InputLabel id="demo-simple-select-label">Type Of Subject</InputLabel>
+                <Select
+                  label="Type Of Subject<"
+                  name="Type Of Subject<"
+                  defaultValue="Type Of Subject<"
+                  onChange={(e) => {
+                    setNewSubjectType(e.target.value);
+                  }}
+                >
+             
+                  <MenuItem value="LAB">LAB</MenuItem>;
+                  <MenuItem value="THEORY">THEORY</MenuItem>;
 
+             
+                </Select>
+              </FormControl>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Year</InputLabel>
                 <Select
@@ -324,6 +340,23 @@ const CreateSubject = () => {
                   }
                   defaultValue={updateSub.subject}
                 />
+                    <FormControl fullWidth sx={{ margin: "1rem 0rem" }}>
+                  <InputLabel id="demo-simple-select-label">Type Of Subject</InputLabel>
+                  <Select
+                    label="Type Of Subject<"
+                    name="Type Of Subject<"
+                    defaultValue={updateSub.type}
+                    onChange={(e) => {
+                      setUpdatedSub({ ...updatedSub, type: e.target.value });
+                    }}
+                    value={updatedSub.type}
+                  >
+                   <MenuItem value="LAB">LAB</MenuItem>;
+                  <MenuItem value="THEORY">THEORY</MenuItem>;
+
+                  
+                  </Select>
+                </FormControl>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Year</InputLabel>
                   <Select
