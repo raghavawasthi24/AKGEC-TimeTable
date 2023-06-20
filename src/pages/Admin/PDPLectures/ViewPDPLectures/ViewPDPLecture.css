@@ -1,17 +1,15 @@
-.pdpLec{
-    padding: 1rem 5rem;
-    /* text-align: center; */
-}
 .popupWindow{
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden !important;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 9999;
+    /* background-color: blue; */
 }
 .delete-Popup{
     width:25rem;

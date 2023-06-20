@@ -48,24 +48,6 @@ const OELecture = () => {
         setdelId(id);
         
     }
-    // useEffect(()=>{
-    //     console.log(delid);
-    //  if(showpopup==true)
-    //  {
-    //     axios.delete(`${process.env.REACT_APP_URL}/departmentss/oe_lectureRUD/${delid}`)
-    //     .then((res)=>{
-    //         console.log(res);
-    //         toast.success("Classes deleted successfully");
-    //         // window.location.reload();
-    //         axios.get(`${process.env.REACT_APP_URL}/departmentss/oe_lecture_view`)
-    //         .then((res)=>{
-    //             console.log(res.data)
-    //             setPdpdata(res.data)
-    //             setShowpopup(false);
-    //         })
-    //     }).catch((err)=>{toast.error("Invalid Details")})
-    //  }
-    // },[showpopup])
 
     const confirmDelete=()=>{
         console.log(delid);

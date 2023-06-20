@@ -1,5 +1,6 @@
 // import { TableCell, TableContainer, TableHead } from '@mui/material'
-import axios from 'axios'
+import axios from 'axios';
+import "./ViewPDPLecture.css";
 import React, { useEffect,useState } from 'react';
 import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow} from "@mui/material";
 import Nav from '../components/Nav/Nav';
@@ -20,6 +21,9 @@ const ViewPDPLec = () => {
     const navigate = useNavigate();
     const tableheader=["S.No","Branch","Day","Period Time"];
     const days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const [showpopup,setShowpopup]=useState(false)
+    const [delid,setdelId]=useState();
+
 
     const [pdpdata,setPdpdata]=useState([]);
     useEffect(()=>{
@@ -41,7 +45,13 @@ const ViewPDPLec = () => {
     }
 
     const delPDPLec=(id)=>{
-        axios.delete(`${process.env.REACT_APP_URL}/departmentss/pdp_lectureRUD/${id}`)
+        setShowpopup(true);
+        setdelId(id);
+    }
+
+    const confirmDelete=()=>{
+        console.log(delid);
+        axios.delete(`${process.env.REACT_APP_URL}/departmentss/pdp_lectureRUD/${delid}`)
         .then((res)=>{
             console.log(res);
             toast.success("Classes deleted Successfully");
@@ -54,6 +64,7 @@ const ViewPDPLec = () => {
             toast.error("Invalid Details")
         })
     }
+     
     
   return (
     <>
@@ -88,6 +99,15 @@ const ViewPDPLec = () => {
             </TableBody>
         </Table>
        </TableContainer>
+       <div className={showpopup?'popupWindow':"hide"}>
+           <div className='delete-Popup'>
+            <p style={{fontSize:"1.2rem",margin:"0.5rem"}}>Are you sure to delete this?</p>
+            <div className='deleteBtn'>
+                <button className='button' style={{margin:"0.5rem",backgroundColor:"red",color:"white"}} onClick={confirmDelete}>Delete</button>
+                <button className='button' style={{margin:"0.5rem",backgroundColor:"black",color:"white"}} onClick={()=>setShowpopup(false)}>Cancel</button>
+            </div>
+           </div>
+       </div>
        <ToastContainer/>
     </>
   )
