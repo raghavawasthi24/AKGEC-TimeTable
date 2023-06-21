@@ -37,7 +37,9 @@ const TeacherTable = (props) => {
       .get(
         `${process.env.REACT_APP_URL}/departmentss/view_teacher/${props.id}`
       )
-      .then((response) => setData(response.data));
+      .then((response) => setData(response.data[0]));
+    
+      
   };
   const fetchinfo2 = () => {
     axios
@@ -169,19 +171,25 @@ const TeacherTable = (props) => {
                   <tr className="EntireWeekRow">
                     <td className="EntireWeekRow">{days}</td>
                     {data[days].map((periods) => (
-                      <td className="EntireWeekRow">
+                      <td className="EntireWeekRow" style={{textAlign:"center"}}>
                         <button
                           className="updatepop"
                           onClick={() => control(periods)}
                           disabled={
                             props.page !== "Admin" ||
-                            periods.subject_name.length === 1 ||
+                            periods.subject.length === 1 ||
                             periods.type === "BREAK"||
                             periods.type === "OTHERS"
                           }
                         >
-                          <div>{periods.subject_name}</div>
+                        {periods.type === "LAB" ? null :(
+                        periods.subject.map((sub)=>(
+                          <div>{sub.subject}</div>
+                        )
+                        ))}
                           <div>{periods.section}</div>
+                          <div style={{fontWeight:"bold"}}>{periods.room}</div>
+
                           <div style={{color:"#ff6600"}}>{periods.type}</div>
                         </button>
                       </td>
@@ -199,14 +207,23 @@ const TeacherTable = (props) => {
                 <th></th>
                 <th>Subject</th>
                 <th>Section</th>
+                <th>Room</th>
+
               </tr>
             </thead>
             <tbody>
               {period.map((time, i) => (
                 <tr>
                   <td>{time}</td>
-                  <td>{data[props.finday][i].subject_name}</td>
+                  <td>
+
+                  {data[props.finday][i].subject.map((sub)=>(
+                    <div>{sub.subject}</div>
+                  ))}
+                </td>
                   <td>{data[props.finday][i].section}</td>
+                  <td>{data[props.finday][i].room}</td>
+
                 </tr>
               ))}
             </tbody>

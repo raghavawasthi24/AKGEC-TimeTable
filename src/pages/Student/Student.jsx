@@ -115,8 +115,8 @@ const Student = () => {
       )
       .then((res) => {
         setLabTable(res.data);
-        console.log(res.data)
-        console.log(res.data)
+       
+      
 
       });
   };
@@ -235,7 +235,7 @@ const Student = () => {
                                     {sub.subject} ({val[timeInd - (1 - i)].room}
                                     )
                                   </p>
-                                  <p style={{ fontWeight: "bold" }}>{Object.values(viewLab[sub.subject])[0].faculty1} + {Object.values(viewLab[sub.subject])[0].faculty2}</p>
+                                  <p style={{ fontWeight: "bold" }}>{Object?.values(viewLab[sub?.subject])[0]?.faculty1} + {Object?.values(viewLab[sub?.subject])[0]?.faculty2}</p>
                                   </div>
                                 ))}
 
