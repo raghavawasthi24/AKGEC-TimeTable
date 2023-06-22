@@ -229,15 +229,22 @@ const Student = () => {
                           ) : (
                             <TableCell sx={{ width: "1rem" }} colSpan={2}>
                               <div style={{ textAlign: "center" }}>
-                                {item.subject?.map((sub, i) => (
+                            
                                   <div>
                                   <p>
-                                    {sub.subject} ({val[timeInd - (1 - i)].room}
+                                    {item.subject_name} ({val[timeInd].room}
                                     )
                                   </p>
-                                  <p style={{ fontWeight: "bold" }}>{Object?.values(viewLab[sub?.subject])[0]?.faculty1} + {Object?.values(viewLab[sub?.subject])[0]?.faculty2}</p>
+                                  <p style={{ fontWeight: "bold" }}>{Object?.values(viewLab[item.subject_name])[0]?.faculty1} + {Object?.values(viewLab[item.subject_name])[0]?.faculty2}</p>
                                   </div>
-                                ))}
+                             
+                                  <div>
+                                  <p>
+                                    {val[timeInd-1].subject_name} ({val[timeInd-1].room}
+                                    )
+                                  </p>
+                                  <p style={{ fontWeight: "bold" }}>{Object?.values(viewLab[val[timeInd-1].subject_name])[0]?.faculty1} + {Object?.values(viewLab[item.subject_name])[0]?.faculty2}</p>
+                                  </div>
 
                                 <p style={{ color: "red" }}>{item.type}</p>
                               </div>
@@ -246,9 +253,9 @@ const Student = () => {
                         ) : (
                           <TableCell sx={{ width: "1rem" }}>
                             <div style={{ textAlign: "center" }}>
-                              {item.subject?.map((item) => (
-                                <p>{item.subject}</p>
-                              ))}
+                            
+                                <p>{item.subject_name}</p>
+                    
                               <p style={{ fontWeight: "bold" }}>
                                 {item.faculty_name}
                               </p>

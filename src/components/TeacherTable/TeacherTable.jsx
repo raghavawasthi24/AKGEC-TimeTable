@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TeacherTable.css";
-import { Container ,Box} from "@mui/system";
-import "./TeacherTable.css"
-
+import { Container, Box } from "@mui/system";
+import "./TeacherTable.css";
 
 const TeacherTable = (props) => {
   const [data, setData] = useState({});
@@ -14,38 +13,30 @@ const TeacherTable = (props) => {
   const [subject, setsubject] = useState();
   const [classid, setclassid] = useState();
 
-
-
   const deletelecture = (id) => {
     axios
-      .delete(
-        `${process.env.REACT_APP_URL}/departmentss/delete_lecture/${id}`
-      )
+      .delete(`${process.env.REACT_APP_URL}/departmentss/delete_lecture/${id}`)
       .then((response) => alert(response.data.msg))
       .catch((error) => alert("Already Deleted !!"));
     setopen(false);
   };
   const updatelecture = (periodsdata) => {
-    axios.put(
-      `${process.env.REACT_APP_URL}/departmentss/update_lecture/${periodsdata.id}`,
-      { subject: subject, cid: classid }
-    ).then(()=>setopen(false));
+    axios
+      .put(
+        `${process.env.REACT_APP_URL}/departmentss/update_lecture/${periodsdata.id}`,
+        { subject: subject, cid: classid }
+      )
+      .then(() => setopen(false));
   };
 
   const fetchInfo = () => {
     return axios
-      .get(
-        `${process.env.REACT_APP_URL}/departmentss/view_teacher/${props.id}`
-      )
-      .then((response) => setData(response.data[0]));
-    
-      
+      .get(`${process.env.REACT_APP_URL}/departmentss/view_teacher/${props.id}`)
+      .then((response) => setData(response.data));
   };
   const fetchinfo2 = () => {
     axios
-      .get(
-        `${process.env.REACT_APP_URL}/departmentss/all_teachers_data`
-      )
+      .get(`${process.env.REACT_APP_URL}/departmentss/all_teachers_data`)
       .then((response) => setSubjectData(response.data));
   };
   const fetchinfo3 = () => {
@@ -57,23 +48,23 @@ const TeacherTable = (props) => {
   };
 
   useEffect(() => {
-    if (props.finday)
-     fetchInfo();
+    if (props.finday) fetchInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.finday]);
 
   useEffect(() => {
-    if (localStorage.getItem("user")==="Admin" && localStorage.getItem("accessToken")){
-    fetchinfo2()
-    fetchinfo3();
+    if (
+      localStorage.getItem("user") === "Admin" &&
+      localStorage.getItem("accessToken")
+    ) {
+      fetchinfo2();
+      fetchinfo3();
     }
   }, []);
 
   const teachersubject = Subjectdata.filter(function (value) {
     return value.user_id === props.id;
   });
-
-
 
   const control = (periods) => {
     if (props.page === "Admin") {
@@ -83,15 +74,15 @@ const TeacherTable = (props) => {
   };
 
   const period = [
-    "8:30-9:20",
-    "9:20-10:10",
-    "10:10-11:00",
-    "11:00-11:50",
-    "11:50-12:40",
-    "12:40-1:30",
-    "1:30-2:20",
-    "2:20-3:10",
-    "3:10-4:00",
+    "08:30 - 09:20",
+    "09:20 - 10:10",
+    "10:10 - 11:00",
+    "11:00 - 11:50",
+    "11:50 - 12:40",
+    "12:40 - 01:30",
+    "01:30 - 02:20",
+    "02:20 - 03:10",
+    "03:10 - 04:00",
   ];
 
   return (
@@ -120,18 +111,18 @@ const TeacherTable = (props) => {
               )}
             </select>
             <label className="popHead">Select Class</label>
-                <select
-                  defaultValue="Select Section"
-                  onChange={(e) => setclassid(e.target.value)}
-                  className="popInput"
-                >
-                  <option disabled value="Select Section">
-                    Select Section
-                  </option>
-                  {sectiondata.map((section) => (
-                    <option value={section.id}>{section.section}</option>
-                  ))}
-                </select>
+            <select
+              defaultValue="Select Section"
+              onChange={(e) => setclassid(e.target.value)}
+              className="popInput"
+            >
+              <option disabled value="Select Section">
+                Select Section
+              </option>
+              {sectiondata.map((section) => (
+                <option value={section.id}>{section.section}</option>
+              ))}
+            </select>
             <div className="popbuttonflex">
               <button
                 className="View"
@@ -171,26 +162,28 @@ const TeacherTable = (props) => {
                   <tr className="EntireWeekRow">
                     <td className="EntireWeekRow">{days}</td>
                     {data[days].map((periods) => (
-                      <td className="EntireWeekRow" style={{textAlign:"center"}}>
+                      <td
+                        className="EntireWeekRow"
+                        style={{ textAlign: "center" }}
+                      >
                         <button
                           className="updatepop"
                           onClick={() => control(periods)}
                           disabled={
                             props.page !== "Admin" ||
-                            periods.subject.length === 1 ||
-                            periods.type === "BREAK"||
+                            periods.subject_name.length === 1 ||
+                            periods.type === "BREAK" ||
                             periods.type === "OTHERS"
                           }
                         >
-                        {periods.type === "LAB" ? null :(
-                        periods.subject.map((sub)=>(
-                          <div>{sub.subject}</div>
-                        )
-                        ))}
-                          <div>{periods.section}</div>
-                          <div style={{fontWeight:"bold"}}>{periods.room}</div>
+                          <div>{periods.subject_name}</div>
 
-                          <div style={{color:"#ff6600"}}>{periods.type}</div>
+                          <div>{periods.section}</div>
+                          <div style={{ fontWeight: "bold" }}>
+                            {periods.room}
+                          </div>
+
+                          <div style={{ color: "#ff6600" }}>{periods.type}</div>
                         </button>
                       </td>
                     ))}
@@ -201,33 +194,28 @@ const TeacherTable = (props) => {
           </Box>
         ) : (
           <Box className="tableContainer">
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Subject</th>
-                <th>Section</th>
-                <th>Room</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              {period.map((time, i) => (
+            <table>
+              <thead>
                 <tr>
-                  <td>{time}</td>
-                  <td>
-
-                  {data[props.finday][i].subject.map((sub)=>(
-                    <div>{sub.subject}</div>
-                  ))}
-                </td>
-                  <td>{data[props.finday][i].section}</td>
-                  <td>{data[props.finday][i].room}</td>
-
+                  <th></th>
+                  <th>Subject</th>
+                  <th>Section</th>
+                  <th>Room</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {period.map((time, i) => (
+                  <tr>
+                    <td>{time}</td>
+                    <td>
+                      <div>{data[props.finday][i].subject_name}</div>
+                    </td>
+                    <td>{data[props.finday][i].section}</td>
+                    <td>{data[props.finday][i].room}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </Box>
         )
       ) : (
