@@ -11,7 +11,7 @@ tr,td,th,table{
 }
 .EntireWeekRow{
     padding: 1rem 0.3rem !important;
-    min-width: 8rem;
+    /* min-width: 9rem; */
 }
 .EntireWeek{
   
