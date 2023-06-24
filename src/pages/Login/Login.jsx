@@ -1,160 +1,98 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 // import Cookies from "universal-cookie";
 // import jwt from "jwt-decode";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 // import Header from '../components/Header';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Container } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Container } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import BeatLoader from "react-spinners/BeatLoader";
+import IconButton from "@mui/material/IconButton";
+import FilledInput from '@mui/material/FilledInput';
 
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
 
+import FormControl from "@mui/material/FormControl";
 
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const initialvalues = {
     email: "",
-    password: ""
-  }
+    password: "",
+  };
 
   // const cookies = new Cookies();
 
   const [formvalues, setFormvalues] = useState(initialvalues);
   const [error, setError] = useState(true);
   const [errors, setErrors] = useState("");
-  const [verified, setVerified] = useState(false)
+  const [verified, setVerified] = useState(false);
   const [facultyturn, setFacultyturn] = useState(false);
   // const [adminturn, setAdminturn] = useState(false);
   // const [pos, setPos] = useState(false);
   // const [user, setUser] = useState("");
   let [loading, setLoading] = useState(false);
 
-
-
   // const boldline = useRef();
 
-  const facultyHandler = (e) => {
+  const inputHandler = (e) => {
     const { name, value } = e.target;
     setFormvalues({ ...formvalues, [name]: value });
-  }
+  };
 
   // FUNCTION ON SUBMITTING
   const facultyvalidateForm = (e) => {
     e.preventDefault();
     formerror();
-    if (facultyturn === false)
-      setFacultyturn(true)
-    else
-      setFacultyturn(false)
-  }
-  
-  
+    if (facultyturn === false) setFacultyturn(true);
+    else setFacultyturn(false);
+  };
 
   useEffect(() => {
-    delete axios.defaults.headers.common.Authorization
-   
+    delete axios.defaults.headers.common.Authorization;
+
     if (verified === true) {
       if (error === true) {
-        // console.log(formvalues) 
-  setLoading(true)
-        axios.post(`${process.env.REACT_APP_URL}/accounts/login/`, {
-          email: formvalues.email,
-          password: formvalues.password
-        }).then((resp) => {
-          // userToken.accessToken=resp.data.access,
-          // setUser(resp.data.access);
-          // console.log(resp.data.access);
-          
-          if((resp.data[0].access) && (resp.data[1].Admin===true)){
-            // console.log("logged in admin")
-          localStorage.setItem("accessToken",resp.data[0].access);
-          localStorage.setItem("user","Admin");
-          localStorage.setItem("refreshToken",resp.data[0].refresh);
-          setLoading(false)
-    
-          // console.log("logged in admin")
-          navigate("/admin")
+        // console.log(formvalues)
+        setLoading(true);
+        axios
+          .post(`${process.env.REACT_APP_URL}/accounts/login/`, {
+            email: formvalues.email,
+            password: formvalues.password,
+          })
+          .then((resp) => {
+            if (resp.data[0].access && resp.data[1].Admin === true) {
+              // console.log("logged in admin")
+              localStorage.setItem("accessToken", resp.data[0].access);
+              localStorage.setItem("user", "Admin");
+              localStorage.setItem("refreshToken", resp.data[0].refresh);
+              setLoading(false);
 
-          }
-          
-          else if((resp.data[0].access) && (resp.data[1].Admin===false)){
-            localStorage.setItem("accessToken",resp.data[0].access);
-            localStorage.setItem("user","faculty");
-  
-            navigate("/Teacher")
-  
+              // console.log("logged in admin")
+              navigate("/admin");
+            } else if (resp.data[0].access && resp.data[1].Admin === false) {
+              localStorage.setItem("accessToken", resp.data[0].access);
+              localStorage.setItem("user", "faculty");
+
+              navigate("/Teacher");
             }
-
-          // else{
-          //   toast.error("Try Logging as Admin")
-          // }
-        }).catch((err) => {
-          toast.error("Invalid Details")
-          setLoading(false)
-
-        })
+          })
+          .catch((err) => {
+            toast.error("Invalid Details");
+            setLoading(false);
+          });
       }
-  
     }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [facultyturn])
-
-  // const adminHandler = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormvalues({ ...formvalues, [name]: value });
-  // }
-
-  // FUNCTION ON SUBMITTING
-  // const adminvalidateForm = (e) => {
-  //   e.preventDefault();
-  //   formerror();
-  //   if (adminturn === false)
-  //     setAdminturn(true)
-  //   else
-  //     setAdminturn(false)
-  // }
-
-//   useEffect(() => {
-//     if (verified === true) {
-//       if (error === true) {
-        
-//         axios.post(`${process.env.REACT_APP_URL}/accounts/login/`,{
-      
-//           email: formvalues.email,
-//           password: formvalues.password
-//         },
-        
-//         ).then((resp) => {
-          
-//           if((resp.data[0].access) && (resp.data[1].Admin===true)){
-//           localStorage.setItem("accessToken",resp.data[0].access);
-//           localStorage.setItem("user","Admin");
-
-//           navigate("/admin")
-
-//           }
-//           else if((resp.data[0].access) && (resp.data[1].Admin===false)){
-//             localStorage.setItem("accessToken",resp.data[0].access);
-//             localStorage.setItem("user","Admin");
-  
-//             navigate("/Teacher")
-  
-//             }
-//           else{
-//             toast.error("Try Logging as Teacher")
-//           }
-//         }).catch((err) => {
-//         toast.error("Invalid Details")
-//         })
-//       }
-//     }
-// // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [adminturn])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [facultyturn]);
 
   //  VALIDATION STARTED
   const formerror = () => {
@@ -162,88 +100,100 @@ const Login = () => {
 
     if (formvalues.email === "") {
       setError(false);
-      setErrors("Invalid Email or Password")
-    }
-    else
-      setErrors("")
+      setErrors("Invalid Email or Password");
+    } else setErrors("");
 
     if (formvalues.password === "") {
       setError(false);
-      setErrors("Invalid Email or Password")
-    }
-    else
-      setErrors("")
+      setErrors("Invalid Email or Password");
+    } else setErrors("");
 
-    setVerified(true)
-  }
-  // VALIDATION END
+    setVerified(true);
+  };
 
-  // const switchFaculty = () => {
-  //   setPos(false)
-  //   setFormvalues(initialvalues)
-  //   boldline.current.style.left = "0";
-  //   boldline.current.style.removeProperty("right");
-  // }
-  // const switchAdmin = () => {
-  //   setPos(true)
-  //   setFormvalues(initialvalues)
-  //   boldline.current.style.removeProperty("left");
-    // boldline.current.style.right = "0";
-  // }
+  const [showPassword, setShowPassword] = React.useState(false);
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <>
-    <div className={loading ? "loading" : "hide"}>
-          <BeatLoader
-            color={'black'}
-            loading={loading}
-            size={15}
-          />
-        </div>
-    <Container>
-   
-    <div className='login'>
-      <div className='login-form'>
-        <p style={{ color: 'red' }}>{errors}</p>
-        <div className='form-header'>
-          <div className='login-text'>
-            <button>Login</button>
-            {/* <button onClick={switchAdmin}>Login as Admin</button> */}
-          </div>
-          <hr className='line' />
-          {/* <hr ref={boldline} className='boldline'></hr> */}
-        </div>
+      <div className={loading ? "loading" : "hide"}>
+        <BeatLoader color={"black"} loading={loading} size={15} />
+      </div>
+      <Container>
+        <div className="login">
+          <div className="login-form">
+            <p style={{ color: "red" }}>{errors}</p>
+            <div className="form-header">
+              <div className="login-text">
+                <button>Login</button>
+                {/* <button onClick={switchAdmin}>Login as Admin</button> */}
+              </div>
+              <hr className="line" />
+              {/* <hr ref={boldline} className='boldline'></hr> */}
+            </div>
 
-        {/* FACULTY LOGIN FORM START */}
+            {/* FACULTY LOGIN FORM START */}
 
-        <form className='faculty-form' onSubmit={facultyvalidateForm}>
-          <TextField
-            label="Email Address"
-            variant="filled"
-            value={formvalues.email}
-            sx={{ width: '80%', margin: '1.2rem 0' }}
-            name="email"
-            size='small'
-            onChange={facultyHandler} />
+            <form className="faculty-form" onSubmit={facultyvalidateForm}>
+              <TextField
+                label="Email Address"
+                variant="filled"
+                value={formvalues.email}
+                sx={{ width: "80%", margin: "1.2rem 0" }}
+                name="email"
+                size="small"
+                onChange={inputHandler}
+              />
 
-          <TextField
-            label="Password"
-            type="password"
-            variant="filled"
-            value={formvalues.password}
-            sx={{ width: '80%', marginBottom: '1.2rem 0' }}
-            name="password"
-            size='small'
-            onChange={facultyHandler} />
+              {/* <TextField
+                label="Password"
+                type="password"
+                variant="filled"
+                value={formvalues.password}
+                sx={{ width: "80%", marginBottom: "1.2rem 0" }}
+                name="password"
+                size="small"
+                onChange={facultyHandler}
+              /> */}
 
-          <input type='submit' className='submit' />
-        </form>
+              <FormControl sx={{ m: 1, width: "80%" }} variant="filled">
+                <InputLabel htmlFor="filled-adornment-password">
+                  Password
+                </InputLabel>
+                <FilledInput
+                  id="filled-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  onChange={inputHandler}
+                  value={formvalues.password}
+                  name="password"
+                  size="small"
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
 
-        {/* FACULTY LOGIN FORM END */}
-        {/* ADMIN LOGIN FORM START */}
+              <input type="submit" className="submit" />
+            </form>
 
-        {/* <form className='admin-form' id={pos === true ? "" : "hide"} onSubmit={adminvalidateForm}>
+            {/* FACULTY LOGIN FORM END */}
+            {/* ADMIN LOGIN FORM START */}
+
+            {/* <form className='admin-form' id={pos === true ? "" : "hide"} onSubmit={adminvalidateForm}>
           <TextField
             label="Email Address"
             variant="filled"
@@ -267,14 +217,12 @@ const Login = () => {
 
           <input type='submit' className='submit' />
         </form> */}
-
-      </div>
-    </div>
-    <ToastContainer/>
-
-    </Container>
-  </>
-  )
-}
+          </div>
+        </div>
+        <ToastContainer />
+      </Container>
+    </>
+  );
+};
 
 export default Login;
