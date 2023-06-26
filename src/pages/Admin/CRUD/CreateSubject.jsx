@@ -25,6 +25,8 @@ import {
 const CreateSubject = () => {
   const [newSubject, setNewSubject] = useState();
   const [newSubjectType, setNewSubjectType] = useState();
+  const [newSubjectCode, setNewSubjectCode] = useState();
+  
 
   const [year, setYear] = useState();
   const [dept, setDept] = useState();
@@ -36,7 +38,7 @@ const CreateSubject = () => {
   const [filtered2, setfiltered] = useState();
 
   const yearArray = [1, 2, 3, 4];
-
+ const typeArray=["LAB","THEORY"]
 
   useEffect(() => {
     if (option && year)
@@ -69,11 +71,11 @@ const CreateSubject = () => {
           `${process.env.REACT_APP_URL}/departmentss/Subjectupdate/${newSubject}`
         )
         .then(
-          (res) => (
-            setUpdateSub(res.data),
-            setUpdatedSub(res.data),
+          (res) => {
+            setUpdateSub(res.data);
+            setUpdatedSub(res.data);
             intial(res.data.department)
-          )
+          }
         );
     }
     // eslint-disable-next-line
@@ -87,6 +89,7 @@ const CreateSubject = () => {
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/SubjectCreate`, {
         subject: newSubject,
+        subject_code:newSubjectCode,
         type:newSubjectType,
         year: year,
         department: finaldept,
@@ -110,6 +113,8 @@ const CreateSubject = () => {
       year: updatedSub.year,
       type:updatedSub.type,
       subject: updatedSub.subject,
+      subject_code: updatedSub.subject_code,
+
       id: updatedSub.id,
     };
     axios
@@ -199,26 +204,35 @@ const CreateSubject = () => {
                 variant="outlined"
                 onChange={(e) => setNewSubject(e.target.value)}
               />
+                  <TextField
+                sx={{ margin: "1rem 0rem" }}
+                fullWidth
+                id="outlined-basic"
+                label="Subject Code"
+                variant="outlined"
+                onChange={(e) => setNewSubjectCode(e.target.value)}
+              />
                 <FormControl fullWidth sx={{ margin: "1rem 0rem" }} >
                 <InputLabel id="demo-simple-select-label">Type Of Subject</InputLabel>
                 <Select
-                  label="Type Of Subject<"
-                  name="Type Of Subject<"
-                  defaultValue="Type Of Subject<"
+                  label="Type Of Subject"
+                  name="Type Of Subject"
+                  defaultValue="Type Of Subject"
                   onChange={(e) => {
                     setNewSubjectType(e.target.value);
                   }}
                 >
-             
-                  <MenuItem value="LAB">LAB</MenuItem>;
-                  <MenuItem value="THEORY">THEORY</MenuItem>;
-
+              {typeArray.map((val) => {
+                    return <MenuItem value={val}>{val}</MenuItem>;
+                  })}
+           
              
                 </Select>
               </FormControl>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Year</InputLabel>
                 <Select
+              
                   label="Year"
                   name="Year"
                   defaultValue="Year"
@@ -234,7 +248,7 @@ const CreateSubject = () => {
        
               <FormControl fullWidth>
                 <MultiSelect
-                  style={{ maxWidth: "40rem", margin: "1rem 0rem" }}
+                  style={{ maxWidth: "44rem", margin: "1rem 0rem" }}
                   value={dept}
                   onChange={(e) => setDept(e.value)}
                   options={department}
@@ -340,11 +354,22 @@ const CreateSubject = () => {
                   }
                   defaultValue={updateSub.subject}
                 />
+                <TextField
+                  sx={{ margin: "1rem 0rem" }}
+                  fullWidth
+                  id="outlined-basic"
+                  label="Subject Code"
+                  variant="outlined"
+                  onChange={(e) =>
+                    setUpdatedSub({ ...updatedSub, subject_code: e.target.value })
+                  }
+                  defaultValue={updateSub.subject_code}
+                />
                     <FormControl fullWidth sx={{ margin: "1rem 0rem" }}>
                   <InputLabel id="demo-simple-select-label">Type Of Subject</InputLabel>
                   <Select
-                    label="Type Of Subject<"
-                    name="Type Of Subject<"
+                    label="Type Of Subject"
+                    name="Type Of Subject"
                     defaultValue={updateSub.type}
                     onChange={(e) => {
                       setUpdatedSub({ ...updatedSub, type: e.target.value });

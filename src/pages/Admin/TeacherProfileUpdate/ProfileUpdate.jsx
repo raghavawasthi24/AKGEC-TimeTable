@@ -23,38 +23,39 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const ProfileUpdate = (props) => {
-  const navigate = useNavigate()
-  // const [profileData, setProfileData] = useState([]);
+  const navigate = useNavigate();
+
   const [departmentData, setDepartmentData] = useState([]);
   const [subjectdata, setSubjectData] = useState([]);
   const [dept, setdept] = useState(null);
-  const [selectedSubject, setSelectedSubject] = useState(null);
-  const[year,setyear]=useState()
-  
-
-  // console.log(dept)
+  const [selectedSubject, setSelectedSubject] = useState([]);
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/departmentss/departments`)
       .then((response) => setDepartmentData(response.data));
-    // axios
-    //   .get(`${process.env.REACT_APP_URL}/departmentss/Profileupdate/9`)
-    //   .then((response) => setProfileData(response.data));
+    axios
+      .get(
+        `${process.env.REACT_APP_URL}/departmentss/Profileupdate/${props.profile_id}`
+      )
+      .then((response) => {
+        setdept(response.data.department);
+        setSelectedSubject(response.data.subject);
+      });
   }, []);
 
   useEffect(() => {
-    if (dept && year)
+    if (dept)
       axios
-        .get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/${year}/${dept}`)
+        .get(`${process.env.REACT_APP_URL}/departmentss/all_subjects/2/${dept}`)
         .then((response) => {
           const arr = response.data.map((sub) => ({
             name: sub.subject,
             value: sub.id,
-          }))
+          }));
           setSubjectData(arr);
         });
-  }, [dept,year]);
+  }, [dept]);
 
   const handleSubmit = () => {
     if (selectedSubject == null) {
@@ -65,118 +66,98 @@ const ProfileUpdate = (props) => {
           `${process.env.REACT_APP_URL}/departmentss/Profileupdate/${props.profile_id}`,
           { department: dept, subject: selectedSubject }
         )
-        .then(() => (
-        toast.success("Profile Updated and Mail sent with Credentials"),
-        setTimeout(() => {
-          navigate("/admin");
-        }, 5000)
-      
-
-        ))
+        .then(
+          () => (
+            toast.success("Profile Updated Successfully"),
+            setTimeout(() => {
+              navigate("/admin");
+            }, 5000)
+          )
+        );
     }
   };
 
-  console.log(dept,selectedSubject,year)
+  console.log(dept, selectedSubject);
 
   return (
     <>
       {/* {departmentData.length > 0 ? ( */}
-        <Box>
-          <Container
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: "70%",
-            }}
+      <Box>
+        <Container
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "70%",
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h5"
+            className="updatehead"
+            style={{ width: "16rem", margin:"1rem" }}
           >
-            <Typography component="h1" variant="h5" className="updatehead" style={{width:"16rem"}}>
-              Teacher Profile Update
-            </Typography>
-            <Grid>
-              <Grid item xs={12}>
+            Teacher Profile Update
+          </Typography>
+          <Grid>
+            <Grid item xs={12}>
               <FormControl
-                  variant="outlined"
-                  style={{ marginTop: "1rem", width: "100%" }}
-                >
-                  <InputLabel id="demo-simple-select-label">
-                    Year
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Year"
-                    onChange={(e) => {
-                      setyear(e.target.value);
-                      setdept(null); 
-                      setSelectedSubject(null)
-                    }}
-                    defaultValue={""}
-                    fullWidth
-                   
-                  >
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
-                      <MenuItem value={4}>4</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl
-                  variant="outlined"
-                  style={{ marginTop: "1rem", width: "100%" }}
-                >
-                  <InputLabel id="demo-simple-select-label">
-                    Department
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Department"
-                    onChange={(e) => {
-                      setdept(e.target.value); 
-                      setSelectedSubject(null)
-                    }}
-                    defaultValue={""}
-                    fullWidth
-                    // name='Department'
-                  >
-                    {departmentData.map((dept) => (
-                      <MenuItem value={dept.deptid}>{dept.dept}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <MultiSelect
-                  style={{ margin: "1rem 0rem",width:"39vw",minWidth:"15rem"}}
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.value)}
-                  options={subjectdata}
-                  optionLabel="name"
-                  placeholder="Select Subjects"
-                  display="chip"
-                  className="w-full md:w-20rem"
-                />
-              </Grid>
-              <Button
-                type="submit"
                 fullWidth
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  backgroundColor: "#FBC705",
-                  borderRadius: "18px",
-                }}
-                onClick={handleSubmit}
               >
-                Update
-              </Button>
+                <InputLabel id="demo-simple-select-label">
+                  Department
+                </InputLabel>
+                <Select
+                 
+                  onChange={(e) => {
+                    setdept(e.target.value);
+                    setSelectedSubject(null);
+                  }}
+                  value={dept}
+                  fullWidth
+                  // name='Department'
+                >
+                  {departmentData.map((dept) => (
+                    <MenuItem value={dept.deptid}>{dept.dept}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
-          </Container>
-          <ToastContainer />
-        </Box>
+            <Grid item xs={12}>
+              <MultiSelect
+                style={{
+                  margin: "1rem 0rem",
+                  width: "80vw",
+                 minWidth:"15rem"
+                }}
+                value={selectedSubject}
+                onChange={(e) => setSelectedSubject(e.value)}
+                options={subjectdata}
+                optionLabel="name"
+                placeholder="Select Subjects"
+                display="chip"
+                className="w-full md:w-20rem"
+              />
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#FBC705",
+                borderRadius: "18px",
+              }}
+              onClick={handleSubmit}
+            >
+              Update
+            </Button>
+          </Grid>
+        </Container>
+        <ToastContainer />
+      </Box>
       {/* ) : null} */}
     </>
   );

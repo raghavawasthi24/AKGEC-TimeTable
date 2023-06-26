@@ -243,8 +243,9 @@ const Student = () => {
                                     {val[timeInd-1].subject_name} ({val[timeInd-1].room}
                                     )
                                   </p>
-                                  <p style={{ fontWeight: "bold" }}>{Object?.values(viewLab[val[timeInd-1].subject_name])[0]?.faculty1} + {Object?.values(viewLab[item.subject_name])[0]?.faculty2}</p>
+                                  <p style={{ fontWeight: "bold" }}>{Object?.values(viewLab[val[timeInd-1].subject_name])[0]?.faculty1} + {Object?.values(viewLab[val[timeInd-1].subject_name])[0]?.faculty2}</p>
                                   </div>
+                               
 
                                 <p style={{ color: "red" }}>{item.type}</p>
                               </div>
