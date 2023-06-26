@@ -20,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 import AdminNav from "../../../components/AdminNav/AdminNav";
 import BeatLoader from "react-spinners/BeatLoader";
 
-
 let initialteacherSelArray = [];
 let subArr = [];
 let noOfLecSel = [];
@@ -36,7 +35,7 @@ const CreateLec = () => {
   let initialvalues = {
     year: "",
     departments: "",
-    branch:""
+    branch: "",
   };
 
   const handleChange = (e) => {
@@ -49,14 +48,15 @@ const CreateLec = () => {
   const [formvalues, setFormvalues] = useState(initialvalues);
   const [department, setDepartment] = useState([]);
   const [teachers, setTeachers] = useState([]);
-  const [branch,setBranch]=useState([]);
+  const [selteachers,setSelteachers]=useState([]);
+  const [branch, setBranch] = useState([]);
+  const [selBranch, setSelBranch] = useState([]);
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState([]);
   const [show, setShow] = useState(true);
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [subjectdata, setSubjectData] = useState([]);
   let [loading, setLoading] = useState(false);
-
 
   // const [disabled,setDisabled]=useState(false)
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ const CreateLec = () => {
   };
 
   const handleDept = (e) => {
-    sectionUpdates = [];
+    let teacherArr = [];
     console.log(formvalues);
     axios
       .get(
@@ -100,7 +100,6 @@ const CreateLec = () => {
       .then((res) => {
         console.log(res.data);
         setTeachers(res.data);
-       
       })
       .catch((err) => {
         console.log(err);
@@ -108,32 +107,23 @@ const CreateLec = () => {
   };
 
   const handlebranch = (e) => {
-    
+    let branchArr = [];
+
     console.log(formvalues);
     axios
       .get(
-        `${process.env.REACT_APP_URL}/departmentss/department_wise_branches/${formvalues.branch}`
+        `${process.env.REACT_APP_URL}/departmentss/department_wise_branches/${e.target.value}`
       )
       .then((res) => {
         console.log(res);
-        setBranch(res.data);
+        res.data.map((item) =>
+          branchArr.push({ name: item.branch,id: item.id })
+        );
+        setSections(branchArr);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // axios
-    //   .get(
-    //     `${process.env.REACT_APP_URL}/departmentss/subject_with_teachers/${formvalues.year}/${e.target.value}`
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setTeachers(res.data);
-       
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   const sectionHandler = (e, id) => {
@@ -158,36 +148,37 @@ const CreateLec = () => {
   };
 
   useEffect(() => {
-    if(formvalues.year && formvalues.departments)
-    axios
-      .get(
-        `${process.env.REACT_APP_URL}/departmentss/all_subjects/${formvalues.year}/${formvalues.departments}`
-      )
-      .then((res) => {
-        const arr = res.data.map((sub) => ({
-          name: sub.subject,id:sub.id
-         
-        }))
-        setSubjectData(arr);
-        console.log("datasub",subjectdata)
-       
-      })
-      // eslint-disable-next-line
-  }, [formvalues.year,formvalues.departments])
-  
-  console.log(selectedSubject)
+    if (formvalues.year && formvalues.departments)
+      axios
+        .get(
+          `${process.env.REACT_APP_URL}/departmentss/all_subjects/${formvalues.year}/${formvalues.departments}`
+        )
+        .then((res) => {
+          const arr = res.data.map((sub) => ({
+            name: sub.subject,
+            id: sub.id,
+          }));
+          setSubjectData(arr);
+          console.log("datasub", subjectdata);
+        });
+    // eslint-disable-next-line
+  }, [formvalues.year, formvalues.departments]);
 
-  const teacherarray = teachers.filter((elem)=>{
-    return(selectedSubject.some((ele)=>{
-    
-     return(Object.values(ele).reverse().join().toString()===Object.keys(elem).toString())
-      
-    }))
-  })
-  console.log(teacherarray)
+  console.log(selectedSubject);
+
+  const teacherarray = teachers.filter((elem) => {
+    return selectedSubject.some((ele) => {
+      return (
+        Object.values(ele).reverse().join().toString() ===
+        Object.keys(elem).toString()
+      );
+    });
+  });
+  let newteacherArr=[];
+  teacherarray.map((item)=>newteacherArr.push(Object.values(item)));
+  console.log(teacherarray,newteacherArr);
   const create = () => {
-    
-    setSelectedSection(sectionUpdates);
+    // setSelectedSection(sectionUpdates);
     sectionUpdates.map((val) => initialteacherSelArray.push([]));
     console.log(initialteacherSelArray);
     setShow(false);
@@ -208,28 +199,26 @@ const CreateLec = () => {
     console.log(typeOfLecSel);
   };
 
-
   useEffect(() => {
     if (localStorage.getItem("user") !== "Admin") navigate("/login");
     // eslint-disable-next-line
   }, []);
 
- 
-
   const createTimeTable = () => {
-    setLoading(true)
+    setLoading(true);
     teacher_id = initialteacherSelArray;
 
     teacherarray.map((val) => {
       return subArr.push(Object.keys(val).toString().split(",")[0]);
     });
-    console.log(subArr)
-    selectedSection.map((val) => (
+    console.log(subArr);
+    selectedSection.map(
+      (val) => (
         no_of_lectures.push(noOfLecSel),
         type.push(typeOfLecSel),
         subject_id.push(subArr)
-
-    ));
+      )
+    );
     console.log(no_of_lectures, type, teacher_id, class_id, subject_id);
     axios
       .post(`${process.env.REACT_APP_URL}/departmentss/create_table/`, {
@@ -241,33 +230,28 @@ const CreateLec = () => {
       })
       .then((res) => {
         console.log(res);
-        noOfLecSel.length = 0
-        typeOfLecSel.length = 0
-        teacher_id.length = 0
-        subArr.length = 0
-        subject_id.length = 0
-        class_id.length = 0
-        no_of_lectures.length = 0
-        type.length = 0
-        setLoading(false)
+        noOfLecSel.length = 0;
+        typeOfLecSel.length = 0;
+        teacher_id.length = 0;
+        subArr.length = 0;
+        subject_id.length = 0;
+        class_id.length = 0;
+        no_of_lectures.length = 0;
+        type.length = 0;
+        setLoading(false);
         navigate("/created");
-        
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false)
+        setLoading(false);
       });
   };
 
   return (
     <>
-       <div className={loading ? "loading" : "hide"}>
-          <BeatLoader
-            color={'black'}
-            loading={loading}
-            size={15}
-          />
-        </div>
+      <div className={loading ? "loading" : "hide"}>
+        <BeatLoader color={"black"} loading={loading} size={15} />
+      </div>
       <AdminNav />
       <div className="createTimeTable">
         <div className={show ? "createTimeTableControls" : "hide"}>
@@ -303,7 +287,6 @@ const CreateLec = () => {
               })}
             </Select>
           </FormControl>
-         
 
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Branch</InputLabel>
@@ -322,9 +305,20 @@ const CreateLec = () => {
             </Select>
           </FormControl>
 
+          <MultiSelect
+            style={{ margin: "1rem", width: "60%" }}
+            value={selectedSection}
+            onChange={(e) => setSelectedSection(e.value)}
+            options={sections}
+            optionLabel="name"
+            placeholder="Select Section"
+            display="chip"
+            className="w-full md:w-20rem"
+          />
 
+          {/* 
           <FormGroup sx={{ width: "100%" }}>
-            {/* <Typography>Select Sections</Typography> */}
+            
             {sections.map((val) => {
               return (
                 <FormControlLabel
@@ -338,18 +332,18 @@ const CreateLec = () => {
                 />
               );
             })}
-          </FormGroup>
+          </FormGroup> */}
           <MultiSelect
-                  style={{ margin: "1rem 0rem",width:"66vw",minWidth:"20rem"}}
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.value)}
-                  options={subjectdata}
-                  optionLabel="name"
-                  placeholder="Select Subjects"
-                  display="chip"
-                  className="w-full md:w-20rem"
-                />
-         
+            style={{ margin: "1rem 0rem", width: "66vw", minWidth: "20rem" }}
+            value={selectedSubject}
+            onChange={(e) => setSelectedSubject(e.value)}
+            options={subjectdata}
+            optionLabel="name"
+            placeholder="Select Subjects"
+            display="chip"
+            className="w-full md:w-20rem"
+          />
+
           <button
             className="button"
             onClick={create}
@@ -364,24 +358,27 @@ const CreateLec = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Subjects</TableCell>
-                  {sectionUpdates.map((val) => {
-                    return <TableCell>{val}</TableCell>;
+                  {selectedSection.map((val) => {
+                    return <TableCell>{val.name}</TableCell>;
+                    // console.log(selectedSection)
                   })}
                   <TableCell>No of Lecture</TableCell>
-                  <TableCell>Type of Lecture</TableCell>
+                  {/* <TableCell>Type of Lecture</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
-               {/* eslint-disable-next-line */}
-               
+                {/* eslint-disable-next-line */}
+
                 {teacherarray.map((key, subIndex) => {
                   return (
                     <TableRow>
-                      <TableCell>{Object.keys(key).toString().split(',')[1]}</TableCell>
-                      {sectionUpdates.map((val, secIndex) => {
+                      <TableCell>
+                        {Object.keys(key).toString().split(",")[1]}
+                      </TableCell>
+                      {selectedSection.map((val, secIndex) => {
                         return (
                           <TableCell>
-                            <FormControl fullWidth>
+                            {/* <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Select
                               </InputLabel>
@@ -408,7 +405,20 @@ const CreateLec = () => {
                                   )
                                 )}
                               </Select>
-                            </FormControl>
+                            </FormControl> */}
+                            <MultiSelect
+                              style={{
+                                margin: "1rem 0rem"
+                              }}
+                              // value={selectedSubject}
+                              // onChange={(e) => setSelectedSubject(e.value)}
+                              options={Object.values(key)[secIndex]}
+                              optionLabel="user"
+                              placeholder="Select Subjects"
+                              display="chip"
+                              className="w-full md:w-20rem"
+                            />
+                           {/* { console.log(key[0])} */}
                           </TableCell>
                         );
                       })}
@@ -418,14 +428,13 @@ const CreateLec = () => {
                           onChange={(e) => handleLec(e, subIndex)}
                         />
                       </TableCell>
-                      
                     </TableRow>
                   );
                 })}
               </TableBody>
             </Table>
           </TableContainer>
-         
+
           <button
             className="button"
             onClick={createTimeTable}
