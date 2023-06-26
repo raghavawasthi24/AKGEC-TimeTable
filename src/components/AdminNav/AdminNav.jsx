@@ -37,7 +37,7 @@ const AdminNav = () => {
           PDP/OE Lectures
         </button>
         <button onClick={() => navigate("/create")}>
-          Add or Update
+          Add/Update
         </button>
         <Box className="logoutBtnSide">
         <LogoutBtn  />
